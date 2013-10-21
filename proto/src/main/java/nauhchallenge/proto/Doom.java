@@ -6,6 +6,8 @@ package nauhchallenge.proto;
  */
 public class Doom
 {
+    boolean victory = false;
+
     public String getDescription()
     {
         return "You have to fight evil martian monsters and find your way out from this awful maze!";
@@ -13,11 +15,11 @@ public class Doom
 
     public void input( String userInput )
     {
-
+        victory = "iddqd".equals( userInput );
     }
 
     public boolean gameWon()
     {
-        return false;
+        return victory;
     }
 }

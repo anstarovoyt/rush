@@ -29,4 +29,11 @@ public class DoomTest
         doom.input("please let me out!");
         assertThat( doom.gameWon(), is(false) );
     }
+
+    @Test
+    public void doomGameCanBeWonByGodCheat() {
+        Doom doom = new Doom();
+        doom.input("iddqd");
+        assertThat( doom.gameWon(), is(true) );
+    }
 }
