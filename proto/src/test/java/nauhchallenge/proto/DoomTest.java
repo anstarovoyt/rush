@@ -14,11 +14,6 @@ import org.junit.Test;
 public class DoomTest
 {
     @Test
-    public void allOk() {
-        assertThat(true, is(true));
-    }
-
-    @Test
     public void doomGameMustHaveDescription() {
         Doom doom = new Doom();
         assertThat(doom.getDescription(), containsString( "monsters" ));
