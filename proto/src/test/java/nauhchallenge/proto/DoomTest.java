@@ -22,4 +22,11 @@ public class DoomTest
         Doom doom = new Doom();
         assertThat(doom.getDescription(), containsString( "monsters" ));
     }
+
+    @Test
+    public void doomGameCannotBeWonByAnyString() {
+        Doom doom = new Doom();
+        doom.input("please let me out!");
+        assertThat( doom.gameWon(), is(false) );
+    }
 }

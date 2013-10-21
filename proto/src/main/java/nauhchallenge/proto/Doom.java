@@ -10,4 +10,14 @@ public class Doom
     {
         return "You have to fight evil martian monsters and find your way out from this awful maze!";
     }
+
+    public void input( String userInput )
+    {
+
+    }
+
+    public boolean gameWon()
+    {
+        return false;
+    }
 }
