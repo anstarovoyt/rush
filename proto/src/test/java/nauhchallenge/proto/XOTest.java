@@ -36,6 +36,6 @@ public class XOTest
         // игра ещё не выиграна после одного хода, но игрок должен иметь возможность делать дальнейшие ходы
         Game game = new XOGame();
         game.input( "...|.X.|..." );
-        assertThat( game.gameWon(), is(GameState.FAILURE) );
+        assertThat( game.gameWon(), is(GameState.IN_PROGRESS) );
     }
 }

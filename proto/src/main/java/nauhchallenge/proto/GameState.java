@@ -6,6 +6,7 @@ package nauhchallenge.proto;
  */
 public enum GameState
 {
+    IN_PROGRESS,
     FAILURE,
     VICTORY
 }

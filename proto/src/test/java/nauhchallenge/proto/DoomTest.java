@@ -20,6 +20,12 @@ public class DoomTest
     }
 
     @Test
+    public void doomGameCannotBeWonOrLoseBeforeTheFirstInput() {
+        Game doom = new Doom();
+        assertThat( doom.gameWon(), is(GameState.IN_PROGRESS) );
+    }
+
+    @Test
     public void doomGameCannotBeWonByAnyString() {
         Game doom = new Doom();
         doom.input("please let me out!");

@@ -6,7 +6,7 @@ package nauhchallenge.proto;
  */
 public class Doom implements Game
 {
-    GameState victory = GameState.FAILURE;
+    GameState victory = GameState.IN_PROGRESS;
 
     @Override
     public String getDescription()
