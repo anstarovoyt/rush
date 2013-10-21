@@ -29,6 +29,6 @@ public class Doom implements Game
     @Override
     public String output()
     {
-        return null;
+        return "You have been killed";
     }
 }

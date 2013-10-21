@@ -27,6 +27,13 @@ public class DoomTest
     }
 
     @Test
+    public void doomGameKillsPlayerOnWrongInput() {
+        Game doom = new Doom();
+        doom.input( "test" );
+        assertThat( doom.output(), is("You have been killed") );
+    }
+
+    @Test
     public void doomGameCanBeWonByGodCheat() {
         Game doom = new Doom();
         doom.input("iddqd");
