@@ -15,20 +15,20 @@ public class DoomTest
 {
     @Test
     public void doomGameMustHaveDescription() {
-        Doom doom = new Doom();
+        Game doom = new Doom();
         assertThat(doom.getDescription(), containsString( "monsters" ));
     }
 
     @Test
     public void doomGameCannotBeWonByAnyString() {
-        Doom doom = new Doom();
+        Game doom = new Doom();
         doom.input("please let me out!");
         assertThat( doom.gameWon(), is( false ) );
     }
 
     @Test
     public void doomGameCanBeWonByGodCheat() {
-        Doom doom = new Doom();
+        Game doom = new Doom();
         doom.input("iddqd");
         assertThat( doom.gameWon(), is(true) );
     }
@@ -36,7 +36,7 @@ public class DoomTest
     @Test
     @Ignore ("надо обсудить и решить, зависят ли решения от регистра при вводе")
     public void doomGameMustIgnoreUserInputInWrongCapitalization_orNot() {
-        Doom doom = new Doom();
+        Game doom = new Doom();
         doom.input("IDDQD");
         assertThat( doom.gameWon(), is(false) );
     }
@@ -44,7 +44,7 @@ public class DoomTest
     @Test
     @Ignore ("потом будет видно, реентерабельны игры или нет")
     public void doomGameIsReenterable_orNot() {
-        Doom doom = new Doom();
+        Game doom = new Doom();
         doom.input("iddqd");
         doom.input("wrong data");
         assertThat( doom.gameWon(), is(false) );
