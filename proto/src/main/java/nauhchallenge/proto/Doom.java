@@ -25,4 +25,10 @@ public class Doom implements Game
     {
         return victory;
     }
+
+    @Override
+    public String output()
+    {
+        return null;
+    }
 }

@@ -11,4 +11,6 @@ public interface Game
     void input( String userInput );
 
     boolean gameWon();
+
+    String output();
 }

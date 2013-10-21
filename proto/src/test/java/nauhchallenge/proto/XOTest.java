@@ -1,6 +1,7 @@
 package nauhchallenge.proto;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -18,5 +19,14 @@ public class XOTest
     public void xoGameMustHaveDescription() {
         XOGame game = new XOGame();
         assertThat(game.getDescription(), containsString("board"));
+    }
+
+    @Test
+    public void xoGamePutsOneOForOneX() {
+        // это прототип, поэтому игра работает детерминированно
+        // сейчас важно не игру сделать, а понять, какой нужен интерфейс
+        XOGame game = new XOGame();
+        game.input( "...|.X.|..." );
+        assertThat( game.output(), is("O..|.X.|...") );
     }
 }

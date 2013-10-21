@@ -22,4 +22,10 @@ public class XOGame implements Game
     {
         return false;
     }
+
+    @Override
+    public String output()
+    {
+        return "O..|.X.|...";
+    }
 }
