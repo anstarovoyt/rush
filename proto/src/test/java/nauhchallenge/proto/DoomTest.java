@@ -23,7 +23,7 @@ public class DoomTest
     public void doomGameCannotBeWonByAnyString() {
         Game doom = new Doom();
         doom.input("please let me out!");
-        assertThat( doom.gameWon(), is( false ) );
+        assertThat( doom.gameWon(), is( GameState.FAILURE ) );
     }
 
     @Test
@@ -37,7 +37,7 @@ public class DoomTest
     public void doomGameCanBeWonByGodCheat() {
         Game doom = new Doom();
         doom.input("iddqd");
-        assertThat( doom.gameWon(), is(true) );
+        assertThat( doom.gameWon(), is(GameState.VICTORY) );
     }
 
     @Test
@@ -45,7 +45,7 @@ public class DoomTest
     public void doomGameMustIgnoreUserInputInWrongCapitalization_orNot() {
         Game doom = new Doom();
         doom.input("IDDQD");
-        assertThat( doom.gameWon(), is(false) );
+        assertThat( doom.gameWon(), is(GameState.FAILURE) );
     }
 
     @Test
@@ -54,6 +54,6 @@ public class DoomTest
         Game doom = new Doom();
         doom.input("iddqd");
         doom.input("wrong data");
-        assertThat( doom.gameWon(), is(false) );
+        assertThat( doom.gameWon(), is(GameState.FAILURE) );
     }
 }

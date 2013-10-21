@@ -10,7 +10,7 @@ public interface Game
 
     void input( String userInput );
 
-    boolean gameWon();
+    GameState gameWon();
 
     String output();
 }

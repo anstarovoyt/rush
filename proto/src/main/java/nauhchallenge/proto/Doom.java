@@ -6,7 +6,7 @@ package nauhchallenge.proto;
  */
 public class Doom implements Game
 {
-    boolean victory = false;
+    GameState victory = GameState.FAILURE;
 
     @Override
     public String getDescription()
@@ -17,11 +17,11 @@ public class Doom implements Game
     @Override
     public void input( String userInput )
     {
-        victory = "iddqd".equals( userInput );
+        victory = "iddqd".equals( userInput ) ? GameState.VICTORY : GameState.FAILURE;
     }
 
     @Override
-    public boolean gameWon()
+    public GameState gameWon()
     {
         return victory;
     }

@@ -18,9 +18,9 @@ public class XOGame implements Game
     }
 
     @Override
-    public boolean gameWon()
+    public GameState gameWon()
     {
-        return false;
+        return GameState.FAILURE;
     }
 
     @Override
