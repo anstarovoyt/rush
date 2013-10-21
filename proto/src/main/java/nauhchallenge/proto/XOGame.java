@@ -18,7 +18,7 @@ public class XOGame implements Game
     }
 
     @Override
-    public GameState gameWon()
+    public GameState state()
     {
         return GameState.IN_PROGRESS;
     }

@@ -22,14 +22,14 @@ public class DoomTest
     @Test
     public void doomGameCannotBeWonOrLoseBeforeTheFirstInput() {
         Game doom = new Doom();
-        assertThat( doom.gameWon(), is(GameState.IN_PROGRESS) );
+        assertThat( doom.state(), is(GameState.IN_PROGRESS) );
     }
 
     @Test
     public void doomGameCannotBeWonByAnyString() {
         Game doom = new Doom();
         doom.input("please let me out!");
-        assertThat( doom.gameWon(), is( GameState.FAILURE ) );
+        assertThat( doom.state(), is( GameState.FAILURE ) );
     }
 
     @Test
@@ -43,7 +43,7 @@ public class DoomTest
     public void doomGameCanBeWonByGodCheat() {
         Game doom = new Doom();
         doom.input("iddqd");
-        assertThat( doom.gameWon(), is(GameState.VICTORY) );
+        assertThat( doom.state(), is(GameState.VICTORY) );
     }
 
     @Test
@@ -51,7 +51,7 @@ public class DoomTest
     public void doomGameMustIgnoreUserInputInWrongCapitalization_orNot() {
         Game doom = new Doom();
         doom.input("IDDQD");
-        assertThat( doom.gameWon(), is(GameState.FAILURE) );
+        assertThat( doom.state(), is(GameState.FAILURE) );
     }
 
     @Test
@@ -60,6 +60,6 @@ public class DoomTest
         Game doom = new Doom();
         doom.input("iddqd");
         doom.input("wrong data");
-        assertThat( doom.gameWon(), is(GameState.FAILURE) );
+        assertThat( doom.state(), is(GameState.FAILURE) );
     }
 }

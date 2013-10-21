@@ -21,7 +21,7 @@ public class Doom implements Game
     }
 
     @Override
-    public GameState gameWon()
+    public GameState state()
     {
         return victory;
     }
