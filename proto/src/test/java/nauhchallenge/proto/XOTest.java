@@ -17,7 +17,7 @@ public class XOTest
 {
     @Test
     public void xoGameMustHaveDescription() {
-        XOGame game = new XOGame();
+        Game game = new XOGame();
         assertThat(game.getDescription(), containsString("board"));
     }
 
@@ -25,8 +25,17 @@ public class XOTest
     public void xoGamePutsOneOForOneX() {
         // это прототип, поэтому игра работает детерминированно
         // сейчас важно не игру сделать, а понять, какой нужен интерфейс
-        XOGame game = new XOGame();
+        Game game = new XOGame();
         game.input( "...|.X.|..." );
         assertThat( game.output(), is("O..|.X.|...") );
+    }
+
+    @Test
+    public void xoGameCannotBeWonBySingleOutput() {
+        // а вот тут становится понятно, что надо отделять понятие "игра завершена" от "игра не завершена"
+        // игра ещё не выиграна после одного хода, но игрок должен иметь возможность делать дальнейшие ходы
+        Game game = new XOGame();
+        game.input( "...|.X.|..." );
+        assertThat( game.gameWon(), is(false) );
     }
 }
