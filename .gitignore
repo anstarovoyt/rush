@@ -1,4 +1,9 @@
+# Maven
+target
+
+# Eclipse
 .project
-*/target/*
-*/.idea
-*/*.iml
+
+# Idea
+.idea
+*.iml
