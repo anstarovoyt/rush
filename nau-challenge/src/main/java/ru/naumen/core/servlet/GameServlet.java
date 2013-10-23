@@ -1,4 +1,4 @@
-package ru.naumen.servlet;
+package ru.naumen.core.servlet;
 
 import org.springframework.web.servlet.HttpServletBean;
 
@@ -10,10 +10,10 @@ import java.io.IOException;
 /**
  *
  */
-public class DefaultServlet extends HttpServletBean {
+public class GameServlet extends HttpServletBean {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       resp.getWriter().append("result: ");
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().append("result: ");
     }
 }

@@ -1,4 +1,4 @@
-package ru.naumen.task;
+package ru.naumen.core.task;
 
 /**
  *

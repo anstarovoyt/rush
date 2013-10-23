@@ -10,13 +10,13 @@
     </context-param>
 
     <servlet>
-        <servlet-name>SimpleSample</servlet-name>
-        <servlet-class>ru.naumen.servlet.DefaultServlet</servlet-class>
+        <servlet-name>DoGame</servlet-name>
+        <servlet-class>ru.naumen.core.servlet.GameServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SimpleSample</servlet-name>
-        <url-pattern>/SimpleSample/*</url-pattern>
+        <servlet-name>DoGame</servlet-name>
+        <url-pattern>/dogame/*</url-pattern>
     </servlet-mapping>
     
     <servlet>
