@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%@ page import="ru.naumen.core.info.Params" %>
 <html>
     <head>
         <title>Main page</title>
@@ -19,12 +19,21 @@
     <div class="jumbotron">
         <div class="container">
             <h1>Hello, Naumen!</h1>
-            <p>This is a games</p>
+            <p>${description} </p>
         </div>
     </div>
 
     <div class="container">
-    <h2> Game info must be HERE </h2>
+    <form class="form-horizontal">
+              <div class="control-group">
+
+              <textarea class="input-xlarge" id=<%= "\"" + Params.ANSWER_ID + "\"" %> rows="5" cols="100"></textarea>
+              </div>
+              <br>
+              <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Send answer</button>
+              </div>
+        </form>
     </div>
 </body>
 </html>

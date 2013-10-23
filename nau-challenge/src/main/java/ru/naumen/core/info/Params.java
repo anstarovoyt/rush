@@ -20,4 +20,6 @@ public final class Params {
      */
     public static final String GAME_ID = "gid";
 
+    public static final String ANSWER_ID = "answer";
+
 }

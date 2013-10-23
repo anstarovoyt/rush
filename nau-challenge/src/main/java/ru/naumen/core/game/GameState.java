@@ -1,4 +1,4 @@
-package nauhchallenge.proto;
+package ru.naumen.core.game;
 
 /**
  * <p>Пока что я не придумал игр, у которых было бы больше трёх состояний.
