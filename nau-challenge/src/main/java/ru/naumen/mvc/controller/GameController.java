@@ -31,6 +31,7 @@ public class GameController {
         Game game = gameProvider.getGame(gid, accessKey);
         if (game != null) {
             model.addAttribute("description", game.getDescription());
+            model.addAttribute("gid", gid);
         }
         return "game";
     }
@@ -41,7 +42,14 @@ public class GameController {
                               @RequestParam(value = Params.ANSWER_ID, required = false) String answer,
                               Model model) {
 
-        //TODO обработка поста
+        Game game = gameProvider.getGame(gid, accessKey);
+
+        if (game != null) {
+            game.input(answer);
+
+            model.addAttribute("description", game.getDescription());
+            model.addAttribute("result", game.output());
+        }
 
         return "game";
     }

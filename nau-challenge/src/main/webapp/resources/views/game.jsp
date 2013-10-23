@@ -21,18 +21,25 @@
             <h1>Hello, Naumen!</h1>
             <p>${description} </p>
         </div>
+
+            <div class="container">
+            <span class="help-inline">Текущий результат:</span>
+            ${result}
+            </div>
     </div>
 
     <div class="container">
-    <form class="form-horizontal">
+    <form class="form-horizontal" method="post">
               <div class="control-group">
 
-              <textarea class="input-xlarge" id=<%= "\"" + Params.ANSWER_ID + "\"" %> rows="5" cols="100"></textarea>
+              <textarea class="input-xlarge" name=<%= "\"" + Params.ANSWER_ID + "\"" %> rows="5" cols="100"></textarea>
               </div>
               <br>
               <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Send answer</button>
+
               </div>
+
         </form>
     </div>
 </body>
