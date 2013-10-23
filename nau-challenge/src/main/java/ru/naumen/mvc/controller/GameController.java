@@ -13,13 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class GameController {
-
-    public GameController()
-    {
-
-    }
-
+public class GameController {g
     @RequestMapping(value = "/game", method = RequestMethod.GET)
     public String helloWorld(Model model) {
         model.addAttribute("message", "Hello World!");
