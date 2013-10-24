@@ -1,15 +1,16 @@
 package ru.naumen.mvc.controller;
 
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameProvider;
 import ru.naumen.core.info.Params;
-
-import javax.inject.Inject;
 
 /**
  * Created with IntelliJ IDEA.

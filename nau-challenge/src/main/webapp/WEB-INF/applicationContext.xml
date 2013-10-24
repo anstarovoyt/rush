@@ -13,4 +13,6 @@
         <property name="prefix" value="/resources/views/" />
         <property name="suffix" value=".jsp" />
     </bean>
+    
+    <import resource="security.xml"/>
 </beans>

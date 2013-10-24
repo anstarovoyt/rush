@@ -5,13 +5,7 @@
 <head>
 <title>Main page</title>
 <jsp:include page="head.jsp" />
-<style type="text/css">
-/* Move down content because we have a fixed navbar that is 50px tall */
-body {
-	padding-top: 50px;
-	padding-bottom: 20px;
-}
-</style>
+<script src="<c:url value="/resources/js/jquery.validate.js" />"></script>
 <head>
 <body>
     <jsp:include page="common.jsp" />
