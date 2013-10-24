@@ -10,6 +10,10 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Test;
+
+import ru.naumen.core.game.impl.Doom;
+
 /**
  * @author Andrey Hitrin
  * @since 21.10.13
@@ -50,18 +54,18 @@ public class DoomTest
     }
 
     @Test
-    @Ignore ("надо обсудить и решить, зависят ли решения от регистра при вводе")
-    public void doomGameMustIgnoreUserInputInWrongCapitalization_orNot() {
+    public void doomGameMustIgnoreUserInputInWrongCapitalization() {
         Game doom = new Doom();
         doom.input("IDDQD");
         assertThat( doom.state(), is(GameState.FAILURE) );
     }
 
     @Test
-    @Ignore ("потом будет видно, реентерабельны игры или нет")
     public void doomGameIsReenterable_orNot() {
         Game doom = new Doom();
+        // сначала мы выигрываем
         doom.input("iddqd");
+        // а что с игрой происходит потом?
         doom.input("wrong data");
         assertThat( doom.state(), is(GameState.FAILURE) );
     }
