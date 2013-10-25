@@ -19,27 +19,6 @@
 
     <div class="container">
         <div class="row">
-<!--             <div class="col-lg-4"> -->
-<!--                 <h2>Doom</h2> -->
-<!--                 <p>Что такое дум</p> -->
-<!--                 <p> -->
-<!--                     <a class="btn btn-default" href="/game?gid=dm">Go game &raquo;</a> -->
-<!--                 </p> -->
-<!--             </div> -->
-<!--             <div class="col-lg-4"> -->
-<!--                 <h2>Tic tac toe</h2> -->
-<!--                 <p>Крестики, да нолики</p> -->
-<!--                 <p> -->
-<!--                     <a class="btn btn-default" href="/game?gid=xo">Doom &raquo;</a> -->
-<!--                 </p> -->
-<!--             </div> -->
-<!--             <div class="col-lg-4"> -->
-<!--                 <h2>One more game</h2> -->
-<!--                 <p>Еще одна игра</p> -->
-<!--                 <p> -->
-<!--                     <a class="btn btn-default" href="/game?">Go game &raquo;</a> -->
-<!--                 </p> -->
-<!--             </div> -->
             <form id="signup" novalidate="novalidate" method="post" action="/complete-register/">
                 <div class="form-group">
                     <label for="email">Email address</label> 

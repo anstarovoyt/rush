@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ru.naumen.core.auth.UserService;
+import ru.naumen.core.auth.Authenticator;
 import ru.naumen.model.User;
 
 import com.google.common.base.Objects;
@@ -24,7 +24,7 @@ import com.google.common.base.Objects;
 public class IndexController {
     
     @Inject
-    UserService userService;
+    Authenticator authenticator;
     
     @RequestMapping(value = "/complete-register/", method = POST)
     public String completeRegister(@RequestParam String email, @RequestParam String fio, @RequestParam String password,@RequestParam String confirmPassword, Model model) {
@@ -32,7 +32,7 @@ public class IndexController {
             throw new RuntimeException();
         }
         User user = User.create(email, fio, password);
-        userService.registerUser(user);
+        authenticator.registerUser(user);
         return "redirect:/games/";
     }
 } 

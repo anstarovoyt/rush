@@ -25,4 +25,12 @@ public class UserDAO {
         }
         return null;
     }
+
+    public User getByAccessKey(String accessKey) {
+        for(User user : db) {
+            if(user.getAccessKey().equals(accessKey))
+                return user;
+        }
+        return null;               
+    }
 }
