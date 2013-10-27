@@ -8,7 +8,6 @@ import java.util.HashMap;
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameProvider;
 import ru.naumen.core.game.GameSeries;
-import ru.naumen.core.game.impl.Doom;
 
 /**
  *
@@ -23,13 +22,10 @@ public class UserGameStorageImpl implements UserGameStorage
 
     public UserGameStorageImpl( GameProvider provider )
     {
-        for (Game game : provider.getNewGameList())
+        for (GameSeries game : provider.getNewGameList())
         {
-            games.put( game.getId(), GameSeries.openGame( game ) );
+            games.put( game.getId(), game );
         }
-
-        // Пример закрытой игры
-        games.put( "go", GameSeries.closedGame( new Doom() ) );
     }
 
     @Override

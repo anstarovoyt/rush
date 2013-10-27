@@ -1,11 +1,15 @@
 package ru.naumen.core.game;
 
+import static ru.naumen.core.game.GameSeries.closedGame;
+import static ru.naumen.core.game.GameSeries.openGame;
+
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import ru.naumen.core.game.impl.Doom;
+import ru.naumen.core.game.impl.ForeverClosed;
 import ru.naumen.core.game.impl.XOGame;
 
 /**
@@ -15,8 +19,11 @@ import ru.naumen.core.game.impl.XOGame;
 @Component
 public class GameProvider
 {
-    public List<Game> getNewGameList()
+    public List<GameSeries> getNewGameList()
     {
-        return Arrays.asList( new Doom(), new XOGame() );
+        return Arrays.asList(
+                openGame( new Doom() ),
+                openGame( new XOGame() ),
+                closedGame( new ForeverClosed() ));
     }
 }

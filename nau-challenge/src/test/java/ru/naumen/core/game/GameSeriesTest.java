@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
@@ -46,6 +47,13 @@ public class GameSeriesTest
     {
         openGame.makeSolved();
         assertThat( openGame.getGame(), is(nullValue()) );
+    }
+
+    @Test
+    public void gameSeriesKnowsGameId()
+    {
+        when( game.getId() ).thenReturn( "game_id" );
+        assertThat( closedGame.getId(), is("game_id") );
     }
 
     @Test

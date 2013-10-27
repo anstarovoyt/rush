@@ -55,4 +55,9 @@ public class GameSeries
             return game;
         return null;
     }
+
+    public String getId()
+    {
+        return game.getId();
+    }
 }
