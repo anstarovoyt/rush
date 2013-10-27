@@ -18,7 +18,7 @@ public class GameSeriesTest
 {
     Game game = mock(Game.class);
     GameSeries closedGame = GameSeries.closedGame( game );
-    GameSeries openGame = GameSeries.openGame( game );
+    GameSeries openGame = GameSeries.openGame( game, 1 );
 
     @Test
     public void gameSeriesCanBeOpenAtStart() {
@@ -87,9 +87,29 @@ public class GameSeriesTest
     }
 
     @Test
+    public void defaultMaxWinsCountIs_1() {
+        assertThat( openGame.maxWinsCount(), is(1) );
+    }
+
+    @Test
     public void wonGamesCounterIncrementsWhenGameHasBeenWon() {
-        // допустим, мы выиграли игру
-        assertThat( openGame.wonGamesCount(), is(0) );
+        openGame.winOneGame();
+        assertThat( openGame.wonGamesCount(), is( 1 ) );
+    }
+
+    @Test
+    public void gameSeriesBecameSolvedWhenAllGamesHasBeenWon() {
+        openGame = GameSeries.openGame( game, 2 );
+        openGame.winOneGame();
+        assertThat( openGame.getState(), is(GameSeriesState.OPEN));
+        openGame.winOneGame();
+        assertThat( openGame.getState(), is(GameSeriesState.SOLVED));
+    }
+
+    @Test
+    public void maxGamesCounterCanBeSetOnCreation() {
+        openGame = GameSeries.openGame( game, 3 );
+        assertThat( openGame.maxWinsCount(), is(3) );
     }
 
     @Test

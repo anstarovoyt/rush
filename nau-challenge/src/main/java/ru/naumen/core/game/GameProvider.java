@@ -22,8 +22,8 @@ public class GameProvider
     public List<GameSeries> getNewGameList()
     {
         return Arrays.asList(
-                openGame( new Doom() ),
-                openGame( new XOGame() ),
+                openGame( new Doom(), 1 ),
+                openGame( new XOGame(), 50 ),
                 closedGame( new ForeverClosed() ));
     }
 }
