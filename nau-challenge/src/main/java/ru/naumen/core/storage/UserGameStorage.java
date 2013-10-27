@@ -1,8 +1,8 @@
 package ru.naumen.core.storage;
 
-import ru.naumen.core.game.Game;
-
 import java.util.Collection;
+
+import ru.naumen.core.game.Game;
 
 /**
  * "Песочница" игр для текущего пользователя
@@ -23,7 +23,7 @@ public interface UserGameStorage {
 
     Game get(String key);
 
-    void put(String key, Game value);
-
     Collection<Game> getAll();
+
+    void put(String key, Game value);
 }

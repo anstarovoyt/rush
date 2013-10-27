@@ -1,9 +1,11 @@
-package ru.naumen.core.game;
+package ru.naumen.core.game.impl;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.naumen.core.game.impl.Doom;
 
+import ru.naumen.core.game.Game;
+import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.impl.Doom;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

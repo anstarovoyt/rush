@@ -9,10 +9,29 @@ import ru.naumen.core.game.GameState;
  */
 public class XOGame implements Game
 {
-    @Override
-    public String getId() {
-        return "xo";
+    public static String formatter(String input)
+    {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                result.append(input.charAt(3 * i + j));
+                if (j != 2)
+                {
+                    result.append("|");
+                }
+            }
+
+            if (i != 2)
+            {
+                result.append("\n");
+            }
+        }
+        return result.toString();
     }
+
+    Boolean state[] = new Boolean[9];
 
     @Override
     public String getDescription()
@@ -21,19 +40,25 @@ public class XOGame implements Game
     }
 
     @Override
-    public void input( String userInput )
+    public String getId()
     {
+        return "xo";
     }
 
     @Override
-    public GameState state()
+    public void input(String userInput)
     {
-        return GameState.IN_PROGRESS;
     }
 
     @Override
     public String output()
     {
         return "O..|.X.|...";
+    }
+
+    @Override
+    public GameState state()
+    {
+        return GameState.IN_PROGRESS;
     }
 }

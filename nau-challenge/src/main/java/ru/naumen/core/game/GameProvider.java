@@ -1,35 +1,40 @@
 package ru.naumen.core.game;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
+
 import ru.naumen.core.game.impl.Doom;
 import ru.naumen.core.game.impl.XOGame;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import com.google.common.collect.Lists;
 
 /**
- * Created with IntelliJ IDEA.
- * User: anstarovoyt
- * Date: 10/24/13
- * Time: 2:17 AM
- * To change this template use File | Settings | File Templates.
+ * Класс предоставляет интерфейс доступа к классам существующих игр
+ * @author astarovoyt
  */
 @Component
-public class GameProvider {
-    List<Game> games = Arrays.asList(new Doom(), new XOGame());
+public class GameProvider
+{
+    List<Class<? extends Game>> games = Arrays.asList(Doom.class, XOGame.class);
 
 
-    public Game getGame(String gid, String userId)
+    public List<Game> getNewGameList()
     {
-        for (Game game : games)
+        List<Game> result = Lists.newArrayList();
+
+        for (Class<? extends Game> game : games)
         {
-            if (Objects.equals(game.getId(), gid))
+            try
             {
-                return game;
+                result.add(game.newInstance());
+            }
+            catch (InstantiationException | IllegalAccessException e)
+            {
+                throw new RuntimeException(e);
             }
         }
-
-        return null;
+        return result;
     }
 }
