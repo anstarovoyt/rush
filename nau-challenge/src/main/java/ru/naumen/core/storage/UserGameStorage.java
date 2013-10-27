@@ -25,5 +25,9 @@ public interface UserGameStorage {
 
     Collection<Game> getAll();
 
+    /**
+     * Метод кажется ненужным, но я его не удаляю. Вдруг, у кого-то на него завязана какая-то логика
+     */
+    @Deprecated
     void put(String key, Game value);
 }
