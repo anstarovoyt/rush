@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%! 
+<%!
     User getCurrentUser() {
         return SpringContext.<Authenticator>getBean("authenticator").getCurrentUser();
     }
@@ -46,7 +46,7 @@
                 <h2>One more game</h2>
                 <p>Еще одна игра</p>
                 <p>
-                    <a class="btn btn-default" href="/game?gid=go&<%= UrlUtils.createAKParam(getCurrentUser())%>)">Go game &raquo;</a>
+                    <a class="btn btn-default" href="/game?gid=go&<%= UrlUtils.createAKParam(getCurrentUser())%>">Go game &raquo;</a>
                 </p>
             </div>
         </div>

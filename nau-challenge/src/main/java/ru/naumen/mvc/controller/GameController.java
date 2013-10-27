@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ru.naumen.core.auth.Authenticator;
 import ru.naumen.core.game.Game;
+import ru.naumen.core.game.GameSeries;
+import ru.naumen.core.game.GameSeriesState;
 import ru.naumen.core.info.Params;
 
 /**
@@ -29,7 +31,10 @@ public class GameController {
     public String gameInfo(@RequestParam(value = Params.GAME_ID, required = false) String gid,
                            Model model) {
 
-        Game game = authenticator.getCurrentUser().getUserGameStorage().get(gid).getGame();
+        GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get( gid );
+        if (gameSeries.getState() == GameSeriesState.CLOSED)
+            return "gameclosed";
+        Game game = gameSeries.getGame();
         if (game != null) {
             model.addAttribute("description", game.getDescription());
             model.addAttribute("gid", gid);
