@@ -16,13 +16,21 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
+import ru.naumen.model.dao.UserDAO;
+
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * @author serce
+ * @since 27 окт. 2013 г.
+ */
 @Component("authFilter")
 public class AuthenticationFilter implements Filter {
 
     @Inject
     Authenticator authenticator;
+    @Inject
+    UserDAO userDAO;
 
     //@formatter:off
     private static final Set<String> permittedPages = ImmutableSet.of(
@@ -30,7 +38,8 @@ public class AuthenticationFilter implements Filter {
             "/index.jsp",
             "/resources/",
             "/complete-register/",
-            "/login/"
+            "/login/",
+            "/logout/"
     );
     //@formatter:on
 
@@ -82,9 +91,13 @@ public class AuthenticationFilter implements Filter {
             }
 
             HttpSession session = httpServletRequest.getSession(false);
-            String accessKey = (session != null) ? (String) session.getAttribute(ACCESS_KEY_PARAM) : null;
-            if (accessKey == null) {
-                accessKey = request.getParameter(ACCESS_KEY_PARAM);
+            String accessKey = request.getParameter(ACCESS_KEY_PARAM);
+            if (accessKey == null && session != null) {
+                accessKey = (session != null) ? (String) session.getAttribute(ACCESS_KEY_PARAM) : null;
+//                filterConfig
+//                        .getServletContext()
+//                        .getRequestDispatcher(requestURI + "?" + ACCESS_KEY_PARAM + "=" + userDAO.getByAccessKey(accessKey))
+//                        .forward(request, response);
             }
             authorized = authenticator.authByAccessKey(accessKey);
         }
