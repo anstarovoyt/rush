@@ -15,21 +15,28 @@ public class XOGameTest
 {
 
     @Test
-    public void testFormatter()
+    public void playerCanDoStep()
     {
-        String result = XOGame.formatter("   XXX000");
+        XOGame game = new XOGame();
 
-        assertEquals(" | | \nX|X|X\n0|0|0", result);
-        System.out.print(result);
+        game.input("1");
+
     }
 
-//    @Test
-//    public void playerCanDoStep()
-//    {
-//        XOGame game = new XOGame();
-//
-//        game.input("1");
-//    }
+    @Test
+    public void testFormat()
+    {
+        String result = XOGame.format("***XXXOOO".toCharArray());
 
+        assertEquals("*|*|*\nX|X|X\nO|O|O", result);
+    }
 
+    @Test
+    public void testUnformat()
+    {
+        String startInput = "***XXXOOO";
+        String result = XOGame.unformat(XOGame.format(startInput.toCharArray()));
+
+        assertEquals(startInput, result);
+    }
 }

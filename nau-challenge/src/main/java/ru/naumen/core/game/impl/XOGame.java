@@ -9,14 +9,23 @@ import ru.naumen.core.game.GameState;
  */
 public class XOGame implements Game
 {
-    public static String formatter(String input)
+    public static final char COMPUTER_CHAR = 'O';
+    public static final char USER_CHAR = 'X';
+    public static final char UNUSED_CHAR = '*';
+
+
+    /**
+     *  У нас есть набор отображаемых символов
+     *  XO* -> мы должны уметь представлять их в виде некоторого вывода
+     */
+    public static String format(char[] input)
     {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
-                result.append(input.charAt(3 * i + j));
+                result.append(input[(3 * i + j)]);
                 if (j != 2)
                 {
                     result.append("|");
@@ -31,7 +40,15 @@ public class XOGame implements Game
         return result.toString();
     }
 
-    Boolean state[] = new Boolean[9];
+    public static String unformat(String input)
+    {
+        return input.replace("\n", "")
+                    .replace("|", "");
+    }
+
+
+
+    char state[] = { '*', '*', '*', '*', '*', '*', '*', '*', '*' };
 
     @Override
     public String getDescription()
@@ -45,15 +62,39 @@ public class XOGame implements Game
         return "xo";
     }
 
+    /**
+     *
+     * 1 | 2 | 3
+     * _________
+     * 4 | 5 | 6
+     * _________
+     * 7 | 8 | 9
+     *
+     */
     @Override
     public void input(String userInput)
     {
+        try
+        {
+            int value = Integer.parseInt(userInput);
+            if(value < 1 || value > 9 || state[value] != UNUSED_CHAR)
+            {
+                throw new IllegalArgumentException();
+            }
+
+            state[value] = USER_CHAR;
+
+        }
+        catch (IllegalArgumentException e)
+        {
+            //Некорректный ввод
+        }
     }
 
     @Override
     public String output()
     {
-        return "O..|.X.|...";
+        return format(state);
     }
 
     @Override
