@@ -4,7 +4,6 @@ import static org.springframework.web.context.support.WebApplicationContextUtils
 import static ru.naumen.core.info.Params.ACCESS_KEY_PARAM;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -17,11 +16,23 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.google.common.collect.ImmutableSet;
+
 @Component("authFilter")
 public class AuthenticationFilter implements Filter {
 
     @Inject
     Authenticator authenticator;
+
+    //@formatter:off
+    private static final Set<String> permittedPages = ImmutableSet.of(
+            "/accessDenied",
+            "/index.jsp",
+            "/resources/",
+            "/complete-register/",
+            "/login/"
+    );
+    //@formatter:on
 
     /**
      * Ошибка аутентификации
@@ -57,34 +68,25 @@ public class AuthenticationFilter implements Filter {
             HttpServletRequest httpServletRequest = (HttpServletRequest) request;
             String requestURI = httpServletRequest.getRequestURI();
 
-            Set<String> notFilter = new HashSet<>();
-            notFilter.add("/accessDenied");
-            notFilter.add("/index.jsp");
-            notFilter.add("/resources/");
-            notFilter.add("/complete-register/");
-
             //RULES
-            for (String noFilter : notFilter) {
+            for (String noFilter : permittedPages) {
                 if (requestURI.startsWith(noFilter)) {
                     chain.doFilter(httpServletRequest, response);
                     return;
                 }
             }
-            
-            if(requestURI.equals("/")) {
+
+            if (requestURI.equals("/")) {
                 chain.doFilter(httpServletRequest, response);
                 return;
             }
 
             HttpSession session = httpServletRequest.getSession(false);
-            if (session != null) {
-                String accessKey = (String) session.getAttribute(ACCESS_KEY_PARAM);
-                if (accessKey == null) {
-
-                    accessKey = request.getParameter(ACCESS_KEY_PARAM);
-                }
-                authorized = authenticator.authByAccessKey(accessKey);
+            String accessKey = (session != null) ? (String) session.getAttribute(ACCESS_KEY_PARAM) : null;
+            if (accessKey == null) {
+                accessKey = request.getParameter(ACCESS_KEY_PARAM);
             }
+            authorized = authenticator.authByAccessKey(accessKey);
         }
 
         if (authorized) {

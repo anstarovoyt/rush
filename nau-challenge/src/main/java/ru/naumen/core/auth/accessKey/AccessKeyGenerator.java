@@ -1,5 +1,7 @@
 package ru.naumen.core.auth.accessKey;
 
+import java.util.UUID;
+
 /**
  * @author serce
  * @since 25 окт. 2013 г.
@@ -7,7 +9,7 @@ package ru.naumen.core.auth.accessKey;
 public class AccessKeyGenerator {
     
     public static String generateNewAccessKey() {
-        return "123465789";
+        return UUID.randomUUID().toString();
     }
 
 }

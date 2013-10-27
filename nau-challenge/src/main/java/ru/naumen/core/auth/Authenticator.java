@@ -18,7 +18,7 @@ import com.google.common.base.Objects;
  * @author serce
  * @since 25 окт. 2013 г.
  */
-@Component
+@Component("authenticator")
 public class Authenticator {
 
     @Inject
@@ -63,11 +63,23 @@ public class Authenticator {
         currentUser.set(user);
         return user;
     }
+    
+    public User setCurrentUser(String email) {
+        User user = userDAO.getByEmail(email);
+        SpringContext.session().setAttribute(ACCESS_KEY_PARAM, user.getAccessKey());
+        currentUser.set(user);
+        return user;
+    }
 
     private boolean checkPass(User dbUser, String password) {
         return Objects.equal(dbUser.getPassword(), password);
     }
 
     private void validateUser(User user) {
+    }
+
+    public void logout() {
+        SpringContext.session().removeAttribute(ACCESS_KEY_PARAM);
+        currentUser.set(null);
     }
 }

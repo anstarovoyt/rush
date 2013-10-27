@@ -5,7 +5,6 @@
 <head>
 <title>Main page</title>
 <jsp:include page="head.jsp" />
-<script src="<c:url value="/resources/js/jquery.validate.js" />"></script>
 <head>
 <body>
     <jsp:include page="common.jsp" />
