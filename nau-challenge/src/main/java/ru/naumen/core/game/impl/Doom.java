@@ -12,8 +12,9 @@ public class Doom implements Game
     GameState victory = GameState.IN_PROGRESS;
 
     @Override
-    public String getId() {
-        return "dm";
+    public String computerOutput()
+    {
+        return null;
     }
 
     @Override
@@ -23,20 +24,25 @@ public class Doom implements Game
     }
 
     @Override
+    public String getId() {
+        return "dm";
+    }
+
+    @Override
     public void input( String userInput )
     {
         victory = "iddqd".equals( userInput ) ? GameState.VICTORY : GameState.FAILURE;
     }
 
     @Override
-    public GameState state()
-    {
-        return victory;
-    }
-
-    @Override
     public String output()
     {
         return victory == GameState.VICTORY ? "You are winner!" :  "You have been killed";
+    }
+
+    @Override
+    public GameState state()
+    {
+        return victory;
     }
 }

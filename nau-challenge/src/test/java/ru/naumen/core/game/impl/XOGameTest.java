@@ -15,13 +15,53 @@ public class XOGameTest
 {
 
     @Test
-    public void playerCanDoStep()
+    public void playerCanDoInput()
     {
         XOGame game = new XOGame();
 
         game.input("1");
 
+        String result = XOGame.unformat(game.computerOutput());
+
+        assertEquals(result.charAt(0), XOGame.USER_CHAR);
     }
+
+    @Test
+    public void playerCannotDoIncorrentInput()
+    {
+        XOGame game = new XOGame();
+
+        game.input("0");
+
+        String result = XOGame.unformat(game.computerOutput());
+
+        assertEquals(result, "*********");
+    }
+
+    @Test
+    public void playerCannotDoIncorrentInput2()
+    {
+        XOGame game = new XOGame();
+
+        game.input("10");
+
+        String result = XOGame.unformat(game.computerOutput());
+
+        assertEquals(result, "*********");
+    }
+
+    @Test
+    public void playerCannotDoIncorrentInput3()
+    {
+        XOGame game = new XOGame();
+
+        game.input("*");
+
+        String result = XOGame.unformat(game.computerOutput());
+
+        assertEquals(result, "*********");
+    }
+
 
     @Test
     public void testFormat()

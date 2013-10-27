@@ -16,6 +16,12 @@ public class ForeverClosed implements Game
     }
 
     @Override
+    public String computerOutput()
+    {
+        return "";
+    }
+
+    @Override
     public String getDescription()
     {
         return "Это пример закрытой игры";

@@ -9,10 +9,10 @@ import ru.naumen.core.game.GameState;
  */
 public class XOGame implements Game
 {
+
     public static final char COMPUTER_CHAR = 'O';
     public static final char USER_CHAR = 'X';
     public static final char UNUSED_CHAR = '*';
-
 
     /**
      *  У нас есть набор отображаемых символов
@@ -42,13 +42,25 @@ public class XOGame implements Game
 
     public static String unformat(String input)
     {
-        return input.replace("\n", "")
-                    .replace("|", "");
+        return input.replace("\n", "").replace("|", "");
     }
 
-
-
     char state[] = { '*', '*', '*', '*', '*', '*', '*', '*', '*' };
+
+    /**
+     * @return -1 если игрок победил или текущий ход компьютера
+     */
+    public int calculateComputerStep()
+    {
+
+        return -1;
+    }
+
+    @Override
+    public String computerOutput()
+    {
+        return format(state);
+    }
 
     @Override
     public String getDescription()
@@ -77,12 +89,12 @@ public class XOGame implements Game
         try
         {
             int value = Integer.parseInt(userInput);
-            if(value < 1 || value > 9 || state[value] != UNUSED_CHAR)
+            if (value < 1 || value > 9 || state[value] != UNUSED_CHAR)
             {
                 throw new IllegalArgumentException();
             }
 
-            state[value] = USER_CHAR;
+            state[value - 1] = USER_CHAR;
 
         }
         catch (IllegalArgumentException e)
@@ -91,15 +103,40 @@ public class XOGame implements Game
         }
     }
 
+    public boolean isUserWin()
+    {
+        return horizontalWin(USER_CHAR) || verticalWin(USER_CHAR) || diagonalWin(USER_CHAR);
+    }
+
     @Override
     public String output()
     {
-        return format(state);
+        return null;
     }
 
     @Override
     public GameState state()
     {
         return GameState.IN_PROGRESS;
+    }
+
+    void setState(char[] newState)
+    {
+        state = newState;
+    }
+
+    private boolean diagonalWin(char userChar)
+    {
+        return false;
+    }
+
+    private boolean horizontalWin(char userChar)
+    {
+        return false;
+    }
+
+    private boolean verticalWin(char userChar)
+    {
+        return false;
     }
 }
