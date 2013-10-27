@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ru.naumen.core.auth.Authenticator;
+import ru.naumen.core.utils.UrlUtils;
 import ru.naumen.model.User;
 
 import com.google.common.base.Objects;
@@ -42,7 +43,7 @@ public class IndexController {
         }
         User user = User.create(email, fio, password);
         authenticator.registerUser(user);
-        return "redirect:/games/";
+        return "redirect:/games/?" + UrlUtils.createAKParam(user);
     }
 
     @RequestMapping(value = "/login/", method = POST)
@@ -53,8 +54,8 @@ public class IndexController {
         if (!authenticator.checkAuth(email, password)) {
             throw new RuntimeException();
         }
-        authenticator.setCurrentUser(email);
-        return "redirect:/games/";
+        User user = authenticator.setCurrentUser(email);
+        return "redirect:/games/?" + UrlUtils.createAKParam(user);
     }
 
     @RequestMapping(value = "/logout/", method = POST)

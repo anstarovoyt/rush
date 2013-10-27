@@ -52,7 +52,9 @@ public class Authenticator {
             String accessKey = (String) SpringContext.session().getAttribute(ACCESS_KEY_PARAM);
             if (accessKey != null) {
                 user = userDAO.getByAccessKey(accessKey);
-                setCurrentUser(user);
+                if(user != null) {
+                    setCurrentUser(user);
+                }
             }
         }
         return user;

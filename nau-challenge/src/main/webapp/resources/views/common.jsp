@@ -22,8 +22,9 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">Games</a></li>
-                <li><a href="#about">About</a></li>
+                <% if(getCurrentUser() != null) { %>
+                    <li><a href="/games/?ak=<%= getCurrentUser().getAccessKey() %>">Games</a></li>
+                <% } %>
             </ul>
             <% if(getCurrentUser() == null) { %>
                 <form id="login" class="navbar-form navbar-right" novalidate="novalidate" method="post" action="/login/">
@@ -64,7 +65,9 @@
                     e.stopPropagation();
                 });
                 var logout = function() {
-                	$.post("/logout/")
+                	$.post("/logout/", function(data) {
+                		window.location = "/"
+                	})
                 }
                 </script>
             <% } %>
