@@ -29,7 +29,7 @@ public class GameController {
     public String gameInfo(@RequestParam(value = Params.GAME_ID, required = false) String gid,
                            Model model) {
 
-        Game game = authenticator.getCurrentUser().getUserGameStorage().get(gid);
+        Game game = authenticator.getCurrentUser().getUserGameStorage().get(gid).getGame();
         if (game != null) {
             model.addAttribute("description", game.getDescription());
             model.addAttribute("gid", gid);
@@ -42,7 +42,7 @@ public class GameController {
                               @RequestParam(value = Params.ANSWER_ID, required = false) String answer,
                               Model model) {
 
-        Game game = authenticator.getCurrentUser().getUserGameStorage().get(gid);
+        Game game = authenticator.getCurrentUser().getUserGameStorage().get(gid).getGame();
 
         if (game != null) {
             game.input(answer);

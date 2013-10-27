@@ -3,6 +3,7 @@ package ru.naumen.core.storage;
 import java.util.Collection;
 
 import ru.naumen.core.game.Game;
+import ru.naumen.core.game.GameSeries;
 
 /**
  * "Песочница" игр для текущего пользователя
@@ -21,9 +22,9 @@ import ru.naumen.core.game.Game;
  */
 public interface UserGameStorage {
 
-    Game get(String key);
+    GameSeries get(String key);
 
-    Collection<Game> getAll();
+    Collection<GameSeries> getAll();
 
     /**
      * Метод кажется ненужным, но я его не удаляю. Вдруг, у кого-то на него завязана какая-то логика

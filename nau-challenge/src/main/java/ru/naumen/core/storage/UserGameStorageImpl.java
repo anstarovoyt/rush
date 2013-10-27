@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameProvider;
+import ru.naumen.core.game.GameSeries;
 
 /**
  *
@@ -17,24 +18,24 @@ import ru.naumen.core.game.GameProvider;
 public class UserGameStorageImpl implements UserGameStorage
 {
 
-    private HashMap<String, Game> games = Maps.newHashMap();
+    private HashMap<String, GameSeries> games = Maps.newHashMap();
 
     public UserGameStorageImpl( GameProvider provider )
     {
         for (Game game : provider.getNewGameList())
         {
-            games.put( game.getId(), game );
+            games.put( game.getId(), GameSeries.openGame( game ) );
         }
     }
 
     @Override
-    public Game get(String key)
+    public GameSeries get(String key)
     {
         return games.get( key );
     }
 
     @Override
-    public Collection<Game> getAll()
+    public Collection<GameSeries> getAll()
     {
         return games.values();
     }
@@ -42,7 +43,6 @@ public class UserGameStorageImpl implements UserGameStorage
     @Override
     public void put(String key, Game value)
     {
-        games.put(key, value);
     }
 
 }
