@@ -94,10 +94,6 @@ public class AuthenticationFilter implements Filter {
             String accessKey = request.getParameter(ACCESS_KEY_PARAM);
             if (accessKey == null && session != null) {
                 accessKey = (session != null) ? (String) session.getAttribute(ACCESS_KEY_PARAM) : null;
-//                filterConfig
-//                        .getServletContext()
-//                        .getRequestDispatcher(requestURI + "?" + ACCESS_KEY_PARAM + "=" + userDAO.getByAccessKey(accessKey))
-//                        .forward(request, response);
             }
             authorized = authenticator.authByAccessKey(accessKey);
         }
