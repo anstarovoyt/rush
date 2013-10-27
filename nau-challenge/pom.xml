@@ -69,8 +69,20 @@
             <artifactId>guava</artifactId>
             <version>15.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>3.2.4.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-    
+
     <build>
         <resources>
             <resource><directory>src/main/webapp</directory></resource>
@@ -81,9 +93,9 @@
 	        <artifactId>maven-jetty-plugin</artifactId>
 		<version>6.1.26</version>
 	        <configuration>
- 
+
         	  <scanIntervalSeconds>10</scanIntervalSeconds>
- 
+
 	          <!-- Configure the webapp -->
 		<contextPath>/</contextPath>
 	           <connectors>
