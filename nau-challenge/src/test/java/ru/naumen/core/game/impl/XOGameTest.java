@@ -1,8 +1,10 @@
 package ru.naumen.core.game.impl;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+import ru.naumen.core.game.GameState;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * По идее, крестики-нолики переводятся как "Tic Tac Toe"
@@ -26,8 +28,106 @@ public class XOGameTest
         assertEquals(result.charAt(0), XOGame.USER_CHAR);
     }
 
+    /**
+     * XXX
+     * ***
+     * **O
+     * User win
+     */
     @Test
-    public void playerCannotDoIncorrentInput()
+    public void playerCanWon()
+    {
+        XOGame game = new XOGame();
+
+        game.setMatrix("X*X*****O".toCharArray());
+
+        game.input("2");
+
+        assertEquals(GameState.VICTORY, game.state());
+    }
+
+    /**
+     * 0X0
+     * X00
+     * X0X
+     *
+     * User win (dead heat)
+     */
+    @Test
+    public void isDeadHeatVictory()
+    {
+        XOGame game = new XOGame();
+
+        game.setMatrix("O*OXOOX*X".toCharArray());
+
+        game.input("2");
+
+        assertArrayEquals("OXOXOOXOX".toCharArray(), game.matrix);
+
+        assertEquals(GameState.VICTORY, game.state());
+    }
+
+    /**
+     * 0X0
+     * X00
+     * X0X
+     *
+     * User win (dead heat)
+     */
+    @Test
+    public void isDeadHeatVictory2()
+    {
+        XOGame game = new XOGame();
+
+        game.setMatrix("O*OX*OXOX".toCharArray());
+
+        game.input("2");
+
+        assertArrayEquals("OXOXOOXOX".toCharArray(), game.matrix);
+
+        assertEquals(GameState.VICTORY, game.state());
+    }
+
+    @Test
+    public void playerCanLose()
+    {
+        XOGame game = new XOGame();
+
+        game.setMatrix("X*****O*O".toCharArray());
+
+        game.input("2");
+
+        assertEquals(GameState.FAILURE, game.state());
+    }
+
+    @Test
+    public void playerCanNotSimpleWin()
+    {
+        XOGame game = new XOGame();
+
+        game.setMatrix("X********".toCharArray());
+
+        game.input("2");
+
+        assertEquals(GameState.IN_PROGRESS, game.state());
+        assertArrayEquals("XXO******".toCharArray(), game.matrix);
+    }
+
+    @Test
+    public void winMorePriorityThanNotWinUser()
+    {
+        XOGame game = new XOGame();
+
+        game.setMatrix("X*****OO*".toCharArray());
+
+        game.input("2");
+
+        assertEquals(GameState.FAILURE, game.state());
+        assertArrayEquals("XX****OOO".toCharArray(), game.matrix);
+    }
+
+    @Test
+    public void playerCannotDoIncorrectInput()
     {
         XOGame game = new XOGame();
 
@@ -39,7 +139,7 @@ public class XOGameTest
     }
 
     @Test
-    public void playerCannotDoIncorrentInput2()
+    public void playerCannotDoIncorrectInput2()
     {
         XOGame game = new XOGame();
 
@@ -51,7 +151,7 @@ public class XOGameTest
     }
 
     @Test
-    public void playerCannotDoIncorrentInput3()
+    public void playerCannotDoIncorrectInput3()
     {
         XOGame game = new XOGame();
 
