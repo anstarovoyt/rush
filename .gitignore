@@ -20,7 +20,8 @@ local.properties
 *.classpath
 .settings
 .loadpath
-
+.externalToolBuilders
+*/bin/*
 # Idea
 .idea
 *.iml
