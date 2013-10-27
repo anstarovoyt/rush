@@ -10,16 +10,6 @@
     </context-param>
 
     <servlet>
-        <servlet-name>DoGame</servlet-name>
-        <servlet-class>ru.naumen.core.servlet.GameServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DoGame</servlet-name>
-        <url-pattern>/dogame/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>appServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>

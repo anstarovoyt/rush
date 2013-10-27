@@ -14,6 +14,5 @@ public enum GameState
 {
     IN_PROGRESS,
     FAILURE,
-    VICTORY,
-    LOCKED
+    VICTORY
 }
