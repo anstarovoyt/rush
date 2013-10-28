@@ -117,7 +117,7 @@ public class XOGame implements Game {
            if (isFieldFilled()) {
                 victory = GameState.VICTORY;
                 return;
-            }git
+           }
 
         } catch (IllegalArgumentException e) {
             //Некорректный ввод
