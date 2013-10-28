@@ -1,8 +1,11 @@
 package ru.naumen.mvc.controller;
 
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -18,6 +21,7 @@ import ru.naumen.core.auth.Authenticator;
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameSeries;
 import ru.naumen.core.game.GameSeriesState;
+import ru.naumen.core.game.GameState;
 import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.model.User;
 
@@ -52,7 +56,7 @@ public class GameControllerTest
     {
         when( game.getDescription() ).thenReturn( "wat" );
         mockMvc.perform( get( "/game" ) )
-                .andExpect( model().attribute( "description", "wat" ));
+                .andExpect( model().attribute( "description", "wat" ) );
     }
 
     @Test
@@ -63,6 +67,22 @@ public class GameControllerTest
         mockMvc.perform( get("/game") )
                 .andExpect( model().attribute( "wins", 3 ) )
                 .andExpect( model().attribute( "maxwins", 10 ) );
+    }
+
+    @Test
+    public void doNotIncrementWonGamesCountWhenGameIsInProgress() throws Exception
+    {
+        when( game.state() ).thenReturn( GameState.IN_PROGRESS );
+        mockMvc.perform( post("/game") );
+        verify( gameSeries, never() ).winOneGame();
+    }
+
+    @Test
+    public void incrementWonGamesCount() throws Exception
+    {
+        when( game.state() ).thenReturn( GameState.VICTORY );
+        mockMvc.perform( post( "/game" ) );
+        verify( gameSeries ).winOneGame();
     }
 
     @Test

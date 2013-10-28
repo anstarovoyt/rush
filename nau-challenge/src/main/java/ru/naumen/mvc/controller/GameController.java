@@ -12,6 +12,7 @@ import ru.naumen.core.auth.Authenticator;
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameSeries;
 import ru.naumen.core.game.GameSeriesState;
+import ru.naumen.core.game.GameState;
 import ru.naumen.core.info.Params;
 
 /**
@@ -35,12 +36,12 @@ public class GameController {
         if (gameSeries.getState() == GameSeriesState.CLOSED)
             return "gameclosed";
         Game game = gameSeries.getGame();
-        if (game != null) {
-            model.addAttribute("description", game.getDescription());
-            model.addAttribute("gid", gid);
-            model.addAttribute("maxwins", gameSeries.maxWinsCount());
-            model.addAttribute("wins", gameSeries.wonGamesCount());
-        }
+
+        model.addAttribute("description", game.getDescription());
+        model.addAttribute("gid", gid);
+        model.addAttribute("maxwins", gameSeries.maxWinsCount());
+        model.addAttribute("wins", gameSeries.wonGamesCount());
+
         return "rungame";
     }
 
@@ -52,14 +53,15 @@ public class GameController {
         GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get( gid );
         Game game = gameSeries.getGame();
 
-        if (game != null) {
-            game.input(answer);
+        game.input(answer);
+        // вопрос, когда высчитывается состояние игры
+        if (game.state() == GameState.VICTORY)
+            gameSeries.winOneGame();
 
-            model.addAttribute("description", game.getDescription());
-            model.addAttribute("result", game.output());
-            model.addAttribute("maxwins", gameSeries.maxWinsCount());
-            model.addAttribute("wins", gameSeries.wonGamesCount());
-        }
+        model.addAttribute("description", game.getDescription());
+        model.addAttribute("result", game.output());
+        model.addAttribute("maxwins", gameSeries.maxWinsCount());
+        model.addAttribute("wins", gameSeries.wonGamesCount());
 
         return "rungame";
     }
