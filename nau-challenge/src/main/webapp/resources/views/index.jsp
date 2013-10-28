@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -18,22 +19,23 @@
 
     <div class="container">
         <div class="row">
-            <form id="signup" novalidate="novalidate" method="post" action="/complete-register/">
+            <form:form id="signup" novalidate="novalidate" method="post" action="/complete-register/" modelAttribute="registrationForm">
+                <form:errors path="*" cssClass="errorUserMessage" />
                 <div class="form-group">
                     <label for="email">Email address</label> 
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Введите email">
+                    <form:input path="email" type="email" class="form-control" name="email" id="email" placeholder="Введите email"/>
                 </div>
                 <div class="form-group">
                     <label for="text">ФИО</label> 
-                    <input type="text" class="form-control" name="fio" id="fio" placeholder="Введите ФИО">
+                    <form:input path="fio" type="text" class="form-control" name="fio" id="fio" placeholder="Введите ФИО"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Пароль</label> 
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Введите пароль">
+                    <form:input path="password" type="password" class="form-control" name="password" id="password" placeholder="Введите пароль"/>
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Повторите пароль</label> 
-                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Повторите ввод пароля">
+                    <form:input path="confirmPassword" type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Повторите ввод пароля"/>
                 </div>
                 <div class="form-group">
                     <label class="form-label"></label>
@@ -41,7 +43,7 @@
                         <button type="submit" class="btn btn-success">Зарегистрироваться</button>
                     </div>
                 </div>
-            </form>
+            </form:form>
         </div>
     </div>
 

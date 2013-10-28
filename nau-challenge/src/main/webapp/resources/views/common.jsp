@@ -28,11 +28,11 @@
                 <% } %>
             </ul>
             <% if(getCurrentUser() == null) { %>
-                <form:form id="login" class="navbar-form navbar-right" novalidate="novalidate" method="post" action="/login/">
+                <form:form id="login" class="navbar-form navbar-right" novalidate="novalidate" method="post" action="/login/" modelAttribute="userForm">
+                    <form:errors path="*" cssClass="errorUserMessage" /> 
                     <div class="form-group">
-                        <input name="email" type="text" placeholder="Email" class="form-control">
+                        <form:input path="email" name="email" type="text" placeholder="Email" class="form-control" />
                     </div>
-                    <form:errors path="*" cssClass="error" /> 
                     <div class="form-group">
                         <input name="password" type="password" placeholder="Пароль" class="form-control">
                     </div>
