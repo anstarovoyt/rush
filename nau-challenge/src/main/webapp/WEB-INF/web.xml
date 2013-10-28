@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
     <display-name>Simple Sample</display-name>
 
@@ -10,16 +10,6 @@
     </context-param>
 
     <servlet>
-        <servlet-name>DoGame</servlet-name>
-        <servlet-class>ru.naumen.core.servlet.GameServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DoGame</servlet-name>
-        <url-pattern>/dogame/*</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
         <servlet-name>appServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
@@ -28,10 +18,10 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-            
+
     <servlet-mapping>
-            <servlet-name>appServlet</servlet-name>
-            <url-pattern>/</url-pattern>
+        <servlet-name>appServlet</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
 
@@ -48,6 +38,15 @@
         </init-param>
         <load-on-startup>3</load-on-startup>
     </servlet>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>ru.naumen.core.auth.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

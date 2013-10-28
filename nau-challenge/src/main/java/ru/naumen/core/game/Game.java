@@ -25,13 +25,35 @@ package ru.naumen.core.game;
  */
 public interface Game
 {
-    String getId();
+    /**
+     * Если у нас бот должен уметь ходить, то в это выводе показывается ход противника
+     */
+    String computerOutput();
 
+    /**
+     * @return текстовое описание правил игры
+     */
     String getDescription();
+
+    /**
+     *
+     * Идентификатор игры - используется для перехода на страницу с этой игрой
+     *
+     */
+    String getId();
 
     void input(String userInput);
 
-    GameState state();
-
+    /**
+     * Вывод текстового сообщения для текущего состояния
+     * Может быть например "вы выиграли"
+     * Или "вы проиграли" или "ваш ввод некорректен"
+     *
+     */
     String output();
+
+    /**
+     * @return текущее состояние игры
+     */
+    GameState state();
 }

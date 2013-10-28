@@ -6,6 +6,9 @@ package ru.naumen.core.info;
  * Time: 10:45 PM
  */
 public final class Params {
+    
+    private Params() {
+    }
 
     /**
      * Параметр отвественный за аутентификацию

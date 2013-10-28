@@ -1,35 +1,29 @@
 package ru.naumen.core.game;
 
-import org.springframework.stereotype.Component;
-import ru.naumen.core.game.impl.Doom;
-import ru.naumen.core.game.impl.XOGame;
+import static ru.naumen.core.game.GameSeries.closedGame;
+import static ru.naumen.core.game.GameSeries.openGame;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+
+import org.springframework.stereotype.Component;
+
+import ru.naumen.core.game.impl.Doom;
+import ru.naumen.core.game.impl.ForeverClosed;
+import ru.naumen.core.game.impl.XOGame;
 
 /**
- * Created with IntelliJ IDEA.
- * User: anstarovoyt
- * Date: 10/24/13
- * Time: 2:17 AM
- * To change this template use File | Settings | File Templates.
+ * Класс предоставляет интерфейс доступа к классам существующих игр
+ * @author astarovoyt
  */
 @Component
-public class GameProvider {
-    List<Game> games = Arrays.asList(new Doom(), new XOGame());
-
-
-    public Game getGame(String gid, String userId)
+public class GameProvider
+{
+    public List<GameSeries> getNewGameList()
     {
-        for (Game game : games)
-        {
-            if (Objects.equals(game.getId(), gid))
-            {
-                return game;
-            }
-        }
-
-        return null;
+        return Arrays.asList(
+                openGame( new Doom(), 1 ),
+                openGame( new XOGame(), 50 ),
+                closedGame( new ForeverClosed() ));
     }
 }

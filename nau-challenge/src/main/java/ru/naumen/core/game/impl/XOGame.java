@@ -9,9 +9,57 @@ import ru.naumen.core.game.GameState;
  */
 public class XOGame implements Game
 {
+
+    public static final char COMPUTER_CHAR = 'O';
+    public static final char USER_CHAR = 'X';
+    public static final char UNUSED_CHAR = '*';
+
+    /**
+     *  У нас есть набор отображаемых символов
+     *  XO* -> мы должны уметь представлять их в виде некоторого вывода
+     */
+    public static String format(char[] input)
+    {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                result.append(input[(3 * i + j)]);
+                if (j != 2)
+                {
+                    result.append("|");
+                }
+            }
+
+            if (i != 2)
+            {
+                result.append("\n");
+            }
+        }
+        return result.toString();
+    }
+
+    public static String unformat(String input)
+    {
+        return input.replace("\n", "").replace("|", "");
+    }
+
+    char state[] = { '*', '*', '*', '*', '*', '*', '*', '*', '*' };
+
+    /**
+     * @return -1 если игрок победил или текущий ход компьютера
+     */
+    public int calculateComputerStep()
+    {
+
+        return -1;
+    }
+
     @Override
-    public String getId() {
-        return "xo";
+    public String computerOutput()
+    {
+        return format(state);
     }
 
     @Override
@@ -21,8 +69,49 @@ public class XOGame implements Game
     }
 
     @Override
-    public void input( String userInput )
+    public String getId()
     {
+        return "xo";
+    }
+
+    /**
+     *
+     * 1 | 2 | 3
+     * _________
+     * 4 | 5 | 6
+     * _________
+     * 7 | 8 | 9
+     *
+     */
+    @Override
+    public void input(String userInput)
+    {
+        try
+        {
+            int value = Integer.parseInt(userInput);
+            if (value < 1 || value > 9 || state[value] != UNUSED_CHAR)
+            {
+                throw new IllegalArgumentException();
+            }
+
+            state[value - 1] = USER_CHAR;
+
+        }
+        catch (IllegalArgumentException e)
+        {
+            //Некорректный ввод
+        }
+    }
+
+    public boolean isUserWin()
+    {
+        return horizontalWin(USER_CHAR) || verticalWin(USER_CHAR) || diagonalWin(USER_CHAR);
+    }
+
+    @Override
+    public String output()
+    {
+        return null;
     }
 
     @Override
@@ -31,9 +120,23 @@ public class XOGame implements Game
         return GameState.IN_PROGRESS;
     }
 
-    @Override
-    public String output()
+    void setState(char[] newState)
     {
-        return "O..|.X.|...";
+        state = newState;
+    }
+
+    private boolean diagonalWin(char userChar)
+    {
+        return false;
+    }
+
+    private boolean horizontalWin(char userChar)
+    {
+        return false;
+    }
+
+    private boolean verticalWin(char userChar)
+    {
+        return false;
     }
 }
