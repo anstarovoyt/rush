@@ -49,6 +49,7 @@ public class GameController
         model.addAttribute("gid", gid);
         model.addAttribute("maxwins", gameSeries.maxWinsCount());
         model.addAttribute("wins", gameSeries.wonGamesCount());
+        model.addAttribute("state", gameSeries.getState());
 
         return "rungame";
     }

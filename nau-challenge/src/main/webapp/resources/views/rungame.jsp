@@ -5,44 +5,56 @@
     <head>
         <title>Main page</title>
         <jsp:include page="head.jsp" />
-        <style type="text/css">
-        /* Move down content because we have a fixed navbar that is 50px tall */
-        body {
-        	padding-top: 50px;
-        	padding-bottom: 20px;
-        }
-        </style>
     <head>
+    <style type="text/css">
+    p {
+        font-size: 20px;
+    }
+    </style>
 <body>
     <jsp:include page="common.jsp" />
 
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, Naumen!</h1>
+            <h3>Правила</h3>
             <p>${description} </p>
         </div>
-
-            <div class="container">
-                <span class="help-inline">Победы:</span> ${wins} / ${maxwins}
-            </div>
-            <div class="container">
-            <span class="help-inline">Текущий результат:</span>
-            ${result}
-            </div>
     </div>
+    
 
     <div class="container">
-    <form class="form-horizontal" method="post">
-              <div class="control-group">
-
-              <textarea class="input-xlarge" name=<%= "\"" + Params.ANSWER_ID + "\"" %> rows="5" cols="100"></textarea>
-              </div>
-              <br>
-              <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Send answer</button>
-
-              </div>
-
+        <form class="form-horizontal" method="post">
+            <p>Количество побед: ${wins} из ${maxwins}</p>
+            <p style="margin-top: 20px">Состояние игры: ${state}</p>
+            <div class="row" style="margin-top: 20px">
+                <div class="control-group col-md-8">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Вывод компьютера</h3>
+                        </div>
+                        <div class="panel-body" style="font-size: 16px;">
+                            ${result}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group col-md-8">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Ваш ход</h3>
+                        </div>
+                        <div class="panel-body">
+                            <textarea class="form-control" style="width: 100%;" name=<%= "\"" + Params.ANSWER_ID + "\"" %> rows="5" cols="100"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 0px;">
+                <div class="form-actions col-md-8">
+                    <button type="submit" style="float: right;" class="btn btn-primary">Отправить</button>
+                </div>
+            </div>
         </form>
     </div>
 </body>

@@ -27,7 +27,7 @@
                     <li><a href="/games/?ak=<%= getCurrentUser().getAccessKey() %>">Games</a></li>
                 <% } %>
             </ul>
-            <% if(getCurrentUser() == null) { %>
+            <% if(getCurrentUser() == null && request.getAttribute("ak") != null) { %>
                 <form:form id="login" class="navbar-form navbar-right" novalidate="novalidate" method="post" action="/login/" modelAttribute="userForm">
                     <form:errors path="*" cssClass="errorUserMessage" /> 
                     <div class="form-group">
@@ -52,7 +52,7 @@
                     });
                 });
                 </script>
-            <% } else { %>
+            <% } else if(getCurrentUser() != null) { %>
                 <ul class="nav navbar-nav" style="float: right;">
                 <li class="dropdown" style="float: right;">
                     <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown"><%= getCurrentUser().getEmail() %><b class="caret"></b></a>
