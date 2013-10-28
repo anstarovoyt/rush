@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
@@ -114,8 +115,12 @@ public class GameSeriesTest
 
     @Test
     public void openGameSeriesCanProduceNewGame() {
-        GameSeries series = openGame;
-//        Game game = series.game();
-//        game -> ?
+        GameSeries closedGame1 = mock(GameSeries.class);
+        GameSeries closedGame2 = mock(GameSeries.class);
+
+        openGame = GameSeries.openGame( game, 1, closedGame1, closedGame2 );
+        openGame.makeSolved();
+        verify( closedGame1 ).makeOpen();
+        verify( closedGame2 ).makeOpen();
     }
 }

@@ -6,26 +6,28 @@ package ru.naumen.core.game;
  */
 public class GameSeries
 {
+    private final GameSeries[] nextGames;
     private int gamesWon = 0;
     private GameSeriesState state;
     private Game game;
     private int maxWins;
 
-    public GameSeries( Game game, int maxWins, GameSeriesState state )
+    public GameSeries( Game game, int maxWins, GameSeries[] nextGames, GameSeriesState state )
     {
         this.game = game;
         this.maxWins = maxWins;
         this.state = state;
+        this.nextGames = nextGames;
     }
 
-    public static GameSeries openGame( Game game, int maxWins )
+    public static GameSeries openGame( Game game, int maxWins, GameSeries... nextGames )
     {
-        return new GameSeries( game, maxWins, GameSeriesState.OPEN );
+        return new GameSeries( game, maxWins, nextGames, GameSeriesState.OPEN );
     }
 
     public static GameSeries closedGame( Game game, int maxWins )
     {
-        return new GameSeries( game, maxWins, GameSeriesState.CLOSED );
+        return new GameSeries( game, maxWins, new GameSeries[]{}, GameSeriesState.CLOSED );
     }
 
     public GameSeriesState getState()
@@ -44,6 +46,9 @@ public class GameSeries
     {
         if (state == GameSeriesState.OPEN) {
             state = GameSeriesState.SOLVED;
+            for (GameSeries series : nextGames) {
+                series.makeOpen();
+            }
         }
     }
 
@@ -73,6 +78,6 @@ public class GameSeries
     {
         gamesWon++;
         if (gamesWon >= maxWins)
-            state = GameSeriesState.SOLVED;
+            makeSolved();
     }
 }
