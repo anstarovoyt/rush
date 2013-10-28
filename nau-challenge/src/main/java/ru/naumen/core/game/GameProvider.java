@@ -24,6 +24,6 @@ public class GameProvider
         return Arrays.asList(
                 openGame( new Doom(), 1 ),
                 openGame( new XOGame(), 50 ),
-                closedGame( new ForeverClosed() ));
+                closedGame( new ForeverClosed(), 1 ));
     }
 }

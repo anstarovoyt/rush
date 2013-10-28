@@ -23,9 +23,9 @@ public class GameSeries
         return new GameSeries( game, maxWins, GameSeriesState.OPEN );
     }
 
-    public static GameSeries closedGame( Game game )
+    public static GameSeries closedGame( Game game, int maxWins )
     {
-        return new GameSeries( game, 1, GameSeriesState.CLOSED );
+        return new GameSeries( game, maxWins, GameSeriesState.CLOSED );
     }
 
     public GameSeriesState getState()

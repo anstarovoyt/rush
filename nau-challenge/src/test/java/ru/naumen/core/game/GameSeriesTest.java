@@ -17,7 +17,7 @@ import org.junit.Test;
 public class GameSeriesTest
 {
     Game game = mock(Game.class);
-    GameSeries closedGame = GameSeries.closedGame( game );
+    GameSeries closedGame = GameSeries.closedGame( game, 1);
     GameSeries openGame = GameSeries.openGame( game, 1 );
 
     @Test
