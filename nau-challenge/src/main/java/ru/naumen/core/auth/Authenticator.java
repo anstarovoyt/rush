@@ -43,7 +43,7 @@ public class Authenticator {
 
     public boolean checkAuth(String email, String password) {
         User dbUser = userDAO.getByEmail(email);
-        return checkPass(dbUser, password);
+        return dbUser == null ? false : checkPass(dbUser, password);
     }
 
     public User getCurrentUser() {

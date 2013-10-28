@@ -2,6 +2,7 @@
 <%@page import="ru.naumen.core.SpringContext"%>
 <%@page import="ru.naumen.model.User"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%! 
@@ -27,15 +28,16 @@
                 <% } %>
             </ul>
             <% if(getCurrentUser() == null) { %>
-                <form id="login" class="navbar-form navbar-right" novalidate="novalidate" method="post" action="/login/">
+                <form:form id="login" class="navbar-form navbar-right" novalidate="novalidate" method="post" action="/login/">
                     <div class="form-group">
                         <input name="email" type="text" placeholder="Email" class="form-control">
                     </div>
+                    <form:errors path="*" cssClass="error" /> 
                     <div class="form-group">
                         <input name="password" type="password" placeholder="Пароль" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-success">Войти</button>
-                </form>
+                </form:form>
                 <script>
                 $(document).ready(function() {
                     $("#login").validate({

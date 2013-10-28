@@ -1,6 +1,8 @@
 package ru.naumen.model;
 
 import ru.naumen.core.SpringContext;
+import java.util.Random;
+
 import ru.naumen.core.auth.accessKey.AccessKeyGenerator;
 import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.core.storage.UserGameStorageFactory;
@@ -16,6 +18,7 @@ public class User
     public static User create(String email, String fio, String password)
     {
         User user = new User();
+        user.setId(new Random().nextInt());
         user.setEmail(email);
         user.setFio(fio);
         user.setPassword(password);

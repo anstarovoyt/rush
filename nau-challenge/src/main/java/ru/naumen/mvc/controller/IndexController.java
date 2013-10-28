@@ -2,7 +2,11 @@ package ru.naumen.mvc.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
+import javax.jws.WebParam.Mode;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -47,12 +51,18 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/login/", method = POST)
-    public String login(@RequestParam String email, @RequestParam String password, Model model,
+    public String login(@RequestParam String email, @RequestParam String password, Map<String, Object> model,
             HttpServletResponse response) {
         noCache(response);
+        Map<String, String> errors = new HashMap<>();
         authenticator.checkAuth(email, password);
         if (!authenticator.checkAuth(email, password)) {
-            throw new RuntimeException();
+            errors.put("email", "Неверный email или пароль");
+        }
+        
+        if(!errors.isEmpty()) {
+            model.put("errors", errors);
+            return "index";
         }
         User user = authenticator.setCurrentUser(email);
         return "redirect:/games/?" + UrlUtils.createAKParam(user);
