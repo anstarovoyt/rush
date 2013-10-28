@@ -35,6 +35,10 @@ public class GameController {
         GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get( gid );
         if (gameSeries.getState() == GameSeriesState.CLOSED)
             return "gameclosed";
+        if (gameSeries.getState() == GameSeriesState.SOLVED) {
+            model.addAttribute("wins", gameSeries.wonGamesCount());
+            return "gamesolved";
+        }
         Game game = gameSeries.getGame();
 
         model.addAttribute("description", game.getDescription());
@@ -57,6 +61,10 @@ public class GameController {
         // вопрос, когда высчитывается состояние игры
         if (game.state() == GameState.VICTORY)
             gameSeries.winOneGame();
+        if (gameSeries.getState() == GameSeriesState.SOLVED) {
+            model.addAttribute( "wins", gameSeries.wonGamesCount() );
+            return "gamesolved";
+        }
 
         model.addAttribute("description", game.getDescription());
         model.addAttribute("result", game.output());

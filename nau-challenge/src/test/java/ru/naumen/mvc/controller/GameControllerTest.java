@@ -92,4 +92,27 @@ public class GameControllerTest
         mockMvc.perform( get("/game") )
                 .andExpect( forwardedUrl( "gameclosed" ) );
     }
+
+    @Test
+    public void whenGameHasBeenWonThenItForwardsToSolvedGamePage() throws Exception
+    {
+        when( gameSeries.getState() ).thenReturn( GameSeriesState.SOLVED );
+        when(gameSeries.wonGamesCount()).thenReturn( 5 );
+
+        mockMvc.perform( get("/game") )
+                .andExpect( forwardedUrl( "gamesolved" ) )
+                .andExpect( model().attribute( "wins", 5 ) );
+    }
+
+    @Test
+    public void solveGameWhenWinsCountReachesLimit() throws Exception
+    {
+        when( game.state() ).thenReturn( GameState.VICTORY );
+        when( gameSeries.wonGamesCount()).thenReturn( 1 );
+        when( gameSeries.getState() ).thenReturn( GameSeriesState.SOLVED );
+
+        mockMvc.perform( post("/game") )
+                .andExpect( forwardedUrl( "gamesolved" ) )
+                .andExpect( model().attribute( "wins", 1 ) );
+    }
 }
