@@ -80,4 +80,9 @@ public class GameSeries
         if (gamesWon >= maxWins)
             makeSolved();
     }
+
+    public void loseOneGame()
+    {
+        gamesWon = 0;
+    }
 }

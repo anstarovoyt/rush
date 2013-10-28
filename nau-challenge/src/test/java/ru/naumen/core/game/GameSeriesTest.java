@@ -119,8 +119,17 @@ public class GameSeriesTest
         GameSeries closedGame2 = mock(GameSeries.class);
 
         openGame = GameSeries.openGame( game, 1, closedGame1, closedGame2 );
-        openGame.makeSolved();
+        openGame.winOneGame();
         verify( closedGame1 ).makeOpen();
         verify( closedGame2 ).makeOpen();
+    }
+
+    @Test
+    public void winsCounterResetsToZeroWhenOneGameHasBeenLosed() {
+        openGame = GameSeries.openGame( game, 3 );
+        openGame.winOneGame();
+        openGame.winOneGame();
+        openGame.loseOneGame();
+        assertThat( openGame.wonGamesCount(), is(0) );
     }
 }

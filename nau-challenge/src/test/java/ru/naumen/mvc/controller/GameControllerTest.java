@@ -115,4 +115,12 @@ public class GameControllerTest
                 .andExpect( forwardedUrl( "gamesolved" ) )
                 .andExpect( model().attribute( "wins", 1 ) );
     }
+
+    @Test
+    public void resetWinsCountWhenGameHasBeenLost() throws Exception
+    {
+        when( game.state() ).thenReturn( GameState.FAILURE );
+        mockMvc.perform( post( "/game" ) );
+        verify( gameSeries ).loseOneGame();
+    }
 }

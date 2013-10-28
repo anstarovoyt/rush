@@ -61,6 +61,9 @@ public class GameController {
         // вопрос, когда высчитывается состояние игры
         if (game.state() == GameState.VICTORY)
             gameSeries.winOneGame();
+        if (game.state() == GameState.FAILURE)
+            gameSeries.loseOneGame();
+
         if (gameSeries.getState() == GameSeriesState.SOLVED) {
             model.addAttribute( "wins", gameSeries.wonGamesCount() );
             return "gamesolved";
