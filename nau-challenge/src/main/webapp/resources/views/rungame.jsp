@@ -23,6 +23,9 @@
         </div>
 
             <div class="container">
+                <span class="help-inline">Победы:</span> ${wins} / ${maxwins}
+            </div>
+            <div class="container">
             <span class="help-inline">Текущий результат:</span>
             ${result}
             </div>

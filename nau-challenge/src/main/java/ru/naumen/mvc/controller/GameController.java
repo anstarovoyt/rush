@@ -38,6 +38,8 @@ public class GameController {
         if (game != null) {
             model.addAttribute("description", game.getDescription());
             model.addAttribute("gid", gid);
+            model.addAttribute("maxwins", gameSeries.maxWinsCount());
+            model.addAttribute("wins", gameSeries.wonGamesCount());
         }
         return "rungame";
     }
@@ -47,13 +49,16 @@ public class GameController {
                               @RequestParam(value = Params.ANSWER_ID, required = false) String answer,
                               Model model) {
 
-        Game game = authenticator.getCurrentUser().getUserGameStorage().get(gid).getGame();
+        GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get( gid );
+        Game game = gameSeries.getGame();
 
         if (game != null) {
             game.input(answer);
 
             model.addAttribute("description", game.getDescription());
             model.addAttribute("result", game.output());
+            model.addAttribute("maxwins", gameSeries.maxWinsCount());
+            model.addAttribute("wins", gameSeries.wonGamesCount());
         }
 
         return "rungame";

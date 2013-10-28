@@ -56,7 +56,17 @@ public class GameControllerTest
     }
 
     @Test
-    public void whenGameIsClosedThenItRedirectsToClosedGamePage() throws Exception
+    public void addGameStatisticsToModel() throws Exception
+    {
+        when(gameSeries.maxWinsCount()).thenReturn( 10 );
+        when( gameSeries.wonGamesCount() ).thenReturn( 3 );
+        mockMvc.perform( get("/game") )
+                .andExpect( model().attribute( "wins", 3 ) )
+                .andExpect( model().attribute( "maxwins", 10 ) );
+    }
+
+    @Test
+    public void whenGameIsClosedThenItForwardsToClosedGamePage() throws Exception
     {
         when( gameSeries.getState() ).thenReturn( GameSeriesState.CLOSED );
         mockMvc.perform( get("/game") )
