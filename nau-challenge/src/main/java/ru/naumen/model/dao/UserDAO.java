@@ -29,4 +29,11 @@ public class UserDAO
 
         return user;
     }
+
+    public User updateUser(User user)
+    {
+        dbImpl.update(user);
+
+        return user;
+    }
 }

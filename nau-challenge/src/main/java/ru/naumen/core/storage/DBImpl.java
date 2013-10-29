@@ -65,6 +65,13 @@ public class DBImpl
         getEntityManager().persist(user);
     }
 
+    @Transactional
+    public void update(User user)
+    {
+        getEntityManager().merge(user);
+    }
+
+
     EntityManager getEntityManager()
     {
         return entityManager;
