@@ -9,11 +9,8 @@ import ru.naumen.core.game.GameState;
  */
 public class ForeverClosed implements Game
 {
-    @Override
-    public String getId()
-    {
-        return "go";
-    }
+
+    private static final long serialVersionUID = 4738667777317130283L;
 
     @Override
     public String computerOutput()
@@ -28,19 +25,25 @@ public class ForeverClosed implements Game
     }
 
     @Override
-    public void input( String userInput )
+    public String getId()
     {
+        return "go";
     }
 
     @Override
-    public GameState state()
+    public void input( String userInput )
     {
-        return GameState.VICTORY;
     }
 
     @Override
     public String output()
     {
         return "";
+    }
+
+    @Override
+    public GameState state()
+    {
+        return GameState.VICTORY;
     }
 }

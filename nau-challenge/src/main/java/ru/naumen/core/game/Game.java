@@ -1,5 +1,7 @@
 package ru.naumen.core.game;
 
+import java.io.Serializable;
+
 /**
  * <p>Интерфейс игры (задания) пока что отражает только аспект взаимодействия с GUI.
  * Логику сериализации/десериализации для сохранения промежуточных состояний
@@ -23,7 +25,7 @@ package ru.naumen.core.game;
  * @author Andrey Hitrin
  * @since 21.10.13
  */
-public interface Game
+public interface Game extends Serializable
 {
     /**
      * Если у нас бот должен уметь ходить, то в это выводе показывается ход противника

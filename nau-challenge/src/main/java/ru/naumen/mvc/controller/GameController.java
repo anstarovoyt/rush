@@ -14,6 +14,8 @@ import ru.naumen.core.game.GameSeries;
 import ru.naumen.core.game.GameSeriesState;
 import ru.naumen.core.game.GameState;
 import ru.naumen.core.info.Params;
+import ru.naumen.model.User;
+import ru.naumen.model.dao.UserDAO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +30,10 @@ public class GameController
 
     @Inject
     Authenticator authenticator;
+
+    @Inject
+    UserDAO dao;
+
 
     @RequestMapping(value = "/game", method = RequestMethod.GET)
     public String gameInfo(@RequestParam(value = Params.GAME_ID, required = false) String gid, Model model)
@@ -59,7 +65,8 @@ public class GameController
             @RequestParam(value = Params.ANSWER_ID, required = false) String answer, Model model)
     {
 
-        GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get(gid);
+        User currentUser = authenticator.getCurrentUser();
+        GameSeries gameSeries = currentUser.getUserGameStorage().get(gid);
         Game game = gameSeries.getGame();
 
         game.input(answer);
@@ -72,6 +79,8 @@ public class GameController
         {
             gameSeries.loseOneGame();
         }
+
+        setState(currentUser);
 
         if (isSolved(gameSeries))
         {
@@ -96,4 +105,10 @@ public class GameController
     {
         return gameSeries.getState() == GameSeriesState.SOLVED;
     }
+
+    private void setState(User currentUser)
+    {
+        dao.updateUser(currentUser);
+    }
+
 }

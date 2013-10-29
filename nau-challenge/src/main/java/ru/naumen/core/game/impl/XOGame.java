@@ -1,9 +1,9 @@
 package ru.naumen.core.game.impl;
 
+import java.util.Random;
+
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
-
-import java.util.Random;
 
 /**
  * @author Andrey Hitrin
@@ -11,17 +11,18 @@ import java.util.Random;
  */
 public class XOGame implements Game {
 
-    public static final char COMPUTER_CHAR = 'O';
-    public static final char USER_CHAR = 'X';
-    public static final char UNUSED_CHAR = '*';
-    public static final int[][] WINS = {
+
+    private static final long serialVersionUID = 1l;
+
+    public transient static final char COMPUTER_CHAR = 'O';
+    public transient static final char USER_CHAR = 'X';
+    public transient static final char UNUSED_CHAR = '*';
+    public transient static final int[][] WINS = {
             {1, 2, 3}, {4, 5, 6}, {7, 8, 9},
             {1, 4, 7}, {2, 5, 8}, {3, 6, 9},
             {1, 5, 9}, {3, 5, 7}
     };
-    public static Random RND = new Random();
-    char matrix[] = {'*', '*', '*', '*', '*', '*', '*', '*', '*'};
-    GameState victory = GameState.IN_PROGRESS;
+    public transient static Random RND = new Random();
 
     /**
      * У нас есть набор отображаемых символов
@@ -43,10 +44,13 @@ public class XOGame implements Game {
         }
         return result.toString();
     }
-
     public static String unformat(String input) {
         return input.replace("\n", "").replace("|", "");
     }
+
+    char matrix[] = {'*', '*', '*', '*', '*', '*', '*', '*', '*'};
+
+    GameState victory = GameState.IN_PROGRESS;
 
     /**
      * @return -1 если игрок победил или текущий ход компьютера
@@ -61,9 +65,17 @@ public class XOGame implements Game {
         return format(matrix);
     }
 
+    public int getComputerWin() {
+        return winStep(COMPUTER_CHAR);
+    }
+
     @Override
     public String getDescription() {
         return "You have a 3x3 board. You can put X symbols anywhere, one per turn. Your task is to put 3 X'es in a line.";
+    }
+
+    public int getExpectedUserWin() {
+        return winStep(USER_CHAR);
     }
 
     @Override
@@ -124,14 +136,55 @@ public class XOGame implements Game {
         }
     }
 
-    private boolean isFieldFilled() {
-        for (char turn : matrix) {
-            if (turn == UNUSED_CHAR) {
-                return false;
+    public boolean isUserWin() {
+        for (int[] line : WINS) {
+            if (isWin(line, USER_CHAR)) {
+                return true;
             }
         }
+        return false;
+    }
 
-        return true;
+    @Override
+    public String output() {
+        return null;
+    }
+
+    @Override
+    public GameState state() {
+        return victory;
+    }
+
+    public int winStep(char turn) {
+        for (int[] line : WINS) {
+            if (canWin(line, turn)) {
+                for (int index : line) {
+                    if (matrix[index - 1] == UNUSED_CHAR) {
+                        return index;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    void setMatrix(char[] newState) {
+        matrix = newState;
+    }
+
+    private boolean canWin(int[] line, char turn) {
+        return countOfState(line, UNUSED_CHAR) == 1
+                && countOfState(line, turn) == 2;
+    }
+
+    private int countOfState(int[] indexes, char expectedState) {
+        int count = 0;
+        for (int index : indexes) {
+            if (matrix[index - 1] == expectedState) {
+                count++;
+            }
+        }
+        return count;
     }
 
     private int getAcceptedRandomStep() {
@@ -152,63 +205,14 @@ public class XOGame implements Game {
         throw new IllegalStateException();
     }
 
-    public boolean isUserWin() {
-        for (int[] line : WINS) {
-            if (isWin(line, USER_CHAR)) {
-                return true;
+    private boolean isFieldFilled() {
+        for (char turn : matrix) {
+            if (turn == UNUSED_CHAR) {
+                return false;
             }
         }
-        return false;
-    }
 
-    public int getExpectedUserWin() {
-        return winStep(USER_CHAR);
-    }
-
-    public int getComputerWin() {
-        return winStep(COMPUTER_CHAR);
-    }
-
-    public int winStep(char turn) {
-        for (int[] line : WINS) {
-            if (canWin(line, turn)) {
-                for (int index : line) {
-                    if (matrix[index - 1] == UNUSED_CHAR) {
-                        return index;
-                    }
-                }
-            }
-        }
-        return -1;
-    }
-
-    @Override
-    public String output() {
-        return null;
-    }
-
-    @Override
-    public GameState state() {
-        return victory;
-    }
-
-    void setMatrix(char[] newState) {
-        matrix = newState;
-    }
-
-    private int countOfState(int[] indexes, char expectedState) {
-        int count = 0;
-        for (int index : indexes) {
-            if (matrix[index - 1] == expectedState) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private boolean canWin(int[] line, char turn) {
-        return countOfState(line, UNUSED_CHAR) == 1
-                && countOfState(line, turn) == 2;
+        return true;
     }
 
     private boolean isWin(int[] line, char turn) {

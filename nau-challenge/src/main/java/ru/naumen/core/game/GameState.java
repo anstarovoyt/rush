@@ -1,5 +1,7 @@
 package ru.naumen.core.game;
 
+import java.io.Serializable;
+
 /**
  * <p>Пока что я не придумал игр, у которых было бы больше трёх состояний.
  * Надеюсь, их и не появится :)</p>
@@ -10,7 +12,7 @@ package ru.naumen.core.game;
  * @author Andrey Hitrin
  * @since 21.10.13
  */
-public enum GameState
+public enum GameState implements Serializable
 {
     IN_PROGRESS,
     FAILURE,
