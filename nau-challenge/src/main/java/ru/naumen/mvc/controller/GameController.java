@@ -23,19 +23,23 @@ import ru.naumen.core.info.Params;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class GameController {
+public class GameController
+{
 
     @Inject
     Authenticator authenticator;
 
     @RequestMapping(value = "/game", method = RequestMethod.GET)
-    public String gameInfo(@RequestParam(value = Params.GAME_ID, required = false) String gid,
-                           Model model) {
+    public String gameInfo(@RequestParam(value = Params.GAME_ID, required = false) String gid, Model model)
+    {
 
-        GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get( gid );
-        if (gameSeries.getState() == GameSeriesState.CLOSED)
+        GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get(gid);
+        if (isClosed(gameSeries))
+        {
             return "gameclosed";
-        if (gameSeries.getState() == GameSeriesState.SOLVED) {
+        }
+        if (isSolved(gameSeries))
+        {
             model.addAttribute("wins", gameSeries.wonGamesCount());
             return "gamesolved";
         }
@@ -51,21 +55,26 @@ public class GameController {
 
     @RequestMapping(value = "/game", method = RequestMethod.POST)
     public String gameProcess(@RequestParam(value = Params.GAME_ID, required = false) String gid,
-                              @RequestParam(value = Params.ANSWER_ID, required = false) String answer,
-                              Model model) {
+            @RequestParam(value = Params.ANSWER_ID, required = false) String answer, Model model)
+    {
 
-        GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get( gid );
+        GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get(gid);
         Game game = gameSeries.getGame();
 
         game.input(answer);
         // вопрос, когда высчитывается состояние игры
         if (game.state() == GameState.VICTORY)
+        {
             gameSeries.winOneGame();
+        }
         if (game.state() == GameState.FAILURE)
+        {
             gameSeries.loseOneGame();
+        }
 
-        if (gameSeries.getState() == GameSeriesState.SOLVED) {
-            model.addAttribute( "wins", gameSeries.wonGamesCount() );
+        if (isSolved(gameSeries))
+        {
+            model.addAttribute("wins", gameSeries.wonGamesCount());
             return "gamesolved";
         }
 
@@ -75,5 +84,15 @@ public class GameController {
         model.addAttribute("wins", gameSeries.wonGamesCount());
 
         return "rungame";
+    }
+
+    private boolean isClosed(GameSeries gameSeries)
+    {
+        return gameSeries.getState() == GameSeriesState.CLOSED;
+    }
+
+    private boolean isSolved(GameSeries gameSeries)
+    {
+        return gameSeries.getState() == GameSeriesState.SOLVED;
     }
 }
