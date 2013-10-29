@@ -48,7 +48,7 @@ public class Authenticator {
 
     public User getCurrentUser() {
         User user = currentUser.get();
-        if (user != null) {
+        if (user == null) {
             String accessKey = (String) SpringContext.session().getAttribute(ACCESS_KEY_PARAM);
             if (accessKey != null) {
                 user = userDAO.getByAccessKey(accessKey);
