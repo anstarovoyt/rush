@@ -25,33 +25,33 @@ public class DBImpl
 
     public static final String DB_NAME = "userdb";
 
-
     @PersistenceContext
     EntityManager entityManager;
-
 
     @SuppressWarnings("unchecked")
     @Transactional
     public User findByAccessKey(String accessKey)
     {
-        Query query = getEntityManager().createQuery("SELECT p from " + User.class.getName() + " p where p.accessKey = :accessKey");
+        Query query = getEntityManager().createQuery(
+                "SELECT p from " + User.class.getName() + " p where p.accessKey = :accessKey");
         query.setParameter("accessKey", accessKey);
         query.setHint("org.hibernate.cacheable", true);
 
         List resultList = query.getResultList();
-        return Iterables.get(resultList, 0, null);
+        return (User)Iterables.get(resultList, 0, null);
     }
 
     @SuppressWarnings("unchecked")
     @Transactional
     public User findByEmail(String email)
     {
-        Query query = getEntityManager().createQuery("SELECT p from " + User.class.getName() + " p where p.email = :email");
+        Query query = getEntityManager().createQuery(
+                "SELECT p from " + User.class.getName() + " p where p.email = :email");
         query.setParameter("email", email);
         query.setHint("org.hibernate.cacheable", true);
 
         List resultList = query.getResultList();
-        return Iterables.get(resultList, 0, null);
+        return (User)Iterables.get(resultList, 0, null);
     }
 
     @PostConstruct
@@ -70,7 +70,6 @@ public class DBImpl
     {
         getEntityManager().merge(user);
     }
-
 
     EntityManager getEntityManager()
     {
