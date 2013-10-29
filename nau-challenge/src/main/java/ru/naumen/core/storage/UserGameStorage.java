@@ -1,5 +1,6 @@
 package ru.naumen.core.storage;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import ru.naumen.core.game.Game;
@@ -20,7 +21,7 @@ import ru.naumen.core.game.GameSeries;
  * Date: 10/23/13
  * Time: 11:13 PM
  */
-public interface UserGameStorage {
+public interface UserGameStorage extends Serializable {
 
     GameSeries get(String key);
 

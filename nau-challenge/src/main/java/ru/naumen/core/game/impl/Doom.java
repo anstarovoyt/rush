@@ -9,6 +9,13 @@ import ru.naumen.core.game.GameState;
  */
 public class Doom implements Game
 {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * state of game
+     * @serial
+     */
     GameState victory = GameState.IN_PROGRESS;
 
     @Override

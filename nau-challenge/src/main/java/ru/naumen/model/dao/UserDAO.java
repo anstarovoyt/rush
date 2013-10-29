@@ -1,36 +1,32 @@
 package ru.naumen.model.dao;
 
-import java.util.Collections;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+import javax.inject.Inject;
 
 import org.springframework.stereotype.Component;
 
+import ru.naumen.core.storage.DBImpl;
 import ru.naumen.model.User;
 
 @Component
-public class UserDAO {
-    
-    private final Set<User> db = Collections.newSetFromMap(new ConcurrentHashMap<User, Boolean>()); 
-    
-    public User saveUser(User user) {
-        db.add(user);
+public class UserDAO
+{
+    @Inject
+    DBImpl dbImpl;
+
+    public User getByAccessKey(String accessKey)
+    {
+        return dbImpl.findByAccessKey(accessKey);
+    }
+
+    public User getByEmail(String email)
+    {
+        return dbImpl.findByEmail(email);
+    }
+
+    public User saveUser(User user)
+    {
+        dbImpl.store(user);
+
         return user;
-    }
-
-    public User getByEmail(String email) {
-        for(User user : db) {
-            if(user.getEmail().equals(email))
-                return user;
-        }
-        return null;
-    }
-
-    public User getByAccessKey(String accessKey) {
-        for(User user : db) {
-            if(user.getAccessKey().equals(accessKey))
-                return user;
-        }
-        return null;               
     }
 }

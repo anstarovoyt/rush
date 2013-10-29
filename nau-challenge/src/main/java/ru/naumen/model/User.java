@@ -1,8 +1,10 @@
 package ru.naumen.model;
 
-import ru.naumen.core.SpringContext;
 import java.util.Random;
 
+import javax.persistence.*;
+
+import ru.naumen.core.SpringContext;
 import ru.naumen.core.auth.accessKey.AccessKeyGenerator;
 import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.core.storage.UserGameStorageFactory;
@@ -13,6 +15,9 @@ import ru.naumen.core.storage.UserGameStorageFactory;
  * @author serce
  * @since 25 окт. 2013 г.
  */
+@Entity
+@Table(name = "users")
+@Cacheable
 public class User
 {
     public static User create(String email, String fio, String password)
@@ -27,12 +32,24 @@ public class User
         return user;
     }
 
+    @Id
     private long id;
+
+    @Column
     private String email;
+
+    @Column
     private String fio;
+
+    @Column
     private String password;
+
+    @Column
+    @Lob
+    @Basic(fetch=FetchType.LAZY)
     private UserGameStorage storage;
 
+    @Column
     private String accessKey;
 
     User()

@@ -1,15 +1,29 @@
 package ru.naumen.core.game;
 
+import java.io.Serializable;
+
 /**
  * @author Andrey Hitrin
  * @since 25.10.13
  */
-public class GameSeries
+public class GameSeries implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
+    public static GameSeries closedGame( Game game, int maxWins )
+    {
+        return new GameSeries( game, maxWins, new GameSeries[]{}, GameSeriesState.CLOSED );
+    }
+    public static GameSeries openGame( Game game, int maxWins, GameSeries... nextGames )
+    {
+        return new GameSeries( game, maxWins, nextGames, GameSeriesState.OPEN );
+    }
     private final GameSeries[] nextGames;
     private int gamesWon = 0;
     private GameSeriesState state;
+
     private Game game;
+
     private int maxWins;
 
     public GameSeries( Game game, int maxWins, GameSeries[] nextGames, GameSeriesState state )
@@ -20,19 +34,28 @@ public class GameSeries
         this.nextGames = nextGames;
     }
 
-    public static GameSeries openGame( Game game, int maxWins, GameSeries... nextGames )
+    public Game getGame()
     {
-        return new GameSeries( game, maxWins, nextGames, GameSeriesState.OPEN );
+        if (state == GameSeriesState.OPEN)
+        {
+            return game;
+        }
+        return null;
     }
 
-    public static GameSeries closedGame( Game game, int maxWins )
+    public String getId()
     {
-        return new GameSeries( game, maxWins, new GameSeries[]{}, GameSeriesState.CLOSED );
+        return game.getId();
     }
 
     public GameSeriesState getState()
     {
         return state;
+    }
+
+    public void loseOneGame()
+    {
+        gamesWon = 0;
     }
 
     public void makeOpen()
@@ -52,23 +75,6 @@ public class GameSeries
         }
     }
 
-    public int wonGamesCount()
-    {
-        return gamesWon;
-    }
-
-    public Game getGame()
-    {
-        if (state == GameSeriesState.OPEN)
-            return game;
-        return null;
-    }
-
-    public String getId()
-    {
-        return game.getId();
-    }
-
     public int maxWinsCount()
     {
         return maxWins;
@@ -78,11 +84,13 @@ public class GameSeries
     {
         gamesWon++;
         if (gamesWon >= maxWins)
+        {
             makeSolved();
+        }
     }
 
-    public void loseOneGame()
+    public int wonGamesCount()
     {
-        gamesWon = 0;
+        return gamesWon;
     }
 }

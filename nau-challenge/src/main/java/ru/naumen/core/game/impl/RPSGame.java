@@ -15,26 +15,26 @@ import ru.naumen.core.game.GameState;
  */
 public class RPSGame implements Game
 {
-    public static final Random RND = new Random();
+    public transient static final long serialVersionUID = 1L;
+    public transient static final Random RND = new Random();
 
-    public static final String ORDERING = "PRSPPRRSS";
 
-    public static final String ROCK = "R";
-    public static final String PAPER = "P";
-    public static final String SCISSORS = "S";
-
-    int currentState = RND.nextInt(10);
-
-    char currentUserStep;
-    char currentComputerStep;
-
-    GameState victory = GameState.IN_PROGRESS;
     /**
      *  R > S > P > R
      */
-    public static final String RULES = "RSPR";
+    public transient static final String RULES = "RSPR";
 
-    public static final String ACCEPTED_STEP = "RSP";
+    public transient static final String ACCEPTED_STEP = "RSP";
+    public transient static final String ORDERING = "PRSPPRRSS";
+    public transient static final String ROCK = "R";
+    public transient static final String PAPER = "P";
+    public transient static final String SCISSORS = "S";
+
+
+    int currentState = RND.nextInt(10);
+    char currentUserStep;
+    char currentComputerStep;
+    GameState victory = GameState.IN_PROGRESS;
 
     @Override
     public String computerOutput()
