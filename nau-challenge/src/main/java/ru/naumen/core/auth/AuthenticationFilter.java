@@ -39,7 +39,8 @@ public class AuthenticationFilter implements Filter {
             "/resources/",
             "/complete-register/",
             "/login/",
-            "/logout/"
+            "/logout/",
+            "/favicon.ico"
     );
     //@formatter:on
 

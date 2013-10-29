@@ -27,7 +27,7 @@
                     <li><a href="/games/?ak=<%= getCurrentUser().getAccessKey() %>">Games</a></li>
                 <% } %>
             </ul>
-            <% if(getCurrentUser() == null || request.getAttribute("ak") != null) { %>
+            <% if(getCurrentUser() == null && request.getAttribute("isIndexPage") != null) { %>
                 <form:form id="login" class="navbar-form navbar-right" novalidate="novalidate" method="post" action="/login/" modelAttribute="userForm">
                     <form:errors path="*" cssClass="errorUserMessage" /> 
                     <div class="form-group">

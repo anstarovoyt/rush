@@ -24,8 +24,6 @@ public class Authenticator {
     @Inject
     UserDAO userDAO;
 
-    private final ThreadLocal<User> currentUser = new ThreadLocal<>();
-
     public User registerUser(User user) {
         validateUser(user);
         user = userDAO.saveUser(user);
@@ -47,14 +45,12 @@ public class Authenticator {
     }
 
     public User getCurrentUser() {
-        User user = currentUser.get();
-        if (user == null) {
-            String accessKey = (String) SpringContext.session().getAttribute(ACCESS_KEY_PARAM);
-            if (accessKey != null) {
-                user = userDAO.getByAccessKey(accessKey);
-                if(user != null) {
-                    setCurrentUser(user);
-                }
+        User user = null;
+        String accessKey = (String) SpringContext.session().getAttribute(ACCESS_KEY_PARAM);
+        if (accessKey != null) {
+            user = userDAO.getByAccessKey(accessKey);
+            if(user != null) {
+                setCurrentUser(user);
             }
         }
         return user;
@@ -62,14 +58,12 @@ public class Authenticator {
 
     public User setCurrentUser(User user) {
         SpringContext.session().setAttribute(ACCESS_KEY_PARAM, user.getAccessKey());
-        currentUser.set(user);
         return user;
     }
     
     public User setCurrentUser(String email) {
         User user = userDAO.getByEmail(email);
         SpringContext.session().setAttribute(ACCESS_KEY_PARAM, user.getAccessKey());
-        currentUser.set(user);
         return user;
     }
 
@@ -82,6 +76,5 @@ public class Authenticator {
 
     public void logout() {
         SpringContext.session().removeAttribute(ACCESS_KEY_PARAM);
-        currentUser.set(null);
     }
 }
