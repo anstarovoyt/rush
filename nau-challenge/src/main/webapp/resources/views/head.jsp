@@ -13,8 +13,4 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
-    color: #ef6b00 !important;
-}
-
 </style>

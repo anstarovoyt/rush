@@ -18,7 +18,6 @@
             </div>
         </div>
     </div>
-
     <div class="container">
         <div class="row col-md-8 col-md-offset-2">
             <form:form id="signup" novalidate="novalidate" method="post" action="/complete-register/" modelAttribute="registrationForm">

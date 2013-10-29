@@ -21,8 +21,7 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, Naumen!</h1>
-            <p>Выбери игру</p>
+            <h1>Выбери игру!</h1>
         </div>
     </div>
 
