@@ -12,17 +12,19 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, Naumen!</h1>
-            <p>Please register</p>
+            <div class="row" style="text-align: center;">
+                <h1>Привет, Naumen!</h1>
+                <p>Для начала зарегистрируйтесь</p>
+            </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="row col-md-8 col-md-offset-2">
             <form:form id="signup" novalidate="novalidate" method="post" action="/complete-register/" modelAttribute="registrationForm">
                 <form:errors path="*" cssClass="errorUserMessage" />
                 <div class="form-group">
-                    <label for="email">Email address</label> 
+                    <label for="email">Email</label> 
                     <form:input path="email" type="email" class="form-control" name="email" id="email" placeholder="Введите email"/>
                 </div>
                 <div class="form-group">
@@ -40,7 +42,7 @@
                 <div class="form-group">
                     <label class="form-label"></label>
                     <div class="controls">
-                        <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+                        <button type="submit" class="btn btn-success btn-orange">Зарегистрироваться</button>
                     </div>
                 </div>
             </form:form>
@@ -68,7 +70,13 @@
 					},
 				},
 
-				errorClass : "help-inline"
+				errorClass : "has-error-label",
+                highlight: function(element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                unhighlight: function(element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                }
 			});
 		});
 	</script>

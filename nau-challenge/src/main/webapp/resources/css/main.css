@@ -1,0 +1,34 @@
+.btn-orange {
+  background-color: #ef6b00;
+  border-color: #ef6b00;
+}
+.btn-orange:hover,
+.btn-orange:focus,
+.btn-orange:active,
+.btn-orange.active {
+  background-color: #d66000;
+  border-color: #bc5400;
+}
+.btn-orange.disabled:hover,
+.btn-orange.disabled:focus,
+.btn-orange.disabled:active,
+.btn-orange.disabled.active,
+.btn-orange[disabled]:hover,
+.btn-orange[disabled]:focus,
+.btn-orange[disabled]:active,
+.btn-orange[disabled].active,
+fieldset[disabled] .btn-orange:hover,
+fieldset[disabled] .btn-orange:focus,
+fieldset[disabled] .btn-orange:active,
+fieldset[disabled] .btn-orange.active {
+  background-color: #ef6b00;
+  border-color: #ef6b00;
+}
+
+.errorUserMessage {
+	color: red;
+}
+
+.has-error-label {
+	color: red;
+}

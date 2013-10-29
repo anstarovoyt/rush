@@ -36,28 +36,29 @@
                     <div class="form-group">
                         <input name="password" type="password" placeholder="Пароль" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-success">Войти</button>
+                    <button type="submit" class="btn btn-orange btn-success">Войти</button>
                 </form:form>
                 <script>
-                $(document).ready(function() {
-                    $("#login").validate({
-                        rules : {
-                            email : "required",
-                            password : {
-                                required : true,
-                                minlength : 4
-                            }
-                        },
-                        errorClass : "help-inline"
-                    });
-                });
+                // Убрал валидацию на клиенте для формы логина
+//                 $(document).ready(function() {
+//                     $("#login").validate({
+//                         rules : {
+//                             email : "required",
+//                             password : {
+//                                 required : true,
+//                                 minlength : 4
+//                             }
+//                         },
+//                         errorClass : "errorLoginInline"
+//                     });
+//                 });
                 </script>
             <% } else if(getCurrentUser() != null) { %>
                 <ul class="nav navbar-nav" style="float: right;">
                 <li class="dropdown" style="float: right;">
                     <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown"><%= getCurrentUser().getEmail() %><b class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop2" style="text-align: center;">
-                        <button id="logoutButton" onclick="logout();" class="btn btn-primary loginform">Logout</button>
+                        <button id="logoutButton" onclick="logout();" class="btn btn-orange btn-primary loginform">Logout</button>
                     </ul>
                 </li>
                 </ul>

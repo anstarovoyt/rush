@@ -2,7 +2,7 @@
 
 <meta charset="utf-8">
 <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet" />
-<link href="<c:url value="/resources/css/mail.css" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet" />
 <link href="/resources/img/favicon.png" rel="shortcut icon">
 <script src="<c:url value="/resources/js/jquery.js" />"></script>                
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
@@ -13,4 +13,8 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+    color: #ef6b00 !important;
+}
+
 </style>
