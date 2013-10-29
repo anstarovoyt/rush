@@ -39,14 +39,14 @@
                 <h2>Tic tac toe</h2>
                 <p>Крестики, да нолики</p>
                 <p>
-                    <a class="btn btn-default" href="/game?gid=xo&<%= UrlUtils.createAKParam(getCurrentUser()) %>">Doom &raquo;</a>
+                    <a class="btn btn-default" href="/game?gid=xo&<%= UrlUtils.createAKParam(getCurrentUser()) %>">Go game &raquo;</a>
                 </p>
             </div>
             <div class="col-lg-4">
-                <h2>One more game</h2>
-                <p>Еще одна игра</p>
+                <h2>Rock, paper, scissors</h2>
+                <p>Камень, ножницы, бумага</p>
                 <p>
-                    <a class="btn btn-default" href="/game?gid=go&<%= UrlUtils.createAKParam(getCurrentUser())%>">Go game &raquo;</a>
+                    <a class="btn btn-default" href="/game?gid=rps&<%= UrlUtils.createAKParam(getCurrentUser())%>">Go game &raquo;</a>
                 </p>
             </div>
         </div>

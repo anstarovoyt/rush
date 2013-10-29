@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import ru.naumen.core.game.impl.Doom;
 import ru.naumen.core.game.impl.ForeverClosed;
+import ru.naumen.core.game.impl.RPSGame;
 import ru.naumen.core.game.impl.XOGame;
 
 /**
@@ -25,6 +26,7 @@ public class GameProvider
         return Arrays.asList(
                 openGame( new Doom(), 1, closedGameExample ),
                 openGame( new XOGame(), 50 ),
+                openGame( new RPSGame(), 50 ),
                 closedGameExample );
     }
 }
