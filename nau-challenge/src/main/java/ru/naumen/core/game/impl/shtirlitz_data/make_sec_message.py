@@ -4,7 +4,7 @@ from string import find, lower
 
 # coding=utf-8
 
-work_dir = '/Users/achernin/IdeaProjects/nau-challenge/nau-challenge/src/main/java/ru/naumen/core/game/impl/shtirlitz_data'
+work_dir = 'C:\\projects\\dev camp rush\\nau-challenge\\nau-challenge\\src\\main\\java\\ru\\naumen\\core\\game\\impl\\shtirlitz_data'
 
 def file_with_dir(filename):
     return os.path.join(work_dir, filename)
@@ -45,12 +45,25 @@ def split_to_chapters(filename):
             chapter_buffer_len += 1
 
 
+def shift_to_left(filename='anna_karenina.txt', filename_dst='anna_karenina_dst.txt'):
+    src = open(file_with_dir(filename), 'r')
+    dst = open(file_with_dir(filename_dst), 'w')
+    for line in src:
+        line = line.lstrip()
+        if line:
+            dst.write(line)
+        else:
+            dst.write('\n')
+    dst.close()
+    src.close()
+
+
 def random_chapter_number():
     return randint(0, 240)
 
 def work_format(line):
     line = line.decode('utf-8')
-    line = lower(line)
+    #line = lower(line)
     return line
 
 def encript_msg(msg, chapter_number=None):
@@ -85,7 +98,6 @@ def encript_msg(msg, chapter_number=None):
 
     return criptogramma
 
-# split_to_chapters('anna_karenina.txt')
 
 def get_msg_to_encript():
     filename = 'msg.txt'
@@ -97,9 +109,28 @@ def get_msg_to_encript():
         line = line.rstrip('\n')
     return line
 
-msg = get_msg_to_encript()
-for i in range(0, 241):
-    criptogramma = encript_msg(msg, i)
+
+def split_and_encript():
+    split_to_chapters('anna_karenina.txt')
+    msg = get_msg_to_encript()
+    for i in range(0, 241):
+        criptogramma = encript_msg(msg, i)
+        if criptogramma:
+            print i
+            print criptogramma
+
+
+def encript():
+    msg = get_msg_to_encript()
+    criptogramma = encript_msg(msg, 211)
     if criptogramma:
-        print i
+        print 211
         print criptogramma
+
+
+
+
+# split_and_encript()
+# encript()
+
+shift_to_left()
