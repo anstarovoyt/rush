@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ru.naumen.core.auth.Authenticator;
+import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameSeries;
 import ru.naumen.model.dao.UserDAO;
 
@@ -31,9 +32,9 @@ public class GamesList
     @RequestMapping(value = "/games", method = RequestMethod.GET)
     public String gamesList(Model model) {
         Collection<GameSeries> games = authenticator.getCurrentUser().getUserGameStorage().getAll();
-        List<String> gameIds = new ArrayList<String>();
+        List<Game> gameIds = new ArrayList<>();
         for (GameSeries series : games) {
-            gameIds.add( series.getId() );
+            gameIds.add( series.getGame() );
         }
         model.addAttribute( "gameIds", gameIds );
         return "allgames";

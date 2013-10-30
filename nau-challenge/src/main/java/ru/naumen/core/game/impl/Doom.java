@@ -19,6 +19,18 @@ public class Doom implements Game
     GameState victory = GameState.IN_PROGRESS;
 
     @Override
+    public String getShortName()
+    {
+        return "Doom";
+    }
+
+    @Override
+    public String getShortDescription()
+    {
+        return "Классический шутер в новой форме";
+    }
+
+    @Override
     public String computerOutput()
     {
         return null;

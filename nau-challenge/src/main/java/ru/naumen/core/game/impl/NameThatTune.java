@@ -14,6 +14,18 @@ public class NameThatTune implements Game
     private static final long serialVersionUID = 1L;
 
     @Override
+    public String getShortName()
+    {
+        return "Угадай мелодию";
+    }
+
+    @Override
+    public String getShortDescription()
+    {
+        return "Вам потребуется музыкальный слух, чтобы справиться с этим заданием!";
+    }
+
+    @Override
     public String computerOutput()
     {
         return null;

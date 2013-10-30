@@ -61,6 +61,18 @@ public class XOGame implements Game {
     }
 
     @Override
+    public String getShortName()
+    {
+        return "Крестики-нолики";
+    }
+
+    @Override
+    public String getShortDescription()
+    {
+        return "Серьёзное испытание для интеллекта";
+    }
+
+    @Override
     public String computerOutput() {
         return format(matrix);
     }

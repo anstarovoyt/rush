@@ -27,6 +27,10 @@ import java.io.Serializable;
  */
 public interface Game extends Serializable
 {
+    String getShortName();
+
+    String getShortDescription();
+
     /**
      * Если у нас бот должен уметь ходить, то в это выводе показывается ход противника
      */

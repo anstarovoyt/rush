@@ -13,6 +13,18 @@ public class ForeverClosed implements Game
     private static final long serialVersionUID = 4738667777317130283L;
 
     @Override
+    public String getShortName()
+    {
+        return "Закрытая игра";
+    }
+
+    @Override
+    public String getShortDescription()
+    {
+        return "Это пример для разработчиков, его не должно быть в финальной версии";
+    }
+
+    @Override
     public String computerOutput()
     {
         return "";

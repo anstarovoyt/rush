@@ -31,14 +31,14 @@
           Сделайте нормальную вёрстку, табличкой со строками и столбцами.
           А не этот дурацкий один столбик
     -->
-    <c:forEach var="id" items="${gameIds}">
+    <c:forEach var="game" items="${gameIds}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <h2>Doom</h2>
-                    <p>Что такое дум</p>
+                    <h2>${game.shortName}</h2>
+                    <p>${game.shortDescription}</p>
                     <p>
-                        <a class="btn btn-default" href="/game?gid=${id}&<%= UrlUtils.createAKParam(getCurrentUser())%>">Go game &raquo;</a>
+                        <a class="btn btn-default" href="/game?gid=${game.id}&<%= UrlUtils.createAKParam(getCurrentUser())%>">Go game &raquo;</a>
                     </p>
                 </div>
             </div>
