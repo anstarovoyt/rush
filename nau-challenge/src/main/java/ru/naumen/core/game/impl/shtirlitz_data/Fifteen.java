@@ -82,4 +82,9 @@ public class Fifteen implements Game
     {
         return null;
     }
+
+    @Override
+    public Game resetState() {
+        return new Fifteen();
+    }
 }

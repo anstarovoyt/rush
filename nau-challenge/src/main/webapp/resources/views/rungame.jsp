@@ -41,22 +41,22 @@
         <form class="form-horizontal" method="post">
             <div class="col-md-8 col-md-offset-2">
                 <p style="margin-top: 20px">Количество побед: ${wins} из ${maxwins}</p>
-                <% if(request.getAttribute("result") != null) { %>
+                <% if(request.getAttribute("computerstate") != null) { %>
                     <div class="row" style="margin-top: 20px">
                         <div class="control-group">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Ответ компьютера</h3>
+                                    <h3 class="panel-title">Вывод компьютера</h3>
                                 </div>
                                 <div class="panel-body" style="font-size: 16px;">
-                                    ${result}
+                                    ${computerstate}
                                 </div>
                             </div>
                         </div>
                     </div>
                 <% } %>
-                <p style="margin-top: 20px">Состояние игры: ${state}</p>
-                <p style="margin-top: 20px">Текущее состояние:</p>
+                <p style="margin-top: 20px">Состояние игры: ${gamestate}</p>
+                <p style="margin-top: 20px">Текущее состояние: ${computermessage}</p>
                 <div class="row">
                     <div class="control-group">
                         <div class="panel panel-default">

@@ -14,7 +14,25 @@ import java.io.Serializable;
  */
 public enum GameState implements Serializable
 {
-    IN_PROGRESS,
-    FAILURE,
-    VICTORY
+
+    IN_PROGRESS {
+        @Override
+        public String getMessage() {
+            return "Ожидается ввод игрока";
+        }
+    },
+    FAILURE {
+        @Override
+        public String getMessage() {
+            return "Поражение";
+        }
+    },
+    VICTORY {
+        @Override
+        public String getMessage() {
+            return "Победа в партии";
+        }
+    };
+
+    public abstract String getMessage();
 }

@@ -76,4 +76,9 @@ public class Shtirlitz implements Game
     {
         return state;
     }
+
+    @Override
+    public Game resetState() {
+        return this;
+    }
 }

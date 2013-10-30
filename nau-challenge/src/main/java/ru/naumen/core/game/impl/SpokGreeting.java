@@ -73,4 +73,9 @@ public class SpokGreeting implements Game
     {
         return state;
     }
+
+    @Override
+    public Game resetState() {
+        return this;
+    }
 }

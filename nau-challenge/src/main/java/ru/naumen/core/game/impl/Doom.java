@@ -64,4 +64,9 @@ public class Doom implements Game
     {
         return victory;
     }
+
+    @Override
+    public Game resetState() {
+        return this;
+    }
 }

@@ -77,4 +77,9 @@ public class NameThatTune implements Game
     {
         return state;
     }
+
+    @Override
+    public Game resetState() {
+        return this;
+    }
 }

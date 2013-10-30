@@ -58,4 +58,9 @@ public class ForeverClosed implements Game
     {
         return GameState.VICTORY;
     }
+
+    @Override
+    public Game resetState() {
+        return this;
+    }
 }

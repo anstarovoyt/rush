@@ -1,9 +1,9 @@
 package ru.naumen.core.game.impl;
 
-import java.util.Random;
-
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+
+import java.util.Random;
 
 /**
  * Камень-ножницы-бумага
@@ -36,6 +36,9 @@ public class RPSGame implements Game
     char currentComputerStep;
     GameState victory = GameState.IN_PROGRESS;
 
+    transient boolean isInputIncorrect;
+
+
     @Override
     public String getShortName()
     {
@@ -51,7 +54,7 @@ public class RPSGame implements Game
     @Override
     public String computerOutput()
     {
-        return String.format("User %s, Computer %s");
+        return String.format("User %c, Computer %c", currentUserStep, currentComputerStep);
     }
 
     @Override
@@ -98,7 +101,8 @@ public class RPSGame implements Game
         }
         catch (IllegalArgumentException e)
         {
-
+            isInputIncorrect = true;
+            victory = GameState.IN_PROGRESS;
         }
     }
 
@@ -112,13 +116,18 @@ public class RPSGame implements Game
     @Override
     public String output()
     {
-        return null;
+        return isInputIncorrect ? "Некорретный ввод" : "Ход засчитан";
     }
 
     @Override
     public GameState state()
     {
         return victory;
+    }
+
+    @Override
+    public Game resetState() {
+        return this;
     }
 
     void setState(int indexOfState)
