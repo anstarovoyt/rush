@@ -1,0 +1,13 @@
+CREATE ROLE swaldman LOGIN
+  UNENCRYPTED PASSWORD '5hjksd9bksdf803'
+  NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION VALID UNTIL '1970-01-01 00:00:00';
+
+
+CREATE DATABASE klingon_template
+  WITH OWNER = swaldman
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Russian_Russia.1251'
+       LC_CTYPE = 'Russian_Russia.1251'
+       CONNECTION LIMIT = -1;
+
