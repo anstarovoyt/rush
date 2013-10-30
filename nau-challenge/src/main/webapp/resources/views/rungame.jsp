@@ -17,6 +17,9 @@
             margin: 1em 0; 
             padding: 0; 
         }
+        h3 {
+            color: #d66000;
+        }
         </style>
     <head>
 <body>
@@ -37,25 +40,26 @@
     <div class="container">
         <form class="form-horizontal" method="post">
             <div class="col-md-8 col-md-offset-2">
-                <p >Игра пройдена</p>
                 <p style="margin-top: 20px">Количество побед: ${wins} из ${maxwins}</p>
-                <div class="row" style="margin-top: 20px">
-                    <div class="control-group">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Вывод компьютера</h3>
-                            </div>
-                            <div class="panel-body" style="font-size: 16px;">
-                                ${result}
+                <% if(request.getAttribute("result") != null) { %>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="control-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Ответ компьютера</h3>
+                                </div>
+                                <div class="panel-body" style="font-size: 16px;">
+                                    ${result}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                <% } %>
                 <p style="margin-top: 20px">Состояние игры: ${state}</p>
                 <p style="margin-top: 20px">Текущее состояние:</p>
                 <div class="row">
                     <div class="control-group">
-                        <div class="panel panel-primary">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Ваш ход</h3>
                             </div>

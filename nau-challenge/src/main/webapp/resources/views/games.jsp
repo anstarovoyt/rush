@@ -26,28 +26,32 @@
     </div>
 
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Doom</h2>
+        <div class="row" >
+            <div class="col-lg-05"></div>
+            <div class="game_card col-lg-3">
+                <h2 class="game_title">Doom</h2>
                 <p>Что такое дум</p>
-                <p>
-                    <a class="btn btn-default" href="/game?gid=dm&<%= UrlUtils.createAKParam(getCurrentUser())%>">Go game &raquo;</a>
+                <p class="game_button">
+                    <a class="btn btn-orange btn-primary" href="/game?gid=dm&<%= UrlUtils.createAKParam(getCurrentUser())%>">Играть! &raquo;</a>
                 </p>
             </div>
-            <div class="col-lg-4">
-                <h2>Tic tac toe</h2>
+            <div class="col-lg-1"></div>
+            <div class="game_card col-lg-3">
+                <h2 class="game_title">Tic tac toe</h2>
                 <p>Крестики, да нолики</p>
-                <p>
-                    <a class="btn btn-default" href="/game?gid=xo&<%= UrlUtils.createAKParam(getCurrentUser()) %>">Go game &raquo;</a>
+                <p class="game_button">
+                    <a class="btn btn-orange btn-primary" href="/game?gid=xo&<%= UrlUtils.createAKParam(getCurrentUser()) %>">Играть! &raquo;</a>
                 </p>
             </div>
-            <div class="col-lg-4">
-                <h2>Rock, paper, scissors</h2>
+            <div class="col-lg-1"></div>
+            <div class="game_card col-lg-3">
+                <h2 class="game_title">Rock, paper, scissors</h2>
                 <p>Камень, ножницы, бумага</p>
-                <p>
-                    <a class="btn btn-default" href="/game?gid=rps&<%= UrlUtils.createAKParam(getCurrentUser())%>">Go game &raquo;</a>
+                <p class="game_button">
+                    <a class="btn btn-orange btn-primary" href="/game?gid=rps&<%= UrlUtils.createAKParam(getCurrentUser())%>">Играть! &raquo;</a>
                 </p>
             </div>
+            <div class="col-lg-05"></div>
         </div>
     </div>
 </body>

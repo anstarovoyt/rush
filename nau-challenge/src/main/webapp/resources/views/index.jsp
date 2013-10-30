@@ -27,7 +27,7 @@
                     <form:input path="email" type="email" class="form-control" name="email" id="email" placeholder="Введите email"/>
                 </div>
                 <div class="form-group">
-                    <label for="text">ФИО</label> 
+                    <label for="text">Название команды</label> 
                     <form:input path="fio" type="text" class="form-control" name="fio" id="fio" placeholder="Введите ФИО"/>
                 </div>
                 <div class="form-group">

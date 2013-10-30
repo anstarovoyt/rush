@@ -40,3 +40,38 @@ fieldset[disabled] .btn-orange.active {
 .navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
 	color: #ef6b00 !important;
 }
+
+
+.game_card {
+	border-width: 2px;
+	border-color: #ef6b00;
+	border-style: solid;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	height: 200px;
+	
+	/* тени */
+	-webkit-box-shadow: 8px 8px 13px rgba(50, 50, 50, 0.57);
+    -moz-box-shadow:    8px 8px 13px rgba(50, 50, 50, 0.57);
+    box-shadow:         8px 8px 13px rgba(50, 50, 50, 0.57);
+}
+
+.game_title {
+	
+}
+
+.game_button {
+	position: absolute;
+	bottom: 0;
+	left: 12;
+}
+
+.col-lg-05 {
+	width: 4,16666665%;
+	float: left;
+	position: relative;
+	min-height: 1px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
