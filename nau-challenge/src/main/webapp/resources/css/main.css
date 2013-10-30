@@ -75,3 +75,8 @@ fieldset[disabled] .btn-orange.active {
 	padding-right: 15px;
 	padding-left: 15px;
 }
+
+
+.game_row {
+	margin-bottom: 40px;
+}
