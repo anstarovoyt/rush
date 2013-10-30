@@ -1,9 +1,9 @@
 package ru.naumen.core.game.impl;
 
-import java.util.Random;
-
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+
+import java.util.Random;
 
 /**
  * Камень-ножницы-бумага
@@ -119,6 +119,11 @@ public class RPSGame implements Game
     public GameState state()
     {
         return victory;
+    }
+
+    @Override
+    public Game resetState() {
+        return this;
     }
 
     void setState(int indexOfState)

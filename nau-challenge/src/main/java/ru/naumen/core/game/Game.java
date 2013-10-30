@@ -62,4 +62,10 @@ public interface Game extends Serializable
      * @return текущее состояние игры
      */
     GameState state();
+
+    /**
+     *
+     */
+    public Game resetState();
+
 }
