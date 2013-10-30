@@ -56,7 +56,7 @@ public class Doom implements Game
     @Override
     public String output()
     {
-        return victory == GameState.VICTORY ? "You are winner!" :  "You have been killed";
+        return victory == GameState.VICTORY ? "You are winner!" :  "";
     }
 
     @Override

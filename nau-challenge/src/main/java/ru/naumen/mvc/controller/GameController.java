@@ -54,6 +54,7 @@ public class GameController
         model.addAttribute("description", game.getDescription());
         model.addAttribute("gid", gid);
         model.addAttribute("maxwins", gameSeries.maxWinsCount());
+        model.addAttribute("result", game.output());
         model.addAttribute("wins", gameSeries.wonGamesCount());
         model.addAttribute("state", gameSeries.getState());
 

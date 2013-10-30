@@ -1,18 +1,13 @@
 package ru.naumen.core.game.impl;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
-import ru.naumen.core.game.Game;
-import ru.naumen.core.game.GameState;
-import ru.naumen.core.game.impl.Doom;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import ru.naumen.core.game.impl.Doom;
+import ru.naumen.core.game.Game;
+import ru.naumen.core.game.GameState;
 
 /**
  * @author Andrey Hitrin
@@ -37,13 +32,6 @@ public class DoomTest
         Game doom = new Doom();
         doom.input("please let me out!");
         assertThat( doom.state(), is( GameState.FAILURE ) );
-    }
-
-    @Test
-    public void doomGameKillsPlayerOnWrongInput() {
-        Game doom = new Doom();
-        doom.input( "test" );
-        assertThat( doom.output(), is("You have been killed") );
     }
 
     @Test
