@@ -13,6 +13,7 @@ import ru.naumen.core.game.impl.ForeverClosed;
 import ru.naumen.core.game.impl.NameThatTune;
 import ru.naumen.core.game.impl.RPSGame;
 import ru.naumen.core.game.impl.Shtirlitz;
+import ru.naumen.core.game.impl.SpokGreeting;
 import ru.naumen.core.game.impl.XOGame;
 
 /**
@@ -31,6 +32,7 @@ public class GameProvider
                 openGame( new RPSGame(), 50 ),
                 openGame( new Shtirlitz(), 1 ),
                 openGame( new NameThatTune(), 1 ),
+                openGame( new SpokGreeting(), 1 ),
                 closedGameExample );
     }
 }
