@@ -86,7 +86,9 @@ public class GameController
         }
 
         model.addAttribute("description", game.getDescription());
-        model.addAttribute("result", game.output());
+        model.addAttribute("computerstate", game.computerOutput());
+        model.addAttribute("computermessage", game.output());
+        model.addAttribute("gamestate", game.state().getMessage());
         model.addAttribute("maxwins", gameSeries.maxWinsCount());
         model.addAttribute("wins", gameSeries.wonGamesCount());
 
