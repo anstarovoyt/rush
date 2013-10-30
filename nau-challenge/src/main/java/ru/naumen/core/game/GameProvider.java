@@ -16,6 +16,7 @@ import ru.naumen.core.game.impl.RPSGame;
 import ru.naumen.core.game.impl.Shtirlitz;
 import ru.naumen.core.game.impl.SpokGreeting;
 import ru.naumen.core.game.impl.XOGame;
+import ru.naumen.core.game.impl.shtirlitz_data.Fifteen;
 
 /**
  * Класс предоставляет интерфейс доступа к классам существующих игр
@@ -35,6 +36,7 @@ public class GameProvider
                 openGame( new NameThatTune(), 1 ),
                 openGame( new SpokGreeting(), 1 ),
                 openGame( new Base64Game(), 1 ),
+                openGame( new Fifteen(), 5 ),
                 closedGameExample );
     }
 }
