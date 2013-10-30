@@ -66,6 +66,13 @@ public class GameController
         User currentUser = authenticator.getCurrentUser();
         GameSeries gameSeries = currentUser.getUserGameStorage().get(gid);
 
+        //Если пост-запрос был послан по ошибке, когда игра решена
+        if (isSolved(gameSeries))
+        {
+            model.addAttribute("wins", gameSeries.wonGamesCount());
+            return "gamesolved";
+        }
+
         gameSeries.input(answer);
 
         Game game = gameSeries.getGame();
