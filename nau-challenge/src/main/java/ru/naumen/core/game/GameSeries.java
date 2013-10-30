@@ -36,11 +36,7 @@ public class GameSeries implements Serializable
 
     public Game getGame()
     {
-        if (state == GameSeriesState.OPEN)
-        {
-            return game;
-        }
-        return null;
+        return game;
     }
 
     public String getId()

@@ -1,7 +1,6 @@
 package ru.naumen.core.game;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -35,19 +34,6 @@ public class GameSeriesTest
     public void gameSeriesProvidesGameWhenOpen()
     {
         assertThat( openGame.getGame(), is(game) );
-    }
-
-    @Test
-    public void gameSeriesHidesGameWhenClosed()
-    {
-        assertThat( closedGame.getGame(), is(nullValue()) );
-    }
-
-    @Test
-    public void gameSeriesHidesGameWhenSolved()
-    {
-        openGame.makeSolved();
-        assertThat( openGame.getGame(), is(nullValue()) );
     }
 
     @Test
