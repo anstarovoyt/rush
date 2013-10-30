@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import ru.naumen.core.game.impl.Base64Game;
 import ru.naumen.core.game.impl.Doom;
 import ru.naumen.core.game.impl.ForeverClosed;
 import ru.naumen.core.game.impl.NameThatTune;
@@ -33,6 +34,7 @@ public class GameProvider
                 openGame( new Shtirlitz(), 1 ),
                 openGame( new NameThatTune(), 1 ),
                 openGame( new SpokGreeting(), 1 ),
+                openGame( new Base64Game(), 1 ),
                 closedGameExample );
     }
 }
