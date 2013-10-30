@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import ru.naumen.core.game.impl.Doom;
 import ru.naumen.core.game.impl.ForeverClosed;
+import ru.naumen.core.game.impl.NameThatTune;
 import ru.naumen.core.game.impl.RPSGame;
 import ru.naumen.core.game.impl.Shtirlitz;
 import ru.naumen.core.game.impl.XOGame;
@@ -29,6 +30,7 @@ public class GameProvider
                 openGame( new XOGame(), 50 ),
                 openGame( new RPSGame(), 50 ),
                 openGame( new Shtirlitz(), 1 ),
+                openGame( new NameThatTune(), 1 ),
                 closedGameExample );
     }
 }
