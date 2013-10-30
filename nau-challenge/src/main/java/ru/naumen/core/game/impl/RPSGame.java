@@ -37,6 +37,18 @@ public class RPSGame implements Game
     GameState victory = GameState.IN_PROGRESS;
 
     @Override
+    public String getShortName()
+    {
+        return "Камень-ножницы-бумага";
+    }
+
+    @Override
+    public String getShortDescription()
+    {
+        return "Разве тут надо что-либо добавлять?";
+    }
+
+    @Override
     public String computerOutput()
     {
         return String.format("User %s, Computer %s");

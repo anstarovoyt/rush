@@ -14,6 +14,18 @@ public class Shtirlitz implements Game
     private static final long serialVersionUID = 1L;
 
     @Override
+    public String getShortName()
+    {
+        return "Штирлиц";
+    }
+
+    @Override
+    public String getShortDescription()
+    {
+        return "Помоги знаменитому разведчику!";
+    }
+
+    @Override
     public String computerOutput()
     {
         return null;

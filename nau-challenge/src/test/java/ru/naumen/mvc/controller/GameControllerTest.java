@@ -24,6 +24,7 @@ import ru.naumen.core.game.GameSeriesState;
 import ru.naumen.core.game.GameState;
 import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.model.User;
+import ru.naumen.model.dao.UserDAO;
 
 /**
  * @author Andrey Hitrin
@@ -40,6 +41,7 @@ public class GameControllerTest
     @Mock User user;
     @Mock UserGameStorage storage;
     @Mock GameSeries gameSeries;
+    @Mock UserDAO dao;
 
     @Before
     public void setupMocks() {

@@ -14,6 +14,18 @@ public class SpokGreeting implements Game
     private static final long serialVersionUID = 1L;
 
     @Override
+    public String getShortName()
+    {
+        return "Приветствие Спока";
+    }
+
+    @Override
+    public String getShortDescription()
+    {
+        return "Будь Спок";
+    }
+
+    @Override
     public String computerOutput()
     {
         return null;

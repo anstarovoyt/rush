@@ -1,13 +1,12 @@
 package ru.naumen.core.storage;
 
+import com.google.common.collect.Maps;
+
 import java.util.Collection;
 import java.util.HashMap;
 
-import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameProvider;
 import ru.naumen.core.game.GameSeries;
-
-import com.google.common.collect.Maps;
 
 /**
  *
@@ -39,11 +38,6 @@ public class UserGameStorageImpl implements UserGameStorage
     public Collection<GameSeries> getAll()
     {
         return games.values();
-    }
-
-    @Override
-    public void put(String key, Game value)
-    {
     }
 
 }
