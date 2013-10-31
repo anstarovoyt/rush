@@ -19,7 +19,7 @@ public class DiffTest
 
         game.input("(150, 81) (100, 20) (160, 10)");
 
-        assertEquals(GameState.VICTORY, game.state());
+        assertEquals(GameState.FAILURE, game.state());
     }
 
     @Test
