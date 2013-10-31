@@ -87,6 +87,10 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = GET)
     public String index(Model model) {
+        User currentUser = authenticator.getCurrentUser();
+        if(currentUser != null) {
+            return "redirect:/games/";
+        }
         model.addAttribute("userForm", new UserForm());
         model.addAttribute("registrationForm", new RegistrationForm());
         model.addAttribute("isIndexPage", new Object()); // хак, чтобы показывать форму логина только на странице логина
