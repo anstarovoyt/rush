@@ -16,12 +16,13 @@ public class MagicSelect implements Game
 {
     private static final long serialVersionUID = 1L;
 
+    public static final String ID = "ms";
+
     private static final transient Logger log = Logger.getLogger(MagicSelect.class.getName());
 
-    private static final transient String DESCRIPTION =
-            "При каждом запуске игра делает запрос к реляционной базе данных по миру сериала СтарТрэк <br/>" +
-            "select start_year from klingon_leader where leader = '?' <br/>" +
-            "Игрок выигрывает в игру, если результатом выполнения запроса будет год, в который началось правление канцлера Азетбура.<br/>";
+    private static final transient String DESCRIPTION = "При каждом запуске игра делает запрос к реляционной базе данных по миру сериала СтарТрэк <br/>"
+            + "select start_year from klingon_leader where leader = '?' <br/>"
+            + "Игрок выигрывает в игру, если результатом выполнения запроса будет год, в который началось правление канцлера Азетбура.<br/>";
 
     private String prev_result;
 
@@ -35,11 +36,10 @@ public class MagicSelect implements Game
         return DESCRIPTION;
     }
 
-
     @Override
     public String getId()
     {
-        return "ms";
+        return ID;
     }
 
     @Override
@@ -63,9 +63,11 @@ public class MagicSelect implements Game
     @Override
     public void input(String userInput)
     {
-        try {
+        try
+        {
             prev_result = TemporarySchemaProvider.execute(userInput);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             prev_result = "Uups... Something wrong!!!";
             log.log(Level.SEVERE, e.getMessage(), e);
@@ -73,7 +75,9 @@ public class MagicSelect implements Game
         if (YEAR.equalsIgnoreCase(userInput))
         {
             state = GameState.VICTORY;
-        } else {
+        }
+        else
+        {
             state = GameState.FAILURE;
         }
     }

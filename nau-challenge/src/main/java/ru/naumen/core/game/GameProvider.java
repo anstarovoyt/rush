@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import ru.naumen.core.game.impl.*;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
 /**
@@ -19,11 +20,13 @@ import com.google.common.collect.Lists;
 @Component
 public class GameProvider
 {
+    //@formatter:off
+    public ImmutableMap<String, List<String>> relations =
+            ImmutableMap.<String, List<String>>
+                of(Doom.ID, Lists.newArrayList(Redo.ID, MagicSelect.ID));
 
     public List<GameSeries> getNewGameList()
     {
-
-        //@formatter:off
         return Arrays.asList(
                 openGame(new Doom(), 1),
                 openGame(new XOGame(), 100),
@@ -33,10 +36,9 @@ public class GameProvider
                 openGame(new SpokGreeting(), 1),
                 openGame(new Base64Game(), 1),
                 openGame(new Diff(), 1),
-                openGame(new MagicSelect(), 1),
                 openGame(new Fifteen(), 5),
-                closedGame(new ForeverClosed(), 1));
-
+                closedGame(new Redo(), 1),
+                closedGame(new MagicSelect(), 1));
         //@formatter:on
 
     }
@@ -47,6 +49,6 @@ public class GameProvider
      */
     public List<String> getRelatedClosedGameIds(String gameId)
     {
-        return Lists.newArrayList();
+        return relations.containsKey(gameId) ? relations.get(gameId) : Lists.<String> newArrayList();
     }
 }
