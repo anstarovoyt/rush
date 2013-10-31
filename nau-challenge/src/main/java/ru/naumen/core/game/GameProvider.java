@@ -22,10 +22,23 @@ public class GameProvider
 
     public List<GameSeries> getNewGameList()
     {
-        GameSeries closedGameExample = closedGame(new ForeverClosed(), 1);
-        return Arrays.asList(openGame(new Doom(), 1), openGame(new XOGame(), 50), openGame(new RPSGame(), 50),
-                openGame(new Shtirlitz(), 1), openGame(new NameThatTune(), 1), openGame(new SpokGreeting(), 1),
-                openGame(new Base64Game(), 1), openGame(new Fifteen(), 5), openGame(new MagicSelect(), 1), closedGameExample);
+
+        //@formatter:off
+        return Arrays.asList(
+                openGame(new Doom(), 1),
+                openGame(new XOGame(), 50),
+                openGame(new RPSGame(), 50),
+                openGame(new Shtirlitz(), 1),
+                openGame(new NameThatTune(), 1),
+                openGame(new SpokGreeting(), 1),
+                openGame(new Base64Game(), 1),
+                openGame(new Diff(), 1),
+                openGame(new MagicSelect(), 1),
+                openGame(new Fifteen(), 5),
+                closedGame(new ForeverClosed(), 1));
+
+        //@formatter:on
+
     }
 
     /**

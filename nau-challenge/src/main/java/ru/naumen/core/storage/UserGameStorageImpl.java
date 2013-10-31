@@ -1,12 +1,12 @@
 package ru.naumen.core.storage;
 
-import com.google.common.collect.Maps;
-
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import ru.naumen.core.game.GameProvider;
 import ru.naumen.core.game.GameSeries;
+
+import com.google.common.collect.Maps;
 
 /**
  *
@@ -18,7 +18,7 @@ public class UserGameStorageImpl implements UserGameStorage
 {
     private static final long serialVersionUID = 1L;
 
-    private HashMap<String, GameSeries> games = Maps.newHashMap();
+    private LinkedHashMap<String, GameSeries> games = Maps.newLinkedHashMap();
 
     public UserGameStorageImpl( GameProvider provider )
     {
