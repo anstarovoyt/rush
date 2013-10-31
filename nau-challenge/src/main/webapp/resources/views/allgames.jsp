@@ -1,6 +1,7 @@
 <%@page import="java.util.List"%>
-<%@page import="ru.naumen.core.game.Game"%>
+<%@page import="ru.naumen.core.game.GameSeries"%>
 <%@page import="java.util.Collection"%>
+<%@page import="ru.naumen.core.game.GameSeriesState"%>
 <%@page import="ru.naumen.core.auth.Authenticator"%>
 <%@page import="ru.naumen.core.SpringContext"%>
 <%@page import="ru.naumen.model.User"%>
@@ -35,16 +36,17 @@
              --%>
              
              <% 
-                 List<Game> games = (List<Game>) request.getAttribute("gameIds");
+                 List<GameSeries> games = (List<GameSeries>) request.getAttribute("gameIds");
                  for(int i = 0; i < games.size(); i++) {
-                     pageContext.setAttribute("game", games.get(i));                     
+                     GameSeries series = games.get(i);
+                     pageContext.setAttribute("game", series.getGame());                     
              %>
                    
                 <% if(i % 3 == 0) { %> <%-- Каждые 3 элемента новая строка --%>
                     <div class="row game_row">
                         <div class="col-lg-05"></div>
                 <% } %>
-                
+                <% if (series.getState() !=  GameSeriesState.CLOSED) {%>
                         <%-- Сама карточка игры --%>
                         <div class="game_card col-lg-3">
                             <h2 class="game_title">${game.shortName}</h2>
@@ -53,6 +55,13 @@
                                 <a class="btn btn-orange btn-primary" href="/game?gid=${game.id}&<%= UrlUtils.createAKParam(getCurrentUser())%>">Играть! &raquo;</a>
                             </p>
                         </div>
+                 <% } else { %>
+                        <%-- Карточка disabled игры --%>
+                        <div class="game_card col-lg-3 game-disabled">
+                            <h2 class="game_title">${game.shortName}</h2>
+                            <p>${game.shortDescription}</p>
+                        </div>
+                 <% } %>
                 
                 <% if(i % 3 != 2)  {%>  <%-- После последнего элемента отступ не нужен, иначе криво --%>
                     <div class="col-lg-1"></div>

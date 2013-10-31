@@ -47,7 +47,16 @@ public class GameController
     public String gameInfo(@RequestParam(value = Params.GAME_ID, required = false) String gid, Model model)
     {
 
-        GameSeries gameSeries = authenticator.getCurrentUser().getUserGameStorage().get(gid);
+        User currentUser = authenticator.getCurrentUser();
+        GameSeries gameSeries = currentUser.getUserGameStorage().get(gid);
+
+        //введен неправильный gid
+        if (gameSeries == null)
+        {
+            LOG.debug("User " + currentUser + " try to get game that not exits" + gid);
+            return "allgames";
+        }
+
         if (isClosed(gameSeries))
         {
             return "gameclosed";
@@ -72,6 +81,13 @@ public class GameController
 
         User currentUser = authenticator.getCurrentUser();
         GameSeries gameSeries = currentUser.getUserGameStorage().get(gid);
+
+        //введен неправильный gid
+        if (gameSeries == null)
+        {
+            LOG.debug("User " + currentUser + " try to get game that not exits" + gid);
+            return "allgames";
+        }
 
         //Если пост-запрос был послан по ошибке, когда игра решена
         if (isSolved(gameSeries))
