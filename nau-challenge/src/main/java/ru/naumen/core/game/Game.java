@@ -34,7 +34,7 @@ public interface Game extends Serializable
     /**
      * Если у нас бот должен уметь ходить, то в это выводе показывается ход противника
      */
-    String computerOutput();
+    String getStateRepresentation();
 
     /**
      * @return текстовое описание правил игры

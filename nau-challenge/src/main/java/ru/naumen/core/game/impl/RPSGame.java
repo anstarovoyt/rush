@@ -52,7 +52,7 @@ public class RPSGame implements Game
     }
 
     @Override
-    public String computerOutput()
+    public String getStateRepresentation()
     {
         return String.format("User %c, Computer %c", currentUserStep, currentComputerStep);
     }

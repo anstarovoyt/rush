@@ -26,7 +26,7 @@ public class SpokGreeting implements Game
     }
 
     @Override
-    public String computerOutput()
+    public String getStateRepresentation()
     {
         return null;
     }

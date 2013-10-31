@@ -27,7 +27,7 @@ public class Fifteen implements Game
     }
 
     @Override
-    public String computerOutput()
+    public String getStateRepresentation()
     {
         return "<pre>" + String.format( " %2s | %2s | %2s | %2s <br>", pos( 0 ), pos( 1 ), pos( 2 ), pos( 3 ) ) +
                 String.format( " %2s | %2s | %2s | %2s <br>", pos( 4 ), pos( 5 ), pos( 6 ), pos( 7 ) ) +

@@ -26,7 +26,7 @@ public class Shtirlitz implements Game
     }
 
     @Override
-    public String computerOutput()
+    public String getStateRepresentation()
     {
         return null;
     }

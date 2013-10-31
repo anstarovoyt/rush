@@ -1,11 +1,22 @@
 package ru.naumen.mvc.controller;
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
+
 import ru.naumen.core.auth.Authenticator;
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameSeries;
@@ -14,14 +25,6 @@ import ru.naumen.core.game.GameState;
 import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.model.User;
 import ru.naumen.model.dao.UserDAO;
-
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * @author Andrey Hitrin
@@ -39,16 +42,6 @@ public class GameControllerTest
     @Mock UserGameStorage storage;
     @Mock GameSeries gameSeries;
     @Mock UserDAO dao;
-
-    @Before
-    public void setupMocks() {
-        MockitoAnnotations.initMocks( this );
-        mockMvc = standaloneSetup(gameController).build();
-        when( authenticator.getCurrentUser() ).thenReturn( user );
-        when( user.getUserGameStorage() ).thenReturn( storage );
-        when( storage.get( anyString() ) ).thenReturn( gameSeries );
-        when( gameSeries.getGame() ).thenReturn( game );
-    }
 
     @Test
     public void addGameDescriptionToModel() throws Exception
@@ -85,22 +78,22 @@ public class GameControllerTest
     }
 
     @Test
-    public void whenGameIsClosedThenItForwardsToClosedGamePage() throws Exception
+    public void resetWinsCountWhenGameHasBeenLost() throws Exception
     {
-        when( gameSeries.getState() ).thenReturn( GameSeriesState.CLOSED );
-        mockMvc.perform( get("/game") )
-                .andExpect( forwardedUrl( "gameclosed" ) );
+        when( game.state() ).thenReturn( GameState.FAILURE );
+        mockMvc.perform( post( "/game" ) );
+        verify( gameSeries ).loseOneGame();
     }
 
-    @Test
-    public void whenGameHasBeenWonThenItForwardsToSolvedGamePage() throws Exception
-    {
-        when( gameSeries.getState() ).thenReturn( GameSeriesState.SOLVED );
-        when(gameSeries.wonGamesCount()).thenReturn( 5 );
-
-        mockMvc.perform( get("/game") )
-                .andExpect( forwardedUrl( "gamesolved" ) )
-                .andExpect( model().attribute( "wins", 5 ) );
+    @Before
+    public void setupMocks() {
+        MockitoAnnotations.initMocks( this );
+        mockMvc = standaloneSetup(gameController).build();
+        when( authenticator.getCurrentUser() ).thenReturn( user );
+        when( user.getUserGameStorage() ).thenReturn( storage );
+        when( storage.get( anyString() ) ).thenReturn( gameSeries );
+        when( gameSeries.getGame() ).thenReturn( game );
+        when( game.state() ).thenReturn( GameState.IN_PROGRESS );
     }
 
     @Test
@@ -116,10 +109,21 @@ public class GameControllerTest
     }
 
     @Test
-    public void resetWinsCountWhenGameHasBeenLost() throws Exception
+    public void whenGameHasBeenWonThenItForwardsToSolvedGamePage() throws Exception
     {
-        when( game.state() ).thenReturn( GameState.FAILURE );
-        mockMvc.perform( post( "/game" ) );
-        verify( gameSeries ).loseOneGame();
+        when( gameSeries.getState() ).thenReturn( GameSeriesState.SOLVED );
+        when(gameSeries.wonGamesCount()).thenReturn( 5 );
+
+        mockMvc.perform( get("/game") )
+                .andExpect( forwardedUrl( "gamesolved" ) )
+                .andExpect( model().attribute( "wins", 5 ) );
+    }
+
+    @Test
+    public void whenGameIsClosedThenItForwardsToClosedGamePage() throws Exception
+    {
+        when( gameSeries.getState() ).thenReturn( GameSeriesState.CLOSED );
+        mockMvc.perform( get("/game") )
+                .andExpect( forwardedUrl( "gameclosed" ) );
     }
 }

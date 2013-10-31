@@ -25,7 +25,7 @@ public class ForeverClosed implements Game
     }
 
     @Override
-    public String computerOutput()
+    public String getStateRepresentation()
     {
         return "";
     }

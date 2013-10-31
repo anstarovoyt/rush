@@ -53,7 +53,7 @@ public class GameController
         model.addAttribute("gid", gid);
         model.addAttribute("maxwins", gameSeries.maxWinsCount());
         model.addAttribute("wins", gameSeries.wonGamesCount());
-        model.addAttribute("computerstate", game.computerOutput());
+        model.addAttribute("computerstate", game.getStateRepresentation());
         model.addAttribute("computermessage", game.output());
         model.addAttribute("gamestate", game.state().getMessage());
 
@@ -97,7 +97,7 @@ public class GameController
         model.addAttribute("description", game.getDescription());
         model.addAttribute("maxwins", gameSeries.maxWinsCount());
         model.addAttribute("wins", gameSeries.wonGamesCount());
-        model.addAttribute("computerstate", game.computerOutput());
+        model.addAttribute("computerstate", game.getStateRepresentation());
         model.addAttribute("computermessage", game.output());
         model.addAttribute("gamestate", game.state().getMessage());
 

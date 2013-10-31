@@ -33,7 +33,7 @@ public class Base64Game implements Game
     }
 
     @Override
-    public String computerOutput()
+    public String getStateRepresentation()
     {
         return null;
     }

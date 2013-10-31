@@ -1,9 +1,9 @@
 package ru.naumen.core.game.impl;
 
+import java.util.Random;
+
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
-
-import java.util.Random;
 
 /**
  * @author Andrey Hitrin
@@ -22,9 +22,6 @@ public class XOGame implements Game {
     };
     private static final long serialVersionUID = 1l;
     public transient static Random RND = new Random();
-    char matrix[] = {'*', '*', '*', '*', '*', '*', '*', '*', '*'};
-    GameState victory = GameState.IN_PROGRESS;
-
     /**
      * У нас есть набор отображаемых символов
      * XO* -> мы должны уметь представлять их в виде некоторого вывода
@@ -35,20 +32,23 @@ public class XOGame implements Game {
             for (int j = 0; j < 3; j++) {
                 result.append(input[(3 * i + j)]);
                 if (j != 2) {
-                    result.append("|");
+                    result.append(" | ");
                 }
             }
 
             if (i != 2) {
-                result.append("\n");
+                result.append("<br>");
             }
         }
         return result.toString();
     }
-
     public static String unformat(String input) {
-        return input.replace("\n", "").replace("|", "");
+        return input.replace("<br>", "").replace(" | ", "");
     }
+
+    char matrix[] = {'*', '*', '*', '*', '*', '*', '*', '*', '*'};
+
+    GameState victory = GameState.IN_PROGRESS;
 
     /**
      * @return -1 если игрок победил или текущий ход компьютера
@@ -59,17 +59,7 @@ public class XOGame implements Game {
     }
 
     @Override
-    public String getShortName() {
-        return "Крестики-нолики";
-    }
-
-    @Override
-    public String getShortDescription() {
-        return "Серьёзное испытание для интеллекта";
-    }
-
-    @Override
-    public String computerOutput() {
+    public String getStateRepresentation() {
         return format(matrix);
     }
 
@@ -89,6 +79,16 @@ public class XOGame implements Game {
     @Override
     public String getId() {
         return "xo";
+    }
+
+    @Override
+    public String getShortDescription() {
+        return "Серьёзное испытание для интеллекта";
+    }
+
+    @Override
+    public String getShortName() {
+        return "Крестики-нолики";
     }
 
     /**
@@ -159,13 +159,13 @@ public class XOGame implements Game {
     }
 
     @Override
-    public GameState state() {
-        return victory;
+    public Game resetState() {
+        return new XOGame();
     }
 
     @Override
-    public Game resetState() {
-        return new XOGame();
+    public GameState state() {
+        return victory;
     }
 
     public int winStep(char turn) {
