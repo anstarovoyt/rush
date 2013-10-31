@@ -9,6 +9,7 @@ import ru.naumen.core.game.GameState;
  */
 public class Doom implements Game
 {
+    private static final String DESCRIPTION = "Есть один универсальный способ пройти DOOM. Какой?";
 
     private static final long serialVersionUID = 1L;
 
@@ -19,15 +20,27 @@ public class Doom implements Game
     GameState victory = GameState.IN_PROGRESS;
 
     @Override
-    public String getShortName()
+    public String getDescription()
     {
-        return "Doom";
+        return DESCRIPTION;
+    }
+
+    @Override
+    public String getId()
+    {
+        return "dm";
     }
 
     @Override
     public String getShortDescription()
     {
-        return "Классический шутер в новой форме";
+        return "Классический шутер";
+    }
+
+    @Override
+    public String getShortName()
+    {
+        return "Doom";
     }
 
     @Override
@@ -37,36 +50,26 @@ public class Doom implements Game
     }
 
     @Override
-    public String getDescription()
+    public void input(String userInput)
     {
-        return "You have to fight evil martian monsters and find your way out from this awful maze!";
-    }
-
-    @Override
-    public String getId() {
-        return "dm";
-    }
-
-    @Override
-    public void input( String userInput )
-    {
-        victory = "iddqd".equals( userInput ) ? GameState.VICTORY : GameState.FAILURE;
+        victory = "iddqd".equalsIgnoreCase(userInput) ? GameState.VICTORY : GameState.IN_PROGRESS;
     }
 
     @Override
     public String output()
     {
-        return victory == GameState.VICTORY ? "You are winner!" :  "";
+        return victory == GameState.VICTORY ? "You are winner!" : "";
+    }
+
+    @Override
+    public Game resetState()
+    {
+        return this;
     }
 
     @Override
     public GameState state()
     {
         return victory;
-    }
-
-    @Override
-    public Game resetState() {
-        return this;
     }
 }
