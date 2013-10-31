@@ -1,11 +1,11 @@
 package ru.naumen.core.game.impl;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
 import ru.naumen.core.game.impl.magicselect.TemporarySchemaProvider;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,16 +17,16 @@ public class MagicSelect implements Game
 
     private static final transient Logger log = Logger.getLogger(MagicSelect.class.getName());
 
-    @Override
-    public String computerOutput()
-    {
-        return null;
-    }
-
     private static final transient String DESCRIPTION =
             "При каждом запуске игра делает запрос к реляционной базе данных по миру сериала СтарТрэк <br/>" +
             "select start_year from klingon_leader where leader = '?' <br/>" +
             "Игрок выигрывает в игру, если результатом выполнения запроса будет год, в который началось правление канцлера Азетбура.<br/>";
+
+    private String prev_result;
+
+    private static transient final String YEAR = "2293";
+
+    private GameState state = GameState.IN_PROGRESS;
 
     @Override
     public String getDescription()
@@ -34,16 +34,30 @@ public class MagicSelect implements Game
         return DESCRIPTION;
     }
 
+
     @Override
     public String getId()
     {
-        return "MagicSelect";
+        return "ms";
     }
 
-    private String prev_result;
+    @Override
+    public String getShortDescription()
+    {
+        return "Игра по миру Star Trek";
+    }
 
-    private static transient final String YEAR = "2293";
+    @Override
+    public String getShortName()
+    {
+        return "Star trek";
+    }
 
+    @Override
+    public String getStateRepresentation()
+    {
+        return null;
+    }
 
     @Override
     public void input(String userInput)
@@ -69,7 +83,11 @@ public class MagicSelect implements Game
         return prev_result;
     }
 
-    private GameState state = GameState.IN_PROGRESS;
+    @Override
+    public Game resetState()
+    {
+        return null;
+    }
 
     @Override
     public GameState state()
