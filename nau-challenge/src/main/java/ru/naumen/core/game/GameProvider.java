@@ -1,17 +1,15 @@
 package ru.naumen.core.game;
 
-import static ru.naumen.core.game.GameSeries.closedGame;
-import static ru.naumen.core.game.GameSeries.openGame;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+import org.springframework.stereotype.Component;
+import ru.naumen.core.game.impl.*;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-import ru.naumen.core.game.impl.*;
-
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
+import static ru.naumen.core.game.GameSeries.closedGame;
+import static ru.naumen.core.game.GameSeries.openGame;
 
 /**
  * Класс предоставляет интерфейс доступа к классам существующих игр
@@ -37,6 +35,7 @@ public class GameProvider
                 openGame(new Base64Game(), 1),
                 openGame(new Diff(), 1),
                 openGame(new Fifteen(), 5),
+                openGame(new Ktulhu(), 1),
                 closedGame(new Redo(), 1),
                 closedGame(new MagicSelect(), 1));
         //@formatter:on
