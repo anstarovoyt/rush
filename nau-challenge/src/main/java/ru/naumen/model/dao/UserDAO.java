@@ -65,4 +65,9 @@ public class UserDAO
     {
         return entityManager;
     }
+
+    @Transactional(readOnly = true)
+    public List<User> loadAll() {
+        return getEntityManager().createQuery("SELECT p from " + User.class.getName() + " p").getResultList();
+    }
 }

@@ -62,7 +62,7 @@
                             <p>${game.shortDescription}</p>
                         </div>
                  <% } else { %>
-                 		<%-- Карточка disabled игры --%>
+                 		<%-- Карточка пройденной игры --%>
                         <div class="game_card col-lg-3">
                             <div class="game-mark"><img src="/resources/img/mark.png" width="50px"></div>
                             <h2 class="game_title">${game.shortName}</h2>
