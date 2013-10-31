@@ -1,9 +1,9 @@
 package ru.naumen.core.game.impl;
 
-import java.util.Random;
-
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+
+import java.util.Random;
 
 /**
  * @author Andrey Hitrin
@@ -121,6 +121,10 @@ public class XOGame implements Game
     @Override
     public void input(String userInput)
     {
+        if (userInput.isEmpty())
+        {
+            return;
+        }
         try
         {
             int value = Integer.parseInt(userInput);
@@ -196,7 +200,16 @@ public class XOGame implements Game
     @Override
     public String output()
     {
-        return isInputIncorrect ? "Некорректный ввод" : null;
+        if (isInputIncorrect)
+        {
+            return "Некорректный ввод";
+
+        }
+        if (victory != GameState.IN_PROGRESS)
+        {
+             return "Для продолжения сделайте новый ход или просто нажмите отправить";
+        }
+        return null;
     }
 
     @Override
