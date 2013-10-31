@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet" />
-<link href="/resources/img/favicon.png" rel="shortcut icon">
+<link href="/resources/img/favicon.ico" rel="shortcut icon">
 <script src="<c:url value="/resources/js/jquery.js" />"></script>                
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.validate.js" />"></script>
