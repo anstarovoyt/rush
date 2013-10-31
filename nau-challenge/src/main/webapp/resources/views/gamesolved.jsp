@@ -1,6 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="ru.naumen.core.info.Params" %>
+<%@ page import="ru.naumen.core.auth.Authenticator"%>
+<%@ page import="ru.naumen.core.SpringContext"%>
+<%@ page import="ru.naumen.model.User"%>
+<%@ page import="ru.naumen.core.utils.UrlUtils"%>
+
+<%!
+    User getCurrentUser() {
+        return SpringContext.<Authenticator>getBean("authenticator").getCurrentUser();
+    }
+%>
+
 <html>
     <head>
         <title>Main page</title>
@@ -23,7 +34,12 @@
     </div>
 
     <div class="container">
-        <span>Поздравляем! Вы одержали нужное число побед в этой игре (${wins})</span>
+        <span>Поздравляем! Вы одержали нужное число побед в этой игре (${wins})
+        <br>
+                <% if(getCurrentUser() != null) { %>
+                   <h1> <a href="/games/?<%= UrlUtils.createAKParam(getCurrentUser()) %>">Back to games</a> </h1>
+                <% } %>
+        </span>
     </div>
 </body>
 </html>

@@ -1,9 +1,9 @@
 package ru.naumen.core.game.impl;
 
-import java.util.Random;
-
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+
+import java.util.Random;
 
 /**
  * Камень-ножницы-бумага
@@ -35,15 +35,15 @@ public class RPSGame implements Game
     {
         if (step.equals('R'))
         {
-            return "Камень";
+            return "камень";
         }
         if (step.equals('P'))
         {
-            return "Бумага";
+            return "бумага";
         }
         if (step.equals('S'))
         {
-            return "Ножницы";
+            return "ножницы";
         }
         return null;
     }
@@ -86,7 +86,7 @@ public class RPSGame implements Game
     {
         if (currentUserStep != null && currentComputerStep != null)
         {
-            return String.format("User %s, Computer %s", getRPS(currentUserStep), currentComputerStep);
+            return String.format("Игрок — %s, Компьютер — %s", getRPS(currentUserStep), getRPS(currentComputerStep));
         }
         return null;
     }

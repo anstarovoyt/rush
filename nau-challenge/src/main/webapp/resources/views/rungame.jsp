@@ -48,9 +48,7 @@
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Вывод компьютера</h3>
                                 </div>
-                                <div id="input" class="panel-body" style="font-size: 16px;">
-                                    ${computerstate}
-                                </div>
+                                <div id="input" class="panel-body" style="font-size: 16px; word-break: break-all;">${computerstate}</div>
                             </div>
                         </div>
                     </div>
