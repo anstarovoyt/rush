@@ -14,6 +14,7 @@ import ru.naumen.core.game.impl.magicselect.TemporarySchemaProvider;
  */
 public class MagicSelect implements Game
 {
+    private static final long serialVersionUID = 1L;
 
     private static final transient Logger log = Logger.getLogger(MagicSelect.class.getName());
 
@@ -56,7 +57,7 @@ public class MagicSelect implements Game
     @Override
     public String getStateRepresentation()
     {
-        return null;
+        return prev_result;
     }
 
     @Override
@@ -80,13 +81,13 @@ public class MagicSelect implements Game
     @Override
     public String output()
     {
-        return prev_result;
+
     }
 
     @Override
     public Game resetState()
     {
-        return null;
+        return this;
     }
 
     @Override
