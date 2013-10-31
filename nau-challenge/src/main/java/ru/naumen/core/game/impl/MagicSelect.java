@@ -81,7 +81,7 @@ public class MagicSelect implements Game
     @Override
     public String output()
     {
-
+        return null;
     }
 
     @Override
