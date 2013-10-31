@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import ru.naumen.core.game.GameState;
 
@@ -35,16 +37,25 @@ public class FifteenTest
     }
 
     @Test
-    public void notIntegerMovesAreNotAllowed() {
-        Fifteen game = new Fifteen();
-        game.input("test");
-        assertThat(game.state(), is(GameState.FAILURE));
+    public void validCombination() {
+        assertThat( Fifteen.isValid( Arrays.asList( 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 )), is(true) );
     }
 
     @Test
-    public void whenGameIsOrderedThenEvenEmptyInputProvidesVictory() {
-        Fifteen game = new Fifteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0);
-        game.input("");
-        assertThat(game.state(), is(GameState.VICTORY));
+    public void invalidCombination() {
+        assertThat( Fifteen.isValid(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 14, 0)), is(false) );
+    }
+
+    @Test
+    public void allGamesAreValid() {
+        for (int i = 0; i < 10; i++)
+            assertThat( Fifteen.isValid( new Fifteen().field), is(true) );
+    }
+
+    @Test
+    public void notIntegerMovesAreNotAllowed() {
+        Fifteen game = new Fifteen();
+        game.input("test");
+        assertThat(game.state(), is( GameState.FAILURE ));
     }
 }
