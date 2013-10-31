@@ -2,9 +2,11 @@ package ru.naumen.core.game.impl;
 
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import ru.naumen.core.game.GameState;
 
 /**
  * @author Andrey Hitrin
@@ -30,5 +32,19 @@ public class FifteenTest
                 containsString( "  4 "), containsString("  5 "), containsString("  6 "), containsString("  7 " ),
                 containsString( "  8 "), containsString("  9 "), containsString(" 10 "), containsString(" 11 " ),
                 containsString( " 12 "), containsString(" 13 "), containsString(" 14 "), containsString(" 15 " )));
+    }
+
+    @Test
+    public void notIntegerMovesAreNotAllowed() {
+        Fifteen game = new Fifteen();
+        game.input("test");
+        assertThat(game.state(), is(GameState.FAILURE));
+    }
+
+    @Test
+    public void whenGameIsOrderedThenEvenEmptyInputProvidesVictory() {
+        Fifteen game = new Fifteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0);
+        game.input("");
+        assertThat(game.state(), is(GameState.VICTORY));
     }
 }

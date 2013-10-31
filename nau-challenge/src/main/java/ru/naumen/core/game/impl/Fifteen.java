@@ -1,5 +1,9 @@
 package ru.naumen.core.game.impl;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
 
@@ -9,16 +13,20 @@ import ru.naumen.core.game.GameState;
  */
 public class Fifteen implements Game
 {
+    private static final Fifteen ORDERED_FIELD = new Fifteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0);
+
     private static final long serialVersionUID = 2988175912527130402L;
 
     private final Integer[] position;
 
-    GameState victory = GameState.IN_PROGRESS;
+    GameState state = GameState.IN_PROGRESS;
 
     public Fifteen()
     {
-        // TODO: randomize
-        this(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+        // а тут может быть подстава, не все комбинации приводимы к ORDERED_FIELD
+        List<Integer> items = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 8, 7, 9, 10, 11, 12, 13, 14, 15);
+        Collections.shuffle(items);
+        position = items.toArray(new Integer[]{});
     }
 
     public Fifteen( Integer... initialPosition )
@@ -41,7 +49,8 @@ public class Fifteen implements Game
         return "Поле 4х4 содержит фишки, пронумерованные от 1 до 15.<br>" +
                "Нужно указать последовательность движений, которая приводит к тому, что все фишки становятся упорядоченными.<br>" +
                "Каждый ход - это просто номер фишки, которая должна сдвинуться в сторону свободной ячейки.<br>" +
-               "Вы должны перечислить все ходы за один раз. Просто разделите их пробелами.";
+               "Вы должны перечислить все ходы за один раз. Просто разделите их пробелами." +
+               "После всех ходов игра должна выглядеть так:<br>" + ORDERED_FIELD.getStateRepresentation();
     }
 
     @Override
@@ -65,6 +74,15 @@ public class Fifteen implements Game
     @Override
     public void input( String userInput )
     {
+        if (isSorted())
+            state = GameState.VICTORY;
+        else
+            state = GameState.FAILURE;
+    }
+
+    private boolean isSorted()
+    {
+        return Arrays.equals(position, ORDERED_FIELD.position);
     }
 
     @Override
@@ -81,7 +99,7 @@ public class Fifteen implements Game
     @Override
     public GameState state()
     {
-        return victory;
+        return state;
     }
 
     private String pos( int index )
