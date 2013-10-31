@@ -89,7 +89,7 @@ public class IndexController {
     public String index(Model model) {
         User currentUser = authenticator.getCurrentUser();
         if(currentUser != null) {
-            return "redirect:/games/";
+            return "redirect:/games/?" + UrlUtils.createAKParam(currentUser);
         }
         model.addAttribute("userForm", new UserForm());
         model.addAttribute("registrationForm", new RegistrationForm());
