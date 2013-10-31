@@ -20,7 +20,6 @@ public class RPSGame implements Game
 
     public static final String ID = "rps";
 
-
     /**
      *  R > S > P > R
      */
@@ -32,24 +31,36 @@ public class RPSGame implements Game
     public transient static final String PAPER = "P";
     public transient static final String SCISSORS = "S";
 
+    private static String getRPS(Character step)
+    {
+        if (step.equals('R'))
+        {
+            return "Камень";
+        }
+        if (step.equals('P'))
+        {
+            return "Бумага";
+        }
+        if (step.equals('S'))
+        {
+            return "Ножницы";
+        }
+        return null;
+    }
+    int currentState = 5;
+    Character currentUserStep;
+    Character currentComputerStep;
 
-    int currentState = RND.nextInt(10);
-    char currentUserStep;
-    char currentComputerStep;
     GameState victory = GameState.IN_PROGRESS;
 
     transient boolean isInputIncorrect;
-
 
     @Override
     public String getDescription()
     {
         return "Камень, ножницы, бумага — популярная игра на руках, известная во многих странах мира.<br><br>"
-                + "Камень побеждает ножницы («камень затупляет или ломает ножницы»)<br>"
-                + "Ножницы побеждают бумагу («ножницы разрезают бумагу»)<br>"
-                + "Бумага побеждает камень («бумага накрывает или заворачивает камень»)<br>"
                 + "Пользовательский ввод: R - камень, S - ножницы, P - бумага<br>"
-                + "Нужно для прохождения игры нужно одержать 50 побед подряд<br>" + "Только победа, и ничего другого!";
+                + "Для прохождения игры нужно одержать 100 побед подряд<br>" + "Только победа, и ничего другого!";
     }
 
     @Override
@@ -73,7 +84,11 @@ public class RPSGame implements Game
     @Override
     public String getStateRepresentation()
     {
-        return String.format("User %c, Computer %c", currentUserStep, currentComputerStep);
+        if (currentUserStep != null && currentComputerStep != null)
+        {
+            return String.format("User %s, Computer %s", getRPS(currentUserStep), currentComputerStep);
+        }
+        return null;
     }
 
     @Override
@@ -122,7 +137,8 @@ public class RPSGame implements Game
     }
 
     @Override
-    public Game resetState() {
+    public Game resetState()
+    {
         return this;
     }
 

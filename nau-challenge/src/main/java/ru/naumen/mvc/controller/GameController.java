@@ -187,6 +187,7 @@ public class GameController
         model.addAttribute("computerstate", game.getStateRepresentation());
         model.addAttribute("computermessage", game.output());
         model.addAttribute("gamestate", game.state().getMessage());
+        model.addAttribute("enumstate", game.state());
     }
 
     private void setUser(User currentUser)

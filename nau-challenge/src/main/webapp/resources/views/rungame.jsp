@@ -48,7 +48,7 @@
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Вывод компьютера</h3>
                                 </div>
-                                <div class="panel-body" style="font-size: 16px;">
+                                <div id="input" class="panel-body" style="font-size: 16px;">
                                     ${computerstate}
                                 </div>
                             </div>
@@ -56,8 +56,9 @@
                     </div>
                 <% } %>
                 <p style="margin-top: 20px">Состояние игры: ${gamestate}</p>
+                <div id="round-state" class="invisible-state">${enumstate}</div>
                 <% if(request.getAttribute("computermessage") != null) { %>
-                <p style="margin-top: 20px">Текущее состояние: ${computermessage}</p>
+                <p style="margin-top: 20px;color: red">${computermessage}</p>
                 <% } %>
                 <div class="row">
                     <div class="control-group">
