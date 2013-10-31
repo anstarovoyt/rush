@@ -46,7 +46,7 @@ public class User
 
     @Column
     @Lob
-    @Basic(fetch=FetchType.LAZY)
+    @Basic(fetch = FetchType.LAZY)
     private UserGameStorage storage;
 
     @Column
@@ -134,5 +134,11 @@ public class User
     public void setUserStorage(UserGameStorage storage)
     {
         this.storage = storage;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("[user: id %i, command %s, email %s]", id, fio, email);
     }
 }

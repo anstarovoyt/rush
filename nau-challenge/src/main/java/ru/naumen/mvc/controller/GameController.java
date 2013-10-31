@@ -6,6 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import com.google.common.collect.Maps;
 @Controller
 public class GameController
 {
+    public static final Logger LOG = Logger.getLogger(GameController.class);
 
     @Inject
     Authenticator authenticator;
@@ -74,6 +76,7 @@ public class GameController
         //Если пост-запрос был послан по ошибке, когда игра решена
         if (isSolved(gameSeries))
         {
+            LOG.debug("User " + currentUser + " do post for solved task " + gameSeries.getId());
             model.addAttribute("wins", gameSeries.wonGamesCount());
             return "gamesolved";
         }
@@ -84,7 +87,13 @@ public class GameController
             lock.lock();
             gameSeries.input(answer);
 
-            changeSerialState(gameSeries, currentUser);
+            changeSeriesState(gameSeries, currentUser);
+
+            if (isSolved(gameSeries))
+            {
+                LOG.info("User " + currentUser + " solved task " + gameSeries.getId());
+                openRelatedGames(gameSeries, currentUser);
+            }
 
             setUser(currentUser);
 
@@ -103,16 +112,13 @@ public class GameController
         }
     }
 
-    private void changeSerialState(GameSeries gameSeries, User currentUser)
+    private void changeSeriesState(GameSeries gameSeries, User currentUser)
     {
         Game game = gameSeries.getGame();
         // вопрос, когда высчитывается состояние игры
         if (game.state() == GameState.VICTORY)
         {
             gameSeries.winOneGame();
-
-            openRelatedGames(gameSeries, currentUser);
-
         }
         if (game.state() == GameState.FAILURE)
         {
@@ -151,6 +157,7 @@ public class GameController
         {
             GameSeries relatedSeries = storage.get(relatedId);
             relatedSeries.makeOpen();
+            LOG.info("User " + currentUser + " open game " + relatedId);
         }
     }
 
