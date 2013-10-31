@@ -1,9 +1,9 @@
 package ru.naumen.core.game.impl;
 
+import java.util.Random;
+
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
-
-import java.util.Random;
 
 /**
  * Камень-ножницы-бумага
@@ -40,24 +40,6 @@ public class RPSGame implements Game
 
 
     @Override
-    public String getShortName()
-    {
-        return "Камень-ножницы-бумага";
-    }
-
-    @Override
-    public String getShortDescription()
-    {
-        return "Разве тут надо что-либо добавлять?";
-    }
-
-    @Override
-    public String getStateRepresentation()
-    {
-        return String.format("User %c, Computer %c", currentUserStep, currentComputerStep);
-    }
-
-    @Override
     public String getDescription()
     {
         return "Камень, ножницы, бумага — популярная игра на руках, известная во многих странах мира.<br><br>"
@@ -72,6 +54,24 @@ public class RPSGame implements Game
     public String getId()
     {
         return "rps";
+    }
+
+    @Override
+    public String getShortDescription()
+    {
+        return "Разве тут надо что-либо добавлять?";
+    }
+
+    @Override
+    public String getShortName()
+    {
+        return "Камень-ножницы-бумага";
+    }
+
+    @Override
+    public String getStateRepresentation()
+    {
+        return String.format("User %c, Computer %c", currentUserStep, currentComputerStep);
     }
 
     @Override
@@ -116,18 +116,18 @@ public class RPSGame implements Game
     @Override
     public String output()
     {
-        return isInputIncorrect ? "Некорретный ввод" : "Ход засчитан";
+        return isInputIncorrect ? "Некорретный ввод" : null;
+    }
+
+    @Override
+    public Game resetState() {
+        return this;
     }
 
     @Override
     public GameState state()
     {
         return victory;
-    }
-
-    @Override
-    public Game resetState() {
-        return this;
     }
 
     void setState(int indexOfState)

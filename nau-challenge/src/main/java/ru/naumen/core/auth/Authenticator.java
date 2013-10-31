@@ -14,7 +14,7 @@ import com.google.common.base.Objects;
 
 /**
  * Простейший аутентификатор, чтобы не заморачиваться со Spring Security
- * 
+ *
  * @author serce
  * @since 25 окт. 2013 г.
  */
@@ -23,13 +23,6 @@ public class Authenticator {
 
     @Inject
     UserDAO userDAO;
-
-    public User registerUser(User user) {
-        validateUser(user);
-        user = userDAO.saveUser(user);
-        user = setCurrentUser(user);
-        return user;
-    }
 
     public boolean authByAccessKey(String accessKey) {
         User user = userDAO.getByAccessKey(accessKey);
@@ -56,13 +49,24 @@ public class Authenticator {
         return user;
     }
 
-    public User setCurrentUser(User user) {
+    public void logout() {
+        SpringContext.session().removeAttribute(ACCESS_KEY_PARAM);
+    }
+
+    public User registerUser(User user) {
+        validateUser(user);
+        user = userDAO.saveUser(user);
+        user = setCurrentUser(user);
+        return user;
+    }
+
+    public User setCurrentUser(String email) {
+        User user = userDAO.getByEmail(email);
         SpringContext.session().setAttribute(ACCESS_KEY_PARAM, user.getAccessKey());
         return user;
     }
-    
-    public User setCurrentUser(String email) {
-        User user = userDAO.getByEmail(email);
+
+    public User setCurrentUser(User user) {
         SpringContext.session().setAttribute(ACCESS_KEY_PARAM, user.getAccessKey());
         return user;
     }
@@ -72,9 +76,5 @@ public class Authenticator {
     }
 
     private void validateUser(User user) {
-    }
-
-    public void logout() {
-        SpringContext.session().removeAttribute(ACCESS_KEY_PARAM);
     }
 }

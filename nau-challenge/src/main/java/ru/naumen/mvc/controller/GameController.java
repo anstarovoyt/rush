@@ -1,5 +1,8 @@
 package ru.naumen.mvc.controller;
 
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,8 @@ import ru.naumen.core.info.Params;
 import ru.naumen.model.User;
 import ru.naumen.model.dao.UserDAO;
 
+import com.google.common.collect.Maps;
+
 /**
  * User: anstarovoyt
  * Date: 10/24/13
@@ -32,6 +37,7 @@ public class GameController
     @Inject
     UserDAO dao;
 
+    ConcurrentMap<Long, ReentrantLock> locks = Maps.newConcurrentMap();
 
     @RequestMapping(value = "/game", method = RequestMethod.GET)
     public String gameInfo(@RequestParam(value = Params.GAME_ID, required = false) String gid, Model model)
@@ -47,15 +53,10 @@ public class GameController
             model.addAttribute("wins", gameSeries.wonGamesCount());
             return "gamesolved";
         }
-        Game game = gameSeries.getGame();
 
-        model.addAttribute("description", game.getDescription());
         model.addAttribute("gid", gid);
-        model.addAttribute("maxwins", gameSeries.maxWinsCount());
-        model.addAttribute("wins", gameSeries.wonGamesCount());
-        model.addAttribute("computerstate", game.getStateRepresentation());
-        model.addAttribute("computermessage", game.output());
-        model.addAttribute("gamestate", game.state().getMessage());
+
+        setCommonParamsToModel(model, gameSeries);
 
         return "rungame";
     }
@@ -75,33 +76,54 @@ public class GameController
             return "gamesolved";
         }
 
-        gameSeries.input(answer);
+        ReentrantLock lock = getLock(currentUser.getId());
+        try
+        {
+            lock.lock();
+            gameSeries.input(answer);
 
+            changeSerialState(gameSeries);
+
+            setUser(currentUser);
+
+            if (isSolved(gameSeries))
+            {
+                model.addAttribute("wins", gameSeries.wonGamesCount());
+                return "gamesolved";
+            }
+
+            setCommonParamsToModel(model, gameSeries);
+            return "rungame";
+        }
+        finally
+        {
+            lock.unlock();
+        }
+    }
+
+    private void changeSerialState(GameSeries gameSeries)
+    {
         Game game = gameSeries.getGame();
         // вопрос, когда высчитывается состояние игры
-        if (game.state() == GameState.VICTORY) {
+        if (game.state() == GameState.VICTORY)
+        {
             gameSeries.winOneGame();
         }
-        if (game.state() == GameState.FAILURE) {
+        if (game.state() == GameState.FAILURE)
+        {
             gameSeries.loseOneGame();
         }
+    }
 
-        setState(currentUser);
+    private ReentrantLock getLock(long userId)
+    {
+        ReentrantLock result = locks.get(userId);
 
-        if (isSolved(gameSeries))
+        if (result == null)
         {
-            model.addAttribute("wins", gameSeries.wonGamesCount());
-            return "gamesolved";
+            locks.putIfAbsent(userId, new ReentrantLock());
         }
-
-        model.addAttribute("description", game.getDescription());
-        model.addAttribute("maxwins", gameSeries.maxWinsCount());
-        model.addAttribute("wins", gameSeries.wonGamesCount());
-        model.addAttribute("computerstate", game.getStateRepresentation());
-        model.addAttribute("computermessage", game.output());
-        model.addAttribute("gamestate", game.state().getMessage());
-
-        return "rungame";
+        return locks.get(userId);
     }
 
     private boolean isClosed(GameSeries gameSeries)
@@ -114,9 +136,20 @@ public class GameController
         return gameSeries.getState() == GameSeriesState.SOLVED;
     }
 
-    private void setState(User currentUser)
+    private void setCommonParamsToModel(Model model, GameSeries gameSeries)
     {
-        dao.updateUser(currentUser);
+        Game game = gameSeries.getGame();
+
+        model.addAttribute("description", game.getDescription());
+        model.addAttribute("maxwins", gameSeries.maxWinsCount());
+        model.addAttribute("wins", gameSeries.wonGamesCount());
+        model.addAttribute("computerstate", game.getStateRepresentation());
+        model.addAttribute("computermessage", game.output());
+        model.addAttribute("gamestate", game.state().getMessage());
     }
 
+    private void setUser(User currentUser)
+    {
+        dao.saveUser(currentUser);
+    }
 }

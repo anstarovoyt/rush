@@ -49,6 +49,7 @@ public class XOGame implements Game {
     char matrix[] = {'*', '*', '*', '*', '*', '*', '*', '*', '*'};
 
     GameState victory = GameState.IN_PROGRESS;
+    private transient boolean isInputIncorrect;
 
     /**
      * @return -1 если игрок победил или текущий ход компьютера
@@ -145,7 +146,8 @@ public class XOGame implements Game {
             }
 
         } catch (IllegalArgumentException e) {
-            //Некорректный ввод
+            isInputIncorrect = true;
+            victory = GameState.IN_PROGRESS;
         }
     }
 
@@ -160,7 +162,7 @@ public class XOGame implements Game {
 
     @Override
     public String output() {
-        return null;
+        return isInputIncorrect ? "Некорректный ввод" : null;
     }
 
     @Override
