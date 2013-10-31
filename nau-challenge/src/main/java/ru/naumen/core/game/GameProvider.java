@@ -8,15 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import ru.naumen.core.game.impl.Base64Game;
-import ru.naumen.core.game.impl.Doom;
-import ru.naumen.core.game.impl.ForeverClosed;
-import ru.naumen.core.game.impl.NameThatTune;
-import ru.naumen.core.game.impl.RPSGame;
-import ru.naumen.core.game.impl.Shtirlitz;
-import ru.naumen.core.game.impl.SpokGreeting;
-import ru.naumen.core.game.impl.XOGame;
-import ru.naumen.core.game.impl.shtirlitz_data.Fifteen;
+import ru.naumen.core.game.impl.*;
 
 /**
  * Класс предоставляет интерфейс доступа к классам существующих игр

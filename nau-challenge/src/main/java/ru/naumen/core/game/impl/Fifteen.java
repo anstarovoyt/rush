@@ -1,4 +1,4 @@
-package ru.naumen.core.game.impl.shtirlitz_data;
+package ru.naumen.core.game.impl;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
@@ -9,7 +9,11 @@ import ru.naumen.core.game.GameState;
  */
 public class Fifteen implements Game
 {
+    private static final long serialVersionUID = 2988175912527130402L;
+
     private final Integer[] position;
+
+    GameState victory = GameState.IN_PROGRESS;
 
     public Fifteen()
     {
@@ -23,32 +27,12 @@ public class Fifteen implements Game
     }
 
     @Override
-    public String getShortName()
-    {
-        return "Пятнашки";
-    }
-
-    @Override
-    public String getShortDescription()
-    {
-        return "Упорядочи хаос";
-    }
-
-    @Override
     public String computerOutput()
     {
         return "<pre>" + String.format( " %2s | %2s | %2s | %2s <br>", pos( 0 ), pos( 1 ), pos( 2 ), pos( 3 ) ) +
                 String.format( " %2s | %2s | %2s | %2s <br>", pos( 4 ), pos( 5 ), pos( 6 ), pos( 7 ) ) +
                 String.format( " %2s | %2s | %2s | %2s <br>", pos( 8 ), pos( 9 ), pos( 10 ), pos( 11 ) ) +
                 String.format( " %2s | %2s | %2s | %2s <br>", pos( 12 ), pos( 13 ), pos( 14 ), pos( 15 ) ) + "</pre>";
-    }
-
-    private String pos( int index )
-    {
-        Integer value = position[ index ];
-        if (value == 0)
-            return "";
-        return String.format( "%d", value );
     }
 
     @Override
@@ -67,6 +51,18 @@ public class Fifteen implements Game
     }
 
     @Override
+    public String getShortDescription()
+    {
+        return "Упорядочи хаос";
+    }
+
+    @Override
+    public String getShortName()
+    {
+        return "Пятнашки";
+    }
+
+    @Override
     public void input( String userInput )
     {
     }
@@ -74,17 +70,27 @@ public class Fifteen implements Game
     @Override
     public String output()
     {
-        return computerOutput();
-    }
-
-    @Override
-    public GameState state()
-    {
         return null;
     }
 
     @Override
     public Game resetState() {
         return new Fifteen();
+    }
+
+    @Override
+    public GameState state()
+    {
+        return victory;
+    }
+
+    private String pos( int index )
+    {
+        Integer value = position[ index ];
+        if (value == 0)
+        {
+            return "";
+        }
+        return String.format( "%d", value );
     }
 }

@@ -6,8 +6,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import ru.naumen.core.game.impl.shtirlitz_data.Fifteen;
-
 /**
  * @author Andrey Hitrin
  * @since 31.10.13
