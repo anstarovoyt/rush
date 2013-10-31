@@ -26,7 +26,7 @@ public class DoomTest
     public void doomGameCannotBeWonByAnyString() {
         Game doom = new Doom();
         doom.input("please let me out!");
-        assertThat( doom.state(), is( GameState.IN_PROGRESS ) );
+        assertThat( doom.state(), is( GameState.FAILURE ) );
     }
 
     @Test
@@ -42,7 +42,7 @@ public class DoomTest
         doom.input("iddqd");
         // а что с игрой происходит потом?
         doom.input("wrong data");
-        assertThat( doom.state(), is(GameState.IN_PROGRESS) );
+        assertThat( doom.state(), is(GameState.FAILURE) );
     }
 
     @Test

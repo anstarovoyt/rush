@@ -24,7 +24,7 @@ public enum GameState implements Serializable
     FAILURE {
         @Override
         public String getMessage() {
-            return "Поражение";
+            return "Неудача";
         }
     },
     VICTORY {

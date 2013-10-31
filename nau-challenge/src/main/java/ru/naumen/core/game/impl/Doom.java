@@ -52,7 +52,7 @@ public class Doom implements Game
     @Override
     public void input(String userInput)
     {
-        victory = "iddqd".equalsIgnoreCase(userInput) ? GameState.VICTORY : GameState.IN_PROGRESS;
+        victory = "iddqd".equalsIgnoreCase(userInput) ? GameState.VICTORY : GameState.FAILURE;
     }
 
     @Override

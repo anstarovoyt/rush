@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <label for="text">Название команды</label> 
-                    <form:input path="fio" type="text" class="form-control" name="fio" id="fio" placeholder="Введите ФИО"/>
+                    <form:input path="fio" type="text" class="form-control" name="fio" id="fio" placeholder="Введите название команды"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Пароль</label> 

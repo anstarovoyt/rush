@@ -21,9 +21,15 @@ public class Base64Game implements Game
     private GameState state = GameState.IN_PROGRESS;
 
     @Override
-    public String getShortName()
+    public String getDescription()
     {
-        return "Инопланетное послание";
+        return "Наши радиотелескопы уловили таинственное послание из космоса";
+    }
+
+    @Override
+    public String getId()
+    {
+        return "quest";
     }
 
     @Override
@@ -33,21 +39,15 @@ public class Base64Game implements Game
     }
 
     @Override
+    public String getShortName()
+    {
+        return "Инопланетное послание";
+    }
+
+    @Override
     public String getStateRepresentation()
     {
-        return null;
-    }
-
-    @Override
-    public String getDescription()
-    {
-        return "Наши радиотелескопы уловили таинственное послание из космоса:<br>" + ENCODED_DESCRIPTION;
-    }
-
-    @Override
-    public String getId()
-    {
-        return "quest";
+        return ENCODED_DESCRIPTION;
     }
 
     @Override
@@ -64,13 +64,13 @@ public class Base64Game implements Game
     }
 
     @Override
-    public GameState state()
-    {
-        return state;
+    public Game resetState() {
+        return this;
     }
 
     @Override
-    public Game resetState() {
-        return this;
+    public GameState state()
+    {
+        return state;
     }
 }

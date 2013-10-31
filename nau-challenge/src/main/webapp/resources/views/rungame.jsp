@@ -56,7 +56,9 @@
                     </div>
                 <% } %>
                 <p style="margin-top: 20px">Состояние игры: ${gamestate}</p>
+                <% if(request.getAttribute("computermessage") != null) { %>
                 <p style="margin-top: 20px">Текущее состояние: ${computermessage}</p>
+                <% } %>
                 <div class="row">
                     <div class="control-group">
                         <div class="panel panel-default">
