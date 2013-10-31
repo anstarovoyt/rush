@@ -58,11 +58,6 @@ public class XOGame implements Game {
         return -1;
     }
 
-    @Override
-    public String getStateRepresentation() {
-        return format(matrix);
-    }
-
     public int getComputerWin() {
         return winStep(COMPUTER_CHAR);
     }
@@ -91,6 +86,11 @@ public class XOGame implements Game {
         return "Крестики-нолики";
     }
 
+    @Override
+    public String getStateRepresentation() {
+        return format(matrix);
+    }
+
     /**
      * 1 | 2 | 3
      * _________
@@ -109,6 +109,11 @@ public class XOGame implements Game {
             matrix[value - 1] = USER_CHAR;
 
             if (isUserWin()) {
+                victory = GameState.VICTORY;
+                return;
+            }
+
+            if (isFieldFilled()) {
                 victory = GameState.VICTORY;
                 return;
             }

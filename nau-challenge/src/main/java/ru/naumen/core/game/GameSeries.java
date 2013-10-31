@@ -8,10 +8,18 @@ import java.io.Serializable;
  */
 public class GameSeries implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static GameSeries closedGame(Game game, int maxWins) {
+        return new GameSeries(game, maxWins, new GameSeries[]{}, GameSeriesState.CLOSED);
+    }
+    public static GameSeries openGame(Game game, int maxWins, GameSeries... nextGames) {
+        return new GameSeries(game, maxWins, nextGames, GameSeriesState.OPEN);
+    }
     private final GameSeries[] nextGames;
     private int gamesWon = 0;
     private GameSeriesState state;
+
     private Game game;
+
     private int maxWins;
 
     public GameSeries(Game game, int maxWins, GameSeries[] nextGames, GameSeriesState state) {
@@ -19,14 +27,6 @@ public class GameSeries implements Serializable {
         this.maxWins = maxWins;
         this.state = state;
         this.nextGames = nextGames;
-    }
-
-    public static GameSeries closedGame(Game game, int maxWins) {
-        return new GameSeries(game, maxWins, new GameSeries[]{}, GameSeriesState.CLOSED);
-    }
-
-    public static GameSeries openGame(Game game, int maxWins, GameSeries... nextGames) {
-        return new GameSeries(game, maxWins, nextGames, GameSeriesState.OPEN);
     }
 
     public Game getGame() {
@@ -37,18 +37,18 @@ public class GameSeries implements Serializable {
         return game.getId();
     }
 
+    public GameSeriesState getState() {
+        return state;
+    }
+
     public void input(String answer) {
 
         if (game.state() == GameState.FAILURE || game.state() == GameState.VICTORY)
         {
-            game.resetState();
+            resetGame();
         }
 
         game.input(answer);
-    }
-
-    public GameSeriesState getState() {
-        return state;
     }
 
     public void loseOneGame() {
@@ -74,6 +74,10 @@ public class GameSeries implements Serializable {
         return maxWins;
     }
 
+    public void resetGame() {
+        game = game.resetState();
+    }
+
     public void winOneGame() {
         gamesWon++;
         if (gamesWon >= maxWins) {
@@ -83,9 +87,5 @@ public class GameSeries implements Serializable {
 
     public int wonGamesCount() {
         return gamesWon;
-    }
-
-    public void resetGame() {
-        game = game.resetState();
     }
 }
