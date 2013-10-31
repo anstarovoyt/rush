@@ -46,7 +46,7 @@
                     <div class="row game_row">
                         <div class="col-lg-05"></div>
                 <% } %>
-                <% if (series.getState() !=  GameSeriesState.CLOSED) {%>
+                <% if (series.getState() ==  GameSeriesState.OPEN) {%>
                         <%-- Сама карточка игры --%>
                         <div class="game_card col-lg-3">
                             <h2 class="game_title">${game.shortName}</h2>
@@ -55,9 +55,16 @@
                                 <a class="btn btn-orange btn-primary" href="/game?gid=${game.id}&<%= UrlUtils.createAKParam(getCurrentUser())%>">Играть! &raquo;</a>
                             </p>
                         </div>
-                 <% } else { %>
+                 <% } else if (series.getState() ==  GameSeriesState.CLOSED){ %>
                         <%-- Карточка disabled игры --%>
                         <div class="game_card col-lg-3 game-disabled">
+                            <h2 class="game_title">${game.shortName}</h2>
+                            <p>${game.shortDescription}</p>
+                        </div>
+                 <% } else { %>
+                 		<%-- Карточка disabled игры --%>
+                        <div class="game_card col-lg-3">
+                            <div class="game-mark"><img src="/resources/img/mark.png" width="50px"></div>
                             <h2 class="game_title">${game.shortName}</h2>
                             <p>${game.shortDescription}</p>
                         </div>

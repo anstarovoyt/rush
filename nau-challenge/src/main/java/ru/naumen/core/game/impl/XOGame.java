@@ -79,12 +79,12 @@ public class XOGame implements Game {
 
     @Override
     public String getShortDescription() {
-        return "Серьёзное испытание для интеллекта";
+        return "Крестики-нолики";
     }
 
     @Override
     public String getShortName() {
-        return "Крестики-нолики";
+        return "Tic-tac-toe";
     }
 
     @Override

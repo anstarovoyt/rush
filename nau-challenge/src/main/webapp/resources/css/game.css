@@ -1,3 +1,9 @@
 .game-disabled {
 	opacity: 0.5;
 }
+
+.game-mark {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
