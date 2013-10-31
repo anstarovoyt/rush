@@ -26,8 +26,8 @@ public class GameProvider
         //@formatter:off
         return Arrays.asList(
                 openGame(new Doom(), 1),
-                openGame(new XOGame(), 50),
-                openGame(new RPSGame(), 50),
+                openGame(new XOGame(), 100),
+                openGame(new RPSGame(), 100),
                 openGame(new Shtirlitz(), 1),
                 openGame(new NameThatTune(), 1),
                 openGame(new SpokGreeting(), 1),

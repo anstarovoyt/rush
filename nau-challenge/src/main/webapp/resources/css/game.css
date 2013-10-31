@@ -5,5 +5,10 @@
 .game-mark {
 	position: absolute;
 	right: 0;
-	top: 0;
+	bottom: 0;
+}
+
+.invisible-state
+{
+	display: none;
 }
