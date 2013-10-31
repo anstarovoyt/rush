@@ -1,6 +1,7 @@
 <%@page import="ru.naumen.core.auth.Authenticator"%>
 <%@page import="ru.naumen.core.SpringContext"%>
 <%@page import="ru.naumen.model.User"%>
+<%@page import="ru.naumen.core.utils.UrlUtils"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -24,7 +25,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <% if(getCurrentUser() != null) { %>
-                    <li><a href="/games/?ak=<%= getCurrentUser().getAccessKey() %>">Games</a></li>
+                    <li><a href="/games/?<%= UrlUtils.createAKParam(getCurrentUser()) %>">Games</a></li>
                 <% } %>
             </ul>
             <% if(getCurrentUser() == null && request.getAttribute("isIndexPage") != null) { %>
