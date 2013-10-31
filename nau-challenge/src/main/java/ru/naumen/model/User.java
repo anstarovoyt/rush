@@ -139,6 +139,6 @@ public class User
     @Override
     public String toString()
     {
-        return String.format("[user: id %i, command %s, email %s]", id, fio, email);
+        return String.format("[user: id %d, command %s, email %s]", id, fio, email);
     }
 }
