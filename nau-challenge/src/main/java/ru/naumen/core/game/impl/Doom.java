@@ -9,6 +9,8 @@ import ru.naumen.core.game.GameState;
  */
 public class Doom implements Game
 {
+    public static final String ID = "dm";
+
     private static final String DESCRIPTION = "Есть один универсальный способ пройти DOOM. Какой?";
 
     private static final long serialVersionUID = 1L;
@@ -28,7 +30,7 @@ public class Doom implements Game
     @Override
     public String getId()
     {
-        return "dm";
+        return ID;
     }
 
     @Override

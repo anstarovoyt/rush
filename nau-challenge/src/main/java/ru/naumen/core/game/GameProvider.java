@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import ru.naumen.core.game.impl.*;
 
+import com.google.common.collect.Lists;
+
 /**
  * Класс предоставляет интерфейс доступа к классам существующих игр
  * @author astarovoyt
@@ -17,18 +19,21 @@ import ru.naumen.core.game.impl.*;
 @Component
 public class GameProvider
 {
+
     public List<GameSeries> getNewGameList()
     {
-        GameSeries closedGameExample = closedGame( new ForeverClosed(), 1 );
-        return Arrays.asList(
-                openGame( new Doom(), 1, closedGameExample ),
-                openGame( new XOGame(), 50 ),
-                openGame( new RPSGame(), 50 ),
-                openGame( new Shtirlitz(), 1 ),
-                openGame( new NameThatTune(), 1 ),
-                openGame( new SpokGreeting(), 1 ),
-                openGame( new Base64Game(), 1 ),
-                openGame( new Fifteen(), 5 ),
-                closedGameExample );
+        GameSeries closedGameExample = closedGame(new ForeverClosed(), 1);
+        return Arrays.asList(openGame(new Doom(), 1), openGame(new XOGame(), 50), openGame(new RPSGame(), 50),
+                openGame(new Shtirlitz(), 1), openGame(new NameThatTune(), 1), openGame(new SpokGreeting(), 1),
+                openGame(new Base64Game(), 1), openGame(new Fifteen(), 5), closedGameExample);
+    }
+
+    /**
+     * Тут нужно задать маппинг открытия игр по зависмостям
+     *
+     */
+    public List<String> getRelatedClosedGameIds(String gameId)
+    {
+        return Lists.newArrayList();
     }
 }

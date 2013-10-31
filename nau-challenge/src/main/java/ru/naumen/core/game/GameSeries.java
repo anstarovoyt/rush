@@ -6,15 +6,20 @@ import java.io.Serializable;
  * @author Andrey Hitrin
  * @since 25.10.13
  */
-public class GameSeries implements Serializable {
+public class GameSeries implements Serializable
+{
     private static final long serialVersionUID = 1L;
-    public static GameSeries closedGame(Game game, int maxWins) {
-        return new GameSeries(game, maxWins, new GameSeries[]{}, GameSeriesState.CLOSED);
+
+    public static GameSeries closedGame(Game game, int maxWins)
+    {
+        return new GameSeries(game, maxWins, GameSeriesState.CLOSED);
     }
-    public static GameSeries openGame(Game game, int maxWins, GameSeries... nextGames) {
-        return new GameSeries(game, maxWins, nextGames, GameSeriesState.OPEN);
+
+    public static GameSeries openGame(Game game, int maxWins)
+    {
+        return new GameSeries(game, maxWins, GameSeriesState.OPEN);
     }
-    private final GameSeries[] nextGames;
+
     private int gamesWon = 0;
     private GameSeriesState state;
 
@@ -22,26 +27,30 @@ public class GameSeries implements Serializable {
 
     private int maxWins;
 
-    public GameSeries(Game game, int maxWins, GameSeries[] nextGames, GameSeriesState state) {
+    public GameSeries(Game game, int maxWins, GameSeriesState state)
+    {
         this.game = game;
         this.maxWins = maxWins;
         this.state = state;
-        this.nextGames = nextGames;
     }
 
-    public Game getGame() {
+    public Game getGame()
+    {
         return game;
     }
 
-    public String getId() {
+    public String getId()
+    {
         return game.getId();
     }
 
-    public GameSeriesState getState() {
+    public GameSeriesState getState()
+    {
         return state;
     }
 
-    public void input(String answer) {
+    public void input(String answer)
+    {
 
         if (game.state() == GameState.FAILURE || game.state() == GameState.VICTORY)
         {
@@ -51,41 +60,49 @@ public class GameSeries implements Serializable {
         game.input(answer);
     }
 
-    public void loseOneGame() {
+    public void loseOneGame()
+    {
         gamesWon = 0;
     }
 
-    public void makeOpen() {
-        if (state == GameSeriesState.CLOSED) {
+    public void makeOpen()
+    {
+        if (state == GameSeriesState.CLOSED)
+        {
             state = GameSeriesState.OPEN;
         }
     }
 
-    public void makeSolved() {
-        if (state == GameSeriesState.OPEN) {
+    public void makeSolved()
+    {
+        if (state == GameSeriesState.OPEN)
+        {
             state = GameSeriesState.SOLVED;
-            for (GameSeries series : nextGames) {
-                series.makeOpen();
-            }
+
         }
     }
 
-    public int maxWinsCount() {
+    public int maxWinsCount()
+    {
         return maxWins;
     }
 
-    public void resetGame() {
+    public void resetGame()
+    {
         game = game.resetState();
     }
 
-    public void winOneGame() {
+    public void winOneGame()
+    {
         gamesWon++;
-        if (gamesWon >= maxWins) {
+        if (gamesWon >= maxWins)
+        {
             makeSolved();
         }
     }
 
-    public int wonGamesCount() {
+    public int wonGamesCount()
+    {
         return gamesWon;
     }
 }

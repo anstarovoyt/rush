@@ -1,5 +1,6 @@
 package ru.naumen.mvc.controller;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -12,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ru.naumen.core.auth.Authenticator;
-import ru.naumen.core.game.Game;
-import ru.naumen.core.game.GameSeries;
-import ru.naumen.core.game.GameSeriesState;
-import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.*;
 import ru.naumen.core.info.Params;
+import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.model.User;
 import ru.naumen.model.dao.UserDAO;
 
@@ -36,6 +35,9 @@ public class GameController
 
     @Inject
     UserDAO dao;
+
+    @Inject
+    GameProvider provider;
 
     ConcurrentMap<Long, ReentrantLock> locks = Maps.newConcurrentMap();
 
@@ -82,7 +84,7 @@ public class GameController
             lock.lock();
             gameSeries.input(answer);
 
-            changeSerialState(gameSeries);
+            changeSerialState(gameSeries, currentUser);
 
             setUser(currentUser);
 
@@ -101,13 +103,16 @@ public class GameController
         }
     }
 
-    private void changeSerialState(GameSeries gameSeries)
+    private void changeSerialState(GameSeries gameSeries, User currentUser)
     {
         Game game = gameSeries.getGame();
         // вопрос, когда высчитывается состояние игры
         if (game.state() == GameState.VICTORY)
         {
             gameSeries.winOneGame();
+
+            openRelatedGames(gameSeries, currentUser);
+
         }
         if (game.state() == GameState.FAILURE)
         {
@@ -134,6 +139,19 @@ public class GameController
     private boolean isSolved(GameSeries gameSeries)
     {
         return gameSeries.getState() == GameSeriesState.SOLVED;
+    }
+
+    private void openRelatedGames(GameSeries gameSeries, User currentUser)
+    {
+        List<String> relatedGames = provider.getRelatedClosedGameIds(gameSeries.getId());
+
+        UserGameStorage storage = currentUser.getUserGameStorage();
+
+        for (String relatedId : relatedGames)
+        {
+            GameSeries relatedSeries = storage.get(relatedId);
+            relatedSeries.makeOpen();
+        }
     }
 
     private void setCommonParamsToModel(Model model, GameSeries gameSeries)

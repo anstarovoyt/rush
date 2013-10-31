@@ -18,6 +18,8 @@ public class RPSGame implements Game
     public transient static final long serialVersionUID = 1L;
     public transient static final Random RND = new Random();
 
+    public static final String ID = "rps";
+
 
     /**
      *  R > S > P > R
@@ -53,7 +55,7 @@ public class RPSGame implements Game
     @Override
     public String getId()
     {
-        return "rps";
+        return ID;
     }
 
     @Override

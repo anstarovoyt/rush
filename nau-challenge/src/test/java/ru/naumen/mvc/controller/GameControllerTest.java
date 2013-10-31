@@ -18,10 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 
 import ru.naumen.core.auth.Authenticator;
-import ru.naumen.core.game.Game;
-import ru.naumen.core.game.GameSeries;
-import ru.naumen.core.game.GameSeriesState;
-import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.*;
 import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.model.User;
 import ru.naumen.model.dao.UserDAO;
@@ -42,6 +39,19 @@ public class GameControllerTest
     @Mock UserGameStorage storage;
     @Mock GameSeries gameSeries;
     @Mock UserDAO dao;
+
+    @Mock GameProvider provider;
+
+    @Before
+    public void _beforeSetupMocks() {
+        MockitoAnnotations.initMocks( this );
+        mockMvc = standaloneSetup(gameController).build();
+        when( authenticator.getCurrentUser() ).thenReturn( user );
+        when( user.getUserGameStorage() ).thenReturn( storage );
+        when( storage.get( anyString() ) ).thenReturn( gameSeries );
+        when( gameSeries.getGame() ).thenReturn( game );
+        when( game.state() ).thenReturn( GameState.IN_PROGRESS );
+    }
 
     @Test
     public void addGameDescriptionToModel() throws Exception
@@ -83,17 +93,6 @@ public class GameControllerTest
         when( game.state() ).thenReturn( GameState.FAILURE );
         mockMvc.perform( post( "/game" ) );
         verify( gameSeries ).loseOneGame();
-    }
-
-    @Before
-    public void setupMocks() {
-        MockitoAnnotations.initMocks( this );
-        mockMvc = standaloneSetup(gameController).build();
-        when( authenticator.getCurrentUser() ).thenReturn( user );
-        when( user.getUserGameStorage() ).thenReturn( storage );
-        when( storage.get( anyString() ) ).thenReturn( gameSeries );
-        when( gameSeries.getGame() ).thenReturn( game );
-        when( game.state() ).thenReturn( GameState.IN_PROGRESS );
     }
 
     @Test

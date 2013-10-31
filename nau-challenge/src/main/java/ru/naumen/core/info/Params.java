@@ -6,9 +6,6 @@ package ru.naumen.core.info;
  * Time: 10:45 PM
  */
 public final class Params {
-    
-    private Params() {
-    }
 
     /**
      * Параметр отвественный за аутентификацию
@@ -16,7 +13,7 @@ public final class Params {
      * Нужен поскольку мы храним состояние системы "глобально"
      * и не хотим привязываться к конкретной сессии или кукам
      */
-    public static final String ACCESS_KEY_PARAM = "ak";
+    public static final String ACCESS_KEY_PARAM = "accesskey";
 
     /**
      * Параметр по которому мы будем определять какая игра открыта у пользователя
@@ -24,5 +21,8 @@ public final class Params {
     public static final String GAME_ID = "gid";
 
     public static final String ANSWER_ID = "answer";
+
+    private Params() {
+    }
 
 }
