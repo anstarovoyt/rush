@@ -1,8 +1,9 @@
 package ru.naumen.core.game.impl;
 
-import org.junit.Test;
-
 import static junit.framework.Assert.assertEquals;
+
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * @author achernin
@@ -12,6 +13,7 @@ public class MagicSelectTest
 {
 
     @Test
+    @Ignore
     public void test_empty()
     {
         MagicSelect game = new MagicSelect();
@@ -20,6 +22,7 @@ public class MagicSelectTest
     }
 
     @Test
+    @Ignore
     public void test_injected()
     {
         MagicSelect game = new MagicSelect();
