@@ -84,6 +84,6 @@ public class Console implements Game {
 
     @Override
     public Game resetState() {
-        return this;g
+        return this;
     }
 }
