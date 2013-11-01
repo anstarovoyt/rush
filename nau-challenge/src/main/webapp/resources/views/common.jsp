@@ -21,11 +21,12 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">Devel Camp Rush</a>
-        </div>
+        </div>                                            g
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <% if(getCurrentUser() != null) { %>
                     <li><a href="/games/?<%= UrlUtils.createAKParam(getCurrentUser()) %>">Games</a></li>
+                    <li><a href="/secret-rating">Top</a></li>
                 <% } %>
             </ul>
             <% if(getCurrentUser() == null && request.getAttribute("isIndexPage") != null) { %>
