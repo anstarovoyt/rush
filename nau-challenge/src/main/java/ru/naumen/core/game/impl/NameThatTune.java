@@ -1,5 +1,7 @@
 package ru.naumen.core.game.impl;
 
+import org.apache.log4j.Logger;
+
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
 
@@ -10,13 +12,31 @@ import ru.naumen.core.game.GameState;
  */
 public class NameThatTune implements Game
 {
+    public static final Logger LOG = Logger.getLogger(NameThatTune.class);
 
     private static final long serialVersionUID = 1L;
 
+    private static transient final String DESCRIPTION = "Угадай мелодию<br/><br/>" +
+
+    "Fm6 &nbsp;&nbsp;  G7 &nbsp;&nbsp; Cm<br/>" + "C &nbsp;&nbsp; G7 &nbsp;&nbsp; C<br/>" + "F &nbsp;&nbsp; C<br/>"
+            + "Am &nbsp;&nbsp; A7 &nbsp;&nbsp; Dm &nbsp;&nbsp; D#dim7<br/>" + "C &nbsp;&nbsp; G7 &nbsp;&nbsp; C<br/>";
+
+    private GameState state = GameState.IN_PROGRESS;
+
+    private static transient final String NAME_FORMAL = "Улыбка";
+
+    private static transient final String NAME_UNFORMAL = "От улыбки станет всем светлей";
+
     @Override
-    public String getShortName()
+    public String getDescription()
     {
-        return "Угадай мелодию";
+        return DESCRIPTION;
+    }
+
+    @Override
+    public String getId()
+    {
+        return "NameThatTune";
     }
 
     @Override
@@ -26,40 +46,30 @@ public class NameThatTune implements Game
     }
 
     @Override
+    public String getShortName()
+    {
+        return "Угадай мелодию";
+    }
+
+    @Override
     public String getStateRepresentation()
     {
         return null;
     }
 
-    private static transient final String DESCRIPTION =
-            "Угадай мелодию<br/><br/>" +
-
-                    "Fm6 &nbsp;&nbsp;  G7 &nbsp;&nbsp; Cm<br/>" +
-                    "C &nbsp;&nbsp; G7 &nbsp;&nbsp; C<br/>" +
-                    "F &nbsp;&nbsp; C<br/>" +
-                    "Am &nbsp;&nbsp; A7 &nbsp;&nbsp; Dm &nbsp;&nbsp; D#dim7<br/>" +
-                    "C &nbsp;&nbsp; G7 &nbsp;&nbsp; C<br/>";
-
-    @Override
-    public String getDescription() {
-        return DESCRIPTION;
-    }
-
-    @Override
-    public String getId() {
-        return "NameThatTune";
-    }
-
-    private static transient final String NAME_FORMAL = "Улыбка";
-    private static transient final String NAME_UNFORMAL = "От улыбки станет всем светлей";
-
     @Override
     public void input(String userInput)
     {
-        if (NAME_FORMAL.equalsIgnoreCase(userInput) || NAME_UNFORMAL.equalsIgnoreCase(userInput))
+        String input = userInput.trim();
+
+        LOG.debug("Input value " + input);
+
+        if (NAME_FORMAL.equalsIgnoreCase(input) || NAME_UNFORMAL.equalsIgnoreCase(input))
         {
             state = GameState.VICTORY;
-        } else {
+        }
+        else
+        {
             state = GameState.FAILURE;
         }
     }
@@ -70,16 +80,15 @@ public class NameThatTune implements Game
         return null;
     }
 
-    private GameState state = GameState.IN_PROGRESS;
+    @Override
+    public Game resetState()
+    {
+        return this;
+    }
 
     @Override
     public GameState state()
     {
         return state;
-    }
-
-    @Override
-    public Game resetState() {
-        return this;
     }
 }
