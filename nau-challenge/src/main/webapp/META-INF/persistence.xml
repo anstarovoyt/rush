@@ -9,9 +9,9 @@
 
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="update" />
-<!--             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /> -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
             <property name="hibernate.default_schema" value="public" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+<!--             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" /> -->
             <property name="hibernate.show_sql" value="true" />
             <property name="javax.persistence.sharedCache.mode" value="ENABLE_SELECTIVE" />
             <property name="hibernate.cache.use_second_level_cache" value="true" />

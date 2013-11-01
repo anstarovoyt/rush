@@ -40,7 +40,7 @@ public class GameProvider
                 openGame(new Diff(), 1),
                 openGame(new Ktulhu(), 1),
                 openGame(new TrollLife(), 1),
-                closedGame(new Fifteen(), 5),
+                closedGame(new Fifteen(), 50),
                 closedGame(new Shtirlitz(), 1),
                 closedGame(new Redo(), 1),
                 closedGame(new MagicSelect(), 1));
