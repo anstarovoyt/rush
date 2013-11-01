@@ -35,6 +35,7 @@
         <div class="row">
             <table class="table table-striped" style="width: 100%;">
                 <tr>
+                    <th>Место</th>
                     <th>Команда</th>
                     <th>Рейтинг</th>
                     <th>Дата последнего решения</th>
@@ -46,6 +47,7 @@
                         RatingRow row = rows.get(i);
                 %>
                       <tr>
+                        <td><%= i+1 %></td>
                         <td><%= row.getCommandName() %></td>
                         <td><%= row.getScore() %></td>
                         <td><%= DateUtils.formatAsDate(row.getLastSolved()) %></td>
