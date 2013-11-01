@@ -17,7 +17,7 @@ public class MagicSelectTest
     public void test_empty()
     {
         MagicSelect game = new MagicSelect();
-        game.input("Азетбур");
+        game.input("Azethbur");
         assertEquals("0", game.output());
     }
 
@@ -26,7 +26,7 @@ public class MagicSelectTest
     public void test_injected()
     {
         MagicSelect game = new MagicSelect();
-        game.input("Азетбур'; insert into klingon_leader (leader, start_year) values ('Азетбур', 2293); select start_year from klingon_leader where leader = 'Азетбур");
+        game.input("Azethbur'; insert into klingon_leader (leader, start_year) values ('Azethbur', 2293); select start_year from klingon_leader where leader = 'Azethbur");
         assertEquals("0", game.output());
     }
 

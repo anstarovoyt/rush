@@ -20,9 +20,18 @@ public class MagicSelect implements Game
 
     private static final transient Logger log = Logger.getLogger(MagicSelect.class.getName());
 
-    private static final transient String DESCRIPTION = "При каждом запуске игра делает запрос к реляционной базе данных по миру сериала СтарТрэк <br/>"
-            + "select start_year from klingon_leader where leader = '?' <br/>"
-            + "Игрок выигрывает в игру, если результатом выполнения запроса будет год, в который началось правление канцлера Азетбура.<br/>";
+    private static final transient String DESCRIPTION =
+            "В игре имеется реляционная база данных по миру сериала СтарТрэк <br/>" +
+            "В базе создана таблица с информацией по лидерам одной из галактических рас - Клингонам <br/>" +
+            "  CREATE TABLE klingon_leader ( leader varchar(100), start_year int ) <br/>" +
+            "  leader - имя лидера <br/>" +
+            "  start_year - год по земному исчислению, начиная с которого лидер стоял во главе Клингонской Империи. <br/>" +
+            "Во время каждого запуска программа пытается выполнить запрос <br/>" +
+            "  select start_year from klingon_leader where leader = '?' <br/>" +
+            "и получить год начала правления канцлера Азетбура (Azethbur) - 2293 г. <br/>" +
+            "Но что-то идет не так и игре нужна твоя помощь. <br/>" +
+            "Помоги игре правильно параметризовать sql-запрос - значение, которое ты вводишь, будет подставлено вместо знака вопрос!";
+
 
     private String prev_result;
 
@@ -85,12 +94,13 @@ public class MagicSelect implements Game
     @Override
     public String output()
     {
-        return null;
+        return getStateRepresentation();
     }
 
     @Override
     public Game resetState()
     {
+        state = GameState.IN_PROGRESS;
         return this;
     }
 

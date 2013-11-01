@@ -54,6 +54,12 @@ public class TemporarySchemaProvider
 
     public static String execute(String sqlCode) throws PropertyVetoException, SQLException, IOException
     {
+        return execute(sqlCode, true);
+    }
+
+
+    public static String execute(String sqlCode, boolean withDrop) throws PropertyVetoException, SQLException, IOException
+    {
         ensureInitConnectionPool();
         Connection connection = cpds.getConnection();
         String baseName = getBaseName();
@@ -66,7 +72,8 @@ public class TemporarySchemaProvider
         }
         finally
         {
-            dropDB(connection, baseName);
+            if (withDrop)
+                dropDB(connection, baseName);
         }
 
         return res;
@@ -131,8 +138,6 @@ public class TemporarySchemaProvider
         "  WITH "+
         "       ENCODING = 'UTF8'\n"+
         "       TABLESPACE = pg_default\n"+
-        "       LC_COLLATE = 'Russian_Russia.1251'\n"+
-        "       LC_CTYPE = 'Russian_Russia.1251'\n"+
         "       CONNECTION LIMIT = -1\n" +
         "       OWNER = swaldman\n",
 
