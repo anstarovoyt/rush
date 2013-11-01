@@ -1,5 +1,6 @@
 package ru.naumen.core.game.impl;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -90,6 +91,7 @@ public class FifteenMovesTest
     @Theory
     public void movesThatFail(G2 move) {
         move.game.input(move.input);
-        assertThat(move.game.state(), is(GameState.FAILURE));
+        assertThat(move.game.output(), containsString("Предложенный ход невозможен"));
+        assertThat(move.game.state(), is(GameState.IN_PROGRESS));
     }
 }

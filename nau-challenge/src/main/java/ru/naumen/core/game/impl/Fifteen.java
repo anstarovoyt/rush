@@ -30,6 +30,8 @@ public class Fifteen implements Game
     final List<Integer> field;
 
     GameState state = GameState.IN_PROGRESS;
+    private boolean impossibleMoveDetected;
+    private boolean notIntegerValuesInUserInput;
 
     /**
      * 50% всех случайных расположений не сходятся к стандартному, поэтому перед созданием игры
@@ -109,11 +111,18 @@ public class Fifteen implements Game
     @Override
     public void input( String userInput )
     {
+        resetErrorMessages();
         processInput(userInput);
         if (isSorted())
             state = GameState.VICTORY;
         else
-            state = GameState.FAILURE;
+            state = GameState.IN_PROGRESS;
+    }
+
+    private void resetErrorMessages()
+    {
+        impossibleMoveDetected = false;
+        notIntegerValuesInUserInput = false;
     }
 
     private void processInput(String userInput)
@@ -122,7 +131,7 @@ public class Fifteen implements Game
             applyMoves(toIntegers( userInput ));
         } catch( NumberFormatException e )
         {
-            state = GameState.FAILURE;
+            notIntegerValuesInUserInput = true;
         }
     }
 
@@ -137,6 +146,7 @@ public class Fifteen implements Game
             }
             else {
                 // cannot find move!
+                impossibleMoveDetected = true;
                 break;
             }
         }
@@ -192,6 +202,10 @@ public class Fifteen implements Game
     @Override
     public String output()
     {
+        if (impossibleMoveDetected)
+            return "Предложенный ход невозможен";
+        if (notIntegerValuesInUserInput)
+            return "Некорректный ввод";
         return null;
     }
 
