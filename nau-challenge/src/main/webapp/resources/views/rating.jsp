@@ -1,3 +1,4 @@
+<%@page import="ru.naumen.core.utils.DateUtils"%>
 <%@page import="ru.naumen.core.rating.RatingRow"%>
 <%@page import="java.util.List"%>
 <%@page import="ru.naumen.core.game.GameSeries"%>
@@ -32,13 +33,14 @@
     
     <div class="container">
         <div class="row">
-            <table style="width: 100%;">
+            <table class="table table-striped" style="width: 100%;">
                 <tr>
                     <th>Команда</th>
                     <th>Рейтинг</th>
                     <th>Дата последнего решения</th>
                 </tr>
                 <%
+                    @SuppressWarnings("unchecked")
                     List<RatingRow> rows = (List<RatingRow>)request.getAttribute("rows");
                     for(int i = 0; i < rows.size(); i++ ) {
                         RatingRow row = rows.get(i);
@@ -46,7 +48,7 @@
                       <tr>
                         <td><%= row.getCommandName() %></td>
                         <td><%= row.getScore() %></td>
-                        <td><%= row.getLastSolved() %></td>
+                        <td><%= DateUtils.formatAsDate(row.getLastSolved()) %></td>
                       </tr>
                 <%  }  %>
             </table>

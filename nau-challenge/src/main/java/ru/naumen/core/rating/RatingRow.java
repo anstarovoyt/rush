@@ -1,6 +1,5 @@
 package ru.naumen.core.rating;
 
-import java.util.Date;
 
 /**
  * @author serce
@@ -10,9 +9,9 @@ public class RatingRow {
 
     private String commandName;
     private int score;
-    private Date lastSolved;
+    private long lastSolved;
 
-    public RatingRow(String commandName, int score, Date lastSolved) {
+    public RatingRow(String commandName, int score, long lastSolved) {
         this.commandName = commandName;
         this.score = score;
         this.lastSolved = lastSolved;
@@ -22,23 +21,11 @@ public class RatingRow {
         return commandName;
     }
 
-    public void setCommandName(String commandName) {
-        this.commandName = commandName;
-    }
-
     public int getScore() {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public Date getLastSolved() {
+    public long getLastSolved() {
         return lastSolved;
-    }
-
-    public void setLastSolved(Date lastSolved) {
-        this.lastSolved = lastSolved;
     }
 }

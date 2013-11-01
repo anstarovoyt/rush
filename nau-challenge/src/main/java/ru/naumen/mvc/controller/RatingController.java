@@ -31,12 +31,17 @@ public class RatingController {
         for(User user : allUsers) {
             Collection<GameSeries> games = user.getUserGameStorage().getAll();
             int solvedCount = 0;
+            long maxDate = 0;
             for(GameSeries game : games) {
                 if(game.getState() == GameSeriesState.SOLVED) {
+                    if(game.getWinDate() == null) {
+                        throw  new IllegalArgumentException("Solved date should contain date of winning, maybe you need recreate your db");
+                    }
                     solvedCount++;
+                    maxDate = Math.max(maxDate, game.getWinDate().getTime()); 
                 }
             }
-            rows.add(new RatingRow(user.getFio(), solvedCount, null));
+            rows.add(new RatingRow(user.getFio(), solvedCount, maxDate));
         }
         Collections.sort(rows, new Comparator<RatingRow>() {
             @Override

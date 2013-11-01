@@ -1,6 +1,7 @@
 package ru.naumen.core.game;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Andrey Hitrin
@@ -25,7 +26,10 @@ public class GameSeries implements Serializable
 
     private Game game;
 
-    private int maxWins;
+    private final int maxWins;
+
+    private Date winDate = null;
+
 
     public GameSeries(Game game, int maxWins, GameSeriesState state)
     {
@@ -78,7 +82,7 @@ public class GameSeries implements Serializable
         if (state == GameSeriesState.OPEN)
         {
             state = GameSeriesState.SOLVED;
-
+            winDate = new Date();
         }
     }
 
@@ -104,5 +108,10 @@ public class GameSeries implements Serializable
     public int wonGamesCount()
     {
         return gamesWon;
+    }
+    
+    public Date getWinDate()
+    {
+        return winDate;
     }
 }
