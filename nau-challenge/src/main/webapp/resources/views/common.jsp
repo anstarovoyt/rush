@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">Devel Camp Rush</a>
-        </div>                                            g
+        </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <% if(getCurrentUser() != null) { %>

@@ -1,13 +1,12 @@
 package ru.naumen.model;
 
-import java.util.Random;
-
-import javax.persistence.*;
-
 import ru.naumen.core.SpringContext;
 import ru.naumen.core.auth.accessKey.AccessKeyGenerator;
 import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.core.storage.UserGameStorageFactory;
+
+import javax.persistence.*;
+import java.util.Random;
 
 /**
  * Пользователь системы
@@ -53,7 +52,7 @@ public class User
     private String accessKey;
 
     /**
-     * public для теста
+     *
      */
     public User()
     {
