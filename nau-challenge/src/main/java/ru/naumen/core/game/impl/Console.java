@@ -74,16 +74,16 @@ public class Console implements Game {
 
     @Override
     public String output() {
-        return null;
+        return output;
     }
 
     @Override
     public GameState state() {
-        return null;
+        return victory;
     }
 
     @Override
     public Game resetState() {
-        return null;
+        return this;g
     }
 }
