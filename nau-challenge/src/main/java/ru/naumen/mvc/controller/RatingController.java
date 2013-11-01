@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.common.primitives.Longs;
+
 import ru.naumen.core.game.GameSeries;
 import ru.naumen.core.game.GameSeriesState;
 import ru.naumen.core.rating.RatingRow;
@@ -74,7 +76,10 @@ public class RatingController
             @Override
             public int compare(RatingRow o1, RatingRow o2)
             {
-                return o2.getScore() - o1.getScore();
+                if(o2.getScore() == o1.getScore()) {
+                    return Longs.compare(o1.getLastSolved(), o2.getLastSolved());
+                }
+                return Integer.compare(o2.getScore(), o1.getScore());
             }
         });
         return rows;
