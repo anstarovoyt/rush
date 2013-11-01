@@ -18,7 +18,7 @@ public class UserGameStorageImpl implements UserGameStorage
 {
     private static final long serialVersionUID = 1L;
 
-    private LinkedHashMap<String, GameSeries> games = Maps.newLinkedHashMap();
+    private final LinkedHashMap<String, GameSeries> games = Maps.newLinkedHashMap();
 
     public UserGameStorageImpl( GameProvider provider )
     {
@@ -40,4 +40,9 @@ public class UserGameStorageImpl implements UserGameStorage
         return games.values();
     }
 
+    @Override
+    public void put(String id, GameSeries game) 
+    {
+        games.put(id, game);
+    }
 }
