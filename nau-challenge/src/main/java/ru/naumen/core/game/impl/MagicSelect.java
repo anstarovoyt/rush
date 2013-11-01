@@ -1,8 +1,6 @@
 package ru.naumen.core.game.impl;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import org.apache.log4j.Logger;
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
 import ru.naumen.core.game.impl.magicselect.TemporarySchemaProvider;
@@ -80,7 +78,7 @@ public class MagicSelect implements Game
         catch (Exception e)
         {
             prev_result = "Uups... Something wrong!!!";
-            log.log(Level.SEVERE, e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
         if (YEAR.equalsIgnoreCase(prev_result))
         {

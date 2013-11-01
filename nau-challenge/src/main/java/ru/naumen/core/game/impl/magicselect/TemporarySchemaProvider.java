@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.commons.lang.math.RandomUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -16,6 +17,8 @@ import org.apache.commons.lang.math.RandomUtils;
  */
 public class TemporarySchemaProvider
 {
+
+    private static final Logger log = Logger.getLogger(TemporarySchemaProvider.class.getName());
 
     private static final String POSTGRES_ADMIN = "postgres";
     private static final String POSTGRES_ADMIN_PWSD = "manager";
@@ -88,7 +91,7 @@ public class TemporarySchemaProvider
 
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return e.getMessage();
         }
 
