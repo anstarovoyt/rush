@@ -14,6 +14,12 @@ import ru.naumen.core.game.GameState;
  */
 public class Base64Game implements Game
 {
+    private static final long serialVersionUID = 1L;
+
+
+    public static final String ID = "qst";
+
+
     public static final String DESCRIPTION = "Таукитяне приветствуют братьев по разуму! " +
             "Чтобы подтвердить, что вы достаточно развиты, чтобы нам было, о чём поболтать, " +
             "пришлите в ответном сообщении 427-е простое число. Ждём с нетерпением!";
@@ -29,7 +35,7 @@ public class Base64Game implements Game
     @Override
     public String getId()
     {
-        return "quest";
+        return ID;
     }
 
     @Override

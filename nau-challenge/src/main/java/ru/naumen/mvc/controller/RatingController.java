@@ -17,39 +17,66 @@ import ru.naumen.model.User;
 import ru.naumen.model.dao.UserDAO;
 
 @Controller
-public class RatingController {
-    
+public class RatingController
+{
+
     @Inject
     UserDAO userDAO;
-    
-    @RequestMapping(value = "/super-sercret-rating", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/super-secret-rating", method = RequestMethod.GET)
     @Transactional(readOnly = true)
     public String gameProcess(Model model)
     {
-        List<User> allUsers = userDAO.loadAll(); 
+        List<RatingRow> rows = getRating(true);
+        model.addAttribute("rows", rows);
+        return "rating";
+    }
+
+    @RequestMapping(value = "/secret-rating", method = RequestMethod.GET)
+    @Transactional(readOnly = true)
+    public String gameProcessNonSecret(Model model)
+    {
+        List<RatingRow> rows = getRating(false);
+        model.addAttribute("rows", rows);
+        return "rating";
+    }
+
+    private List<RatingRow> getRating(boolean addEmpty)
+    {
+        List<User> allUsers = userDAO.loadAll();
         List<RatingRow> rows = new ArrayList<>();
-        for(User user : allUsers) {
+        for (User user : allUsers)
+        {
             Collection<GameSeries> games = user.getUserGameStorage().getAll();
             int solvedCount = 0;
             long maxDate = 0;
-            for(GameSeries game : games) {
-                if(game.getState() == GameSeriesState.SOLVED) {
-                    if(game.getWinDate() == null) {
-                        throw  new IllegalArgumentException("Solved date should contain date of winning, maybe you need recreate your db");
+            for (GameSeries game : games)
+            {
+                if (game.getState() == GameSeriesState.SOLVED)
+                {
+                    if (game.getWinDate() == null)
+                    {
+                        throw new IllegalArgumentException(
+                                "Solved date should contain date of winning, maybe you need recreate your db");
                     }
                     solvedCount++;
-                    maxDate = Math.max(maxDate, game.getWinDate().getTime()); 
+                    maxDate = Math.max(maxDate, game.getWinDate().getTime());
                 }
             }
-            rows.add(new RatingRow(user.getFio(), solvedCount, maxDate));
+
+            if (addEmpty || solvedCount > 0)
+            {
+                rows.add(new RatingRow(user.getFio(), solvedCount, maxDate));
+            }
         }
-        Collections.sort(rows, new Comparator<RatingRow>() {
+        Collections.sort(rows, new Comparator<RatingRow>()
+        {
             @Override
-            public int compare(RatingRow o1, RatingRow o2) {
+            public int compare(RatingRow o1, RatingRow o2)
+            {
                 return o2.getScore() - o1.getScore();
             }
         });
-        model.addAttribute("rows", rows);
-        return "rating";
+        return rows;
     }
 }

@@ -5,17 +5,12 @@ import static com.google.common.collect.Iterators.filter;
 import static com.google.common.collect.Range.greaterThan;
 import static com.google.common.collect.Range.lessThan;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import com.google.common.collect.Lists;
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author Andrey Hitrin
@@ -23,15 +18,11 @@ import ru.naumen.core.game.GameState;
  */
 public class Fifteen implements Game
 {
+    public static final String ID = "fftn";
+
     private static final Fifteen ORDERED_FIELD = new Fifteen(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0);
 
     private static final long serialVersionUID = 2988175912527130402L;
-
-    final List<Integer> field;
-
-    GameState state = GameState.IN_PROGRESS;
-    private boolean impossibleMoveDetected;
-    private boolean notIntegerValuesInUserInput;
 
     /**
      * 50% всех случайных расположений не сходятся к стандартному, поэтому перед созданием игры
@@ -56,6 +47,12 @@ public class Fifteen implements Game
         return (sum % 2) == 0;
     }
 
+    final List<Integer> field;
+    GameState state = GameState.IN_PROGRESS;
+    private boolean impossibleMoveDetected;
+
+    private boolean notIntegerValuesInUserInput;
+
     public Fifteen()
     {
         // а тут может быть подстава, не все комбинации приводимы к ORDERED_FIELD
@@ -72,15 +69,6 @@ public class Fifteen implements Game
     }
 
     @Override
-    public String getStateRepresentation()
-    {
-        return "<pre>" + String.format( " %2s | %2s | %2s | %2s <br>", repr(0), repr(1), repr(2), repr(3) ) +
-                String.format( " %2s | %2s | %2s | %2s <br>", repr(4), repr(5), repr(6), repr(7) ) +
-                String.format( " %2s | %2s | %2s | %2s <br>", repr(8), repr(9), repr(10), repr(11) ) +
-                String.format( " %2s | %2s | %2s | %2s <br>", repr(12), repr(13), repr(14), repr(15) ) + "</pre>";
-    }
-
-    @Override
     public String getDescription()
     {
         return "Двигай фишки, чтобы привести их в упорядоченное состояние:<br>" +
@@ -90,7 +78,7 @@ public class Fifteen implements Game
     @Override
     public String getId()
     {
-        return "fftn";
+        return ID;
     }
 
     @Override
@@ -106,30 +94,52 @@ public class Fifteen implements Game
     }
 
     @Override
+    public String getStateRepresentation()
+    {
+        return "<pre>" + String.format( " %2s | %2s | %2s | %2s <br>", repr(0), repr(1), repr(2), repr(3) ) +
+                String.format( " %2s | %2s | %2s | %2s <br>", repr(4), repr(5), repr(6), repr(7) ) +
+                String.format( " %2s | %2s | %2s | %2s <br>", repr(8), repr(9), repr(10), repr(11) ) +
+                String.format( " %2s | %2s | %2s | %2s <br>", repr(12), repr(13), repr(14), repr(15) ) + "</pre>";
+    }
+
+    @Override
     public void input( String userInput )
     {
         resetErrorMessages();
         processInput(userInput);
         if (isSorted())
-            state = GameState.VICTORY;
-        else
-            state = GameState.IN_PROGRESS;
-    }
-
-    private void resetErrorMessages()
-    {
-        impossibleMoveDetected = false;
-        notIntegerValuesInUserInput = false;
-    }
-
-    private void processInput(String userInput)
-    {
-        try {
-            applyMoves(toIntegers( userInput ));
-        } catch( NumberFormatException e )
         {
-            notIntegerValuesInUserInput = true;
+            state = GameState.VICTORY;
         }
+        else
+        {
+            state = GameState.IN_PROGRESS;
+        }
+    }
+
+    @Override
+    public String output()
+    {
+        if (impossibleMoveDetected)
+        {
+            return "Предложенный ход невозможен";
+        }
+        if (notIntegerValuesInUserInput)
+        {
+            return "Некорректный ввод";
+        }
+        return null;
+    }
+
+    @Override
+    public Game resetState() {
+        return new Fifteen();
+    }
+
+    @Override
+    public GameState state()
+    {
+        return state;
     }
 
     private void applyMoves(List<Integer> moves)
@@ -157,17 +167,26 @@ public class Fifteen implements Game
             canMoveDown(currentPosition, emptyCellPosition);
     }
 
+    private boolean canMoveDown(int currentPosition, int emptyCellPosition)
+    {
+        return emptyCellPosition == currentPosition + 4;
+    }
+
     private boolean canMoveLeft(int currentPosition, int emptyCellPosition)
     {
         if ((currentPosition + 1) % 4 == 1)
+        {
             return false;
+        }
         return emptyCellPosition == currentPosition - 1;
     }
 
     private boolean canMoveRight(int currentPosition, int emptyCellPosition)
     {
         if ((currentPosition + 1) % 4 == 0)
+        {
             return false;
+        }
         return emptyCellPosition == currentPosition + 1;
     }
 
@@ -176,45 +195,19 @@ public class Fifteen implements Game
         return emptyCellPosition == currentPosition - 4;
     }
 
-    private boolean canMoveDown(int currentPosition, int emptyCellPosition)
-    {
-        return emptyCellPosition == currentPosition + 4;
-    }
-
-    private List<Integer> toIntegers( String s )
-    {
-        List<Integer> list = new ArrayList<>();
-        if (s.isEmpty())
-            return list;
-        for (String x: s.split( " " ))
-            list.add( Integer.valueOf( x ) );
-        return list;
-    }
-
     private boolean isSorted()
     {
         return ORDERED_FIELD.field.equals(field);
     }
 
-    @Override
-    public String output()
+    private void processInput(String userInput)
     {
-        if (impossibleMoveDetected)
-            return "Предложенный ход невозможен";
-        if (notIntegerValuesInUserInput)
-            return "Некорректный ввод";
-        return null;
-    }
-
-    @Override
-    public Game resetState() {
-        return new Fifteen();
-    }
-
-    @Override
-    public GameState state()
-    {
-        return state;
+        try {
+            applyMoves(toIntegers( userInput ));
+        } catch( NumberFormatException e )
+        {
+            notIntegerValuesInUserInput = true;
+        }
     }
 
     /**
@@ -228,5 +221,25 @@ public class Fifteen implements Game
             return "";
         }
         return String.format( "%d", value );
+    }
+
+    private void resetErrorMessages()
+    {
+        impossibleMoveDetected = false;
+        notIntegerValuesInUserInput = false;
+    }
+
+    private List<Integer> toIntegers( String s )
+    {
+        List<Integer> list = new ArrayList<>();
+        if (s.isEmpty())
+        {
+            return list;
+        }
+        for (String x: s.split( " " ))
+        {
+            list.add( Integer.valueOf( x ) );
+        }
+        return list;
     }
 }

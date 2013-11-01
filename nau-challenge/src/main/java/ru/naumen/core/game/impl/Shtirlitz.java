@@ -11,6 +11,8 @@ import ru.naumen.core.game.GameState;
 public class Shtirlitz implements Game
 {
 
+    public static final String ID = "stz";
+
     private static final long serialVersionUID = 1L;
 
     private static transient final String DESCRIPTION =
@@ -34,7 +36,7 @@ public class Shtirlitz implements Game
 
     @Override
     public String getId() {
-        return "shtirlitz";
+        return ID;
     }
 
     @Override

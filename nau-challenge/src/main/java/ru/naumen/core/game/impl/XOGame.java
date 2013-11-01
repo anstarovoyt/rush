@@ -1,9 +1,9 @@
 package ru.naumen.core.game.impl;
 
+import java.util.Random;
+
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
-
-import java.util.Random;
 
 /**
  * @author Andrey Hitrin
@@ -19,6 +19,8 @@ public class XOGame implements Game
             { 3, 6, 9 }, { 1, 5, 9 }, { 3, 5, 7 } };
     private static final long serialVersionUID = 1l;
     public transient static Random RND = new Random();
+
+    public static final String ID = "xo";
 
     /**
      * У нас есть набор отображаемых символов
@@ -52,8 +54,8 @@ public class XOGame implements Game
     }
 
     char matrix[] = { '*', '*', '*', '*', '*', '*', '*', '*', '*' };
-
     GameState victory = GameState.IN_PROGRESS;
+
     private transient boolean isInputIncorrect;
 
     /**
@@ -90,7 +92,7 @@ public class XOGame implements Game
     @Override
     public String getId()
     {
-        return "xo";
+        return ID;
     }
 
     @Override
