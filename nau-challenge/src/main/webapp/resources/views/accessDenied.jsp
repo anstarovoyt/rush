@@ -11,9 +11,8 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, Naumen!</h1>
-            <p>Access denied</p>
-            <p><a href="/">Go to main page</a></p>
+            <h1>Доступ закрыт</h1>
+            <p><a href="/">Вернуться на главную страницу</a></p>
         </div>
     </div>
 </body>

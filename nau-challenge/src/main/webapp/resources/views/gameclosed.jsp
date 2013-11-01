@@ -18,7 +18,7 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, Naumen!</h1>
+            <h1>Уууупс....</h1>
         </div>
     </div>
 

@@ -29,7 +29,7 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, Naumen!</h1>
+            <h1>Победа!</h1>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
         <span>Поздравляем! Вы одержали нужное число побед в этой игре (${wins})
         <br>
                 <% if(getCurrentUser() != null) { %>
-                   <h1> <a href="/games/?<%= UrlUtils.createAKParam(getCurrentUser()) %>">Back to games</a> </h1>
+                   <h1> <a href="/games/?<%= UrlUtils.createAKParam(getCurrentUser()) %>">Вернуться к играм</a> </h1>
                 <% } %>
         </span>
     </div>
