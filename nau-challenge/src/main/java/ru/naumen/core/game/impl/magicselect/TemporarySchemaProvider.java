@@ -38,19 +38,23 @@ public class TemporarySchemaProvider
 
     public static String execute(String sqlCode, boolean withDrop) throws PropertyVetoException, SQLException, IOException
     {
-        Connection connection = DriverManager.getConnection(DB_URL + "klingon_template", POSTGRES_ADMIN, POSTGRES_ADMIN_PWSD);
         String baseName = getBaseName();
         String res = "";
+        String url = DB_URL + "klingon_template";
+        Connection connection = null;
 
         try
         {
+            connection = DriverManager.getConnection(url, POSTGRES_ADMIN, POSTGRES_ADMIN_PWSD);
             createDB(connection, baseName);
             res = runSQL(baseName, sqlCode);
         }
         finally
         {
-            if (withDrop)
+            if (withDrop && connection != null)
                 dropDB(connection, baseName);
+            if (connection != null)
+                connection.close();
         }
 
         return res;
