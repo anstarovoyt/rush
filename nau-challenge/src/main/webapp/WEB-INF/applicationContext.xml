@@ -25,23 +25,42 @@
                 <property name="generateDdl" value="true" />
             </bean>
         </property>
+
+        <!-- Для постгреса  -->
+       <!--  <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true" />
+                <property name="generateDdl" value="true" />
+                <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
+            </bean>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+            </props>
+        </property> -->
+
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
-
-<!-- 
+    
+    
+<!-- Для постгреса  -->
+<!--
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/rush" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/rush_test" />
         <property name="username" value="stand" />
         <property name="password" value="stand" />
         <property name="maxActive" value="100" />
         <property name="minIdle" value="1" />
         <property name="validationQuery" value="SELECT 1" />
+        <property name="defaultAutoCommit" value="true" />
     </bean> 
 -->
+
 
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
