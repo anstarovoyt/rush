@@ -96,7 +96,7 @@ public class TrollLife implements Game
 
     private boolean isValid(String userInput)
     {
-        return EXPECTED_STATE.equals(userInput.replaceAll(" ", "").replaceAll("\n", "").replaceAll("\r", ""));
+        return EXPECTED_STATE.equals(userInput.trim().replaceAll(" ", "").replaceAll("\n", "").replaceAll("\r", ""));
     }
 
     @Override
