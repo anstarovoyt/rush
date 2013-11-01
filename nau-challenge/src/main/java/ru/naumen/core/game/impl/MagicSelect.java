@@ -82,7 +82,7 @@ public class MagicSelect implements Game
             prev_result = "Uups... Something wrong!!!";
             log.log(Level.SEVERE, e.getMessage(), e);
         }
-        if (YEAR.equalsIgnoreCase(userInput))
+        if (YEAR.equalsIgnoreCase(prev_result))
         {
             state = GameState.VICTORY;
         }
