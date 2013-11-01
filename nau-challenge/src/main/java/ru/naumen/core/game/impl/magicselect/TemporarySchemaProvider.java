@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.lang.math.RandomUtils;
 
 /**
@@ -18,8 +17,6 @@ import org.apache.commons.lang.math.RandomUtils;
 public class TemporarySchemaProvider
 {
 
-    private static ComboPooledDataSource cpds = null;
-
     private static final String POSTGRES_ADMIN = "postgres";
     private static final String POSTGRES_ADMIN_PWSD = "manager";
 
@@ -27,25 +24,6 @@ public class TemporarySchemaProvider
     private static final String POSTGRES_PWSD = "5hjksd9bksdf803";
 
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/";
-
-    private static synchronized void ensureInitConnectionPool() throws PropertyVetoException
-    {
-        if (cpds == null)
-        {
-            cpds = new ComboPooledDataSource();
-            cpds.setDriverClass( "org.postgresql.Driver" );
-            //loads the jdbc driver
-            cpds.setJdbcUrl( DB_URL + "klingon_template" );
-            cpds.setUser(POSTGRES_ADMIN);
-            cpds.setPassword(POSTGRES_ADMIN_PWSD);
-//            the settings below are optional -- c3p0 can work with defaults
-            cpds.setMinPoolSize(5);
-            cpds.setAcquireIncrement(5);
-            cpds.setMaxPoolSize(20);
-            cpds.setAutoCommitOnClose(true);
-
-        }
-    }
 
     private synchronized static String getBaseName()
     {
@@ -60,8 +38,7 @@ public class TemporarySchemaProvider
 
     public static String execute(String sqlCode, boolean withDrop) throws PropertyVetoException, SQLException, IOException
     {
-        ensureInitConnectionPool();
-        Connection connection = cpds.getConnection();
+        Connection connection = DriverManager.getConnection(DB_URL + "klingon_template", POSTGRES_ADMIN, POSTGRES_ADMIN_PWSD);
         String baseName = getBaseName();
         String res = "";
 
