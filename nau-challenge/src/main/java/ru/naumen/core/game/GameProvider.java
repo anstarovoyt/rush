@@ -1,15 +1,27 @@
 package ru.naumen.core.game;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import org.springframework.stereotype.Component;
-import ru.naumen.core.game.impl.*;
+import static ru.naumen.core.game.GameSeries.closedGame;
+import static ru.naumen.core.game.GameSeries.openGame;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static ru.naumen.core.game.GameSeries.closedGame;
-import static ru.naumen.core.game.GameSeries.openGame;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+import org.springframework.stereotype.Component;
+import ru.naumen.core.game.impl.Base64Game;
+import ru.naumen.core.game.impl.Diff;
+import ru.naumen.core.game.impl.Doom;
+import ru.naumen.core.game.impl.Fifteen;
+import ru.naumen.core.game.impl.Ktulhu;
+import ru.naumen.core.game.impl.MagicSelect;
+import ru.naumen.core.game.impl.NameThatTune;
+import ru.naumen.core.game.impl.RPSGame;
+import ru.naumen.core.game.impl.Redo;
+import ru.naumen.core.game.impl.Shtirlitz;
+import ru.naumen.core.game.impl.SpokGreeting;
+import ru.naumen.core.game.impl.TrollLife;
+import ru.naumen.core.game.impl.XOGame;
 
 /**
  * Класс предоставляет интерфейс доступа к классам существующих игр
@@ -36,6 +48,7 @@ public class GameProvider
                 openGame(new Diff(), 1),
                 openGame(new Fifteen(), 5),
                 openGame(new Ktulhu(), 1),
+                openGame(new TrollLife(), 1),
                 closedGame(new Redo(), 1),
                 closedGame(new MagicSelect(), 1));
         //@formatter:on
