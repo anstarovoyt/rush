@@ -76,7 +76,7 @@ public class TemporarySchemaProvider
             createTable(conn);
             String[] sqls = default_sql.split(";");
 
-            for (int i=0; i < sqls.length - 2; i++)
+            for (int i=0; i < sqls.length - 1; i++)
             {
                 String sql = sqls[i];
                 conn.createStatement().execute(sql);
