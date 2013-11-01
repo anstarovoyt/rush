@@ -44,28 +44,28 @@
     
 <!-- Для постгреса  -->
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/rush" />
-        <property name="username" value="stand" />
-        <property name="password" value="stand" />
-        <property name="maxActive" value="100" />
-        <property name="minIdle" value="1" />
-        <property name="validationQuery" value="SELECT 1" />
-        <property name="defaultAutoCommit" value="true" />
-    </bean> 
-
-
-
-
 <!--     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
-<!--         <property name="driverClassName" value="org.h2.Driver" /> -->
-<!--         <property name="url" value="jdbc:h2:database/test" /> -->
-<!--         <property name="username" value="sa" /> -->
-<!--         <property name="password" value="" /> -->
-<!--         <property name="maxActive" value="10" /> -->
+<!--         <property name="driverClassName" value="org.postgresql.Driver" /> -->
+<!--         <property name="url" value="jdbc:postgresql://localhost:5432/rush" /> -->
+<!--         <property name="username" value="stand" /> -->
+<!--         <property name="password" value="stand" /> -->
+<!--         <property name="maxActive" value="100" /> -->
 <!--         <property name="minIdle" value="1" /> -->
 <!--         <property name="validationQuery" value="SELECT 1" /> -->
-<!--     </bean> -->
+<!--         <property name="defaultAutoCommit" value="true" /> -->
+<!--     </bean>  -->
+
+
+
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:database/test" />
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+        <property name="maxActive" value="10" />
+        <property name="minIdle" value="1" />
+        <property name="validationQuery" value="SELECT 1" />
+    </bean>
 
 </beans>

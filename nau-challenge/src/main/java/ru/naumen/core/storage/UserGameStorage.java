@@ -25,4 +25,9 @@ public interface UserGameStorage extends Serializable {
     GameSeries get(String key);
 
     Collection<GameSeries> getAll();
+
+    /**
+     * Метод добавляет игру в хранилище, пришлось добавить для миграции
+     */
+    void put(String id, GameSeries game);
 }

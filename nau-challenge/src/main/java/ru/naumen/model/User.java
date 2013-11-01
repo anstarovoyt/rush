@@ -52,7 +52,10 @@ public class User
     @Column
     private String accessKey;
 
-    User()
+    /**
+     * public для теста
+     */
+    public User()
     {
     }
 
