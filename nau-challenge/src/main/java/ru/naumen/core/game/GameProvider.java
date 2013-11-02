@@ -38,13 +38,13 @@ public class GameProvider
                 openGame(new SpokGreeting(), 1),
                 openGame(new Diff(), 1),
                 openGame(new Ktulhu(), 1),
-                openGame(new TrollLife(), 1),
+                //openGame(new TrollLife(), 1),
                 closedGame(new Fifteen(), 50),
                 closedGame(new Shtirlitz(), 1),
                 closedGame(new Redo(), 1),
                 closedGame(new MagicSelect(), 1),
-                closedGame(new Befunge(), 1),
-                closedGame(new Console(), 1));
+                openGame(new Befunge(), 1),
+                openGame(new Console(), 1));
         //@formatter:on
 
     }

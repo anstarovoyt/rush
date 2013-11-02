@@ -67,7 +67,7 @@ public class TrollLife implements Game
     @Override
     public String getShortDescription()
     {
-        return "Игра \"Жизнь\"";
+        return "Игра \"Жизнь\" [возможно в задаче ошибка, ожидается исправление либо уточнение]";
     }
 
     @Override

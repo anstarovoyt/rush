@@ -1,20 +1,19 @@
 package ru.naumen.core.storage;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
-
 import ru.naumen.core.game.GameProvider;
 import ru.naumen.core.game.GameSeries;
+import ru.naumen.core.game.GameSeriesState;
 import ru.naumen.model.User;
 import ru.naumen.model.dao.UserDAO;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Добавляет уже созданным пользователям информацию о играх
@@ -54,8 +53,17 @@ public class DBMigrator {
     void migrateUser(List<GameSeries> gameList, User user) {
         UserGameStorage storage = user.getUserGameStorage();
         for(GameSeries game : gameList) {
-            if(storage.get(game.getId()) == null) {
-                storage.put(game.getId(), game);
+
+            String id = game.getId();
+            if(storage.get(id) == null) {
+                storage.put(id, game);
+            }
+
+            GameSeries gameSeries = storage.get(id);
+
+            if (gameSeries.getState() == GameSeriesState.CLOSED && game.getState() != GameSeriesState.CLOSED)
+            {
+                gameSeries.makeOpen();
             }
         }
         userDAO.saveUser(user);
