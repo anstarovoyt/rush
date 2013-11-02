@@ -23,7 +23,8 @@ public class GameProvider
             ImmutableMap.<String, List<String>>
                 of(Doom.ID, Lists.newArrayList(Redo.ID, MagicSelect.ID),
                    XOGame.ID, Lists.newArrayList(Fifteen.ID),
-                   Base64Game.ID, Lists.newArrayList(Shtirlitz.ID)
+                   Base64Game.ID, Lists.newArrayList(Shtirlitz.ID),
+                    TrollLife.ID, Lists.newArrayList(Console.ID, Befunge.ID)
                   );
 
     public List<GameSeries> getNewGameList()
@@ -42,8 +43,8 @@ public class GameProvider
                 closedGame(new Shtirlitz(), 1),
                 closedGame(new Redo(), 1),
                 closedGame(new MagicSelect(), 1),
-                openGame(new Befunge(), 1),
-                openGame(new Console(), 1));
+                closedGame(new Befunge(), 1),
+                closedGame(new Console(), 1));
         //@formatter:on
 
     }

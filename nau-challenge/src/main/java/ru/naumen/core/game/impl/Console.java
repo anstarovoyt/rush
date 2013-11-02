@@ -14,6 +14,7 @@ public class Console implements Game {
     public static final String SUDO_RMRF = "sudo rm -rf";
     public static final String USER_INPUT = "user@pc:~$";
     public static final String PSW = "111";
+    public static final String ID = "csl";
     GameState victory = GameState.IN_PROGRESS;
     boolean isSudo;
     String output;
@@ -26,7 +27,7 @@ public class Console implements Game {
 
     @Override
     public String getShortDescription() {
-        return "Помоги пользователю выстрелить в ногу!";
+        return "Помоги пользователю выстрелить себе в ногу!";
     }
 
     @Override
@@ -36,12 +37,12 @@ public class Console implements Game {
 
     @Override
     public String getDescription() {
-        return "Помоги пользователю выстрелить в ногу!";
+        return "Помоги пользователю выстрелить себе в ногу!";
     }
 
     @Override
     public String getId() {
-        return "csl";
+        return ID;
     }
 
     @Override
@@ -55,12 +56,15 @@ public class Console implements Game {
             } else
             {
                 output = "Incorrect password. Are you try brute force?";
+                victory = GameState.IN_PROGRESS;
             }
+            return;
         }
 
         if (userInput.startsWith(RMRF)) {
             output = "Permission denied. Are you root?";
             representation = USER_INPUT;
+            victory = GameState.IN_PROGRESS;
             return;
         }
 
@@ -68,8 +72,11 @@ public class Console implements Game {
             representation = "[sudo] password for user:";
             output = null;
             isSudo = true;
+            victory = GameState.IN_PROGRESS;
             return;
         }
+
+        victory = GameState.FAILURE;
     }
 
     @Override
