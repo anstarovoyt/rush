@@ -10,6 +10,8 @@ import ru.naumen.core.game.GameState;
  */
 public class Console implements Game {
 
+    private static final long serialVersionUID = 1L;
+
     public static final String RMRF = "rm -rf";
     public static final String SUDO_RMRF = "sudo rm -rf";
     public static final String USER_INPUT = "user@pc:~$";
