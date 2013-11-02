@@ -9,10 +9,9 @@ import javax.persistence.*;
 import java.util.Random;
 
 /**
- * Пользователь системы
+ *
  *
  * @author serce
- * @since 25 окт. 2013 г.
  */
 @Entity
 @Table(name = "users")
