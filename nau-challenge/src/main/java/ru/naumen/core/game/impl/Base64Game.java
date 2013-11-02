@@ -24,6 +24,7 @@ public class Base64Game implements Game
     public static final String DESCRIPTION = "Таукитяне приветствуют братьев по разуму! " +
             "Чтобы подтвердить, что вы достаточно развиты, чтобы нам было, о чём поболтать, " +
             "пришлите в ответном сообщении 427-е простое число. Ждём с нетерпением!";
+
     private static final String ENCODED_DESCRIPTION = new String(Base64.encodeBase64( DESCRIPTION.getBytes() ));
     private GameState state = GameState.IN_PROGRESS;
 
