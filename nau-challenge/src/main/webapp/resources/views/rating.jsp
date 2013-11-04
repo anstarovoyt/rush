@@ -50,7 +50,7 @@
                         <td><%= i+1 %></td>
                         <td><%= row.getCommandName() %></td>
                         <td><%= row.getScore() %></td>
-                        <td><%= DateUtils.formatAsDate(row.getLastSolved()) %></td>
+                        <td><%=DateUtils.formatLongDateAsFormattedDateString(row.getLastSolved())%></td>
                       </tr>
                 <%  }  %>
             </table>

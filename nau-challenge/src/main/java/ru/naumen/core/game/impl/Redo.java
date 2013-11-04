@@ -2,7 +2,13 @@ package ru.naumen.core.game.impl;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
+/**
+ * @author astarovoyt
+ *
+ */
+@GameType(blockedBy = Doom.ID)
 public class Redo implements Game
 {
 

@@ -13,14 +13,16 @@ import ru.naumen.model.User;
 
 import com.google.common.collect.Iterables;
 
+/**
+ * DAO for user entity
+ *
+ * @author serce, astarovoyt
+ *
+ */
 @Repository
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class UserDAO
 {
-    public final static boolean IS_DEBUG = true;
-
-    public static final String DB_NAME = "userdb";
-
     @PersistenceContext
     EntityManager entityManager;
 
@@ -48,6 +50,12 @@ public class UserDAO
         return (User)Iterables.get(resultList, 0, null);
     }
 
+    @Transactional(readOnly = true)
+    public List<User> loadAll()
+    {
+        return getEntityManager().createQuery("SELECT p from " + User.class.getName() + " p").getResultList();
+    }
+
     @Transactional
     public User saveUser(User user)
     {
@@ -64,10 +72,5 @@ public class UserDAO
     EntityManager getEntityManager()
     {
         return entityManager;
-    }
-
-    @Transactional(readOnly = true)
-    public List<User> loadAll() {
-        return getEntityManager().createQuery("SELECT p from " + User.class.getName() + " p").getResultList();
     }
 }

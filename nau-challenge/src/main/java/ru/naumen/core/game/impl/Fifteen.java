@@ -9,6 +9,7 @@ import java.util.*;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 import com.google.common.collect.Lists;
 
@@ -16,6 +17,7 @@ import com.google.common.collect.Lists;
  * @author Andrey Hitrin
  * @since 31.10.13
  */
+@GameType(blockedBy = XOGame.ID, seriesCount = 50)
 public class Fifteen implements Game
 {
     public static final String ID = "fftn";
@@ -30,20 +32,21 @@ public class Fifteen implements Game
      * http://ru.wikipedia.org/wiki/%D0%9F%D1%8F%D1%82%D0%BD%D0%B0%D1%88%D0%BA%D0%B8
      * @return
      */
-    public static boolean isValid( List<Integer> list )
+    public static boolean isValid(List<Integer> list)
     {
         Map<Integer, Integer> map = new HashMap<>();
-        for (Integer item : list) {
-            map.put( item, list.indexOf( item ) );
+        for (Integer item : list)
+        {
+            map.put(item, list.indexOf(item));
         }
         int sum = 0;
-        for (Integer item = 1; item <= 15; item++) {
-            Iterator<Integer> following = list.subList( map.get(item) + 1, 16 ).iterator();
-            ArrayList<Integer> filtered = Lists.newArrayList(
-                    filter( following, and( lessThan( item ), greaterThan( 0 ) ) ) );
+        for (Integer item = 1; item <= 15; item++)
+        {
+            Iterator<Integer> following = list.subList(map.get(item) + 1, 16).iterator();
+            ArrayList<Integer> filtered = Lists.newArrayList(filter(following, and(lessThan(item), greaterThan(0))));
             sum += filtered.size();
         }
-        sum += map.get( 0 ) + 1;
+        sum += map.get(0) + 1;
         return (sum % 2) == 0;
     }
 
@@ -57,22 +60,24 @@ public class Fifteen implements Game
     {
         // а тут может быть подстава, не все комбинации приводимы к ORDERED_FIELD
         List<Integer> items = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 8, 7, 9, 10, 11, 12, 13, 14, 15);
-        do {
+        do
+        {
             Collections.shuffle(items);
-        } while( !isValid( items ) );
+        }
+        while (!isValid(items));
         field = items;
     }
 
-    public Fifteen( Integer... initialPosition )
+    public Fifteen(Integer... initialPosition)
     {
-        field = Arrays.asList( initialPosition );
+        field = Arrays.asList(initialPosition);
     }
 
     @Override
     public String getDescription()
     {
-        return "Двигай фишки, чтобы привести их в упорядоченное состояние:<br>" +
-               ORDERED_FIELD.getStateRepresentation();
+        return "Двигай фишки, чтобы привести их в упорядоченное состояние:<br>"
+                + ORDERED_FIELD.getStateRepresentation();
     }
 
     @Override
@@ -96,14 +101,14 @@ public class Fifteen implements Game
     @Override
     public String getStateRepresentation()
     {
-        return "<pre>" + String.format( " %2s | %2s | %2s | %2s <br>", repr(0), repr(1), repr(2), repr(3) ) +
-                String.format( " %2s | %2s | %2s | %2s <br>", repr(4), repr(5), repr(6), repr(7) ) +
-                String.format( " %2s | %2s | %2s | %2s <br>", repr(8), repr(9), repr(10), repr(11) ) +
-                String.format( " %2s | %2s | %2s | %2s <br>", repr(12), repr(13), repr(14), repr(15) ) + "</pre>";
+        return "<pre>" + String.format(" %2s | %2s | %2s | %2s <br>", repr(0), repr(1), repr(2), repr(3))
+                + String.format(" %2s | %2s | %2s | %2s <br>", repr(4), repr(5), repr(6), repr(7))
+                + String.format(" %2s | %2s | %2s | %2s <br>", repr(8), repr(9), repr(10), repr(11))
+                + String.format(" %2s | %2s | %2s | %2s <br>", repr(12), repr(13), repr(14), repr(15)) + "</pre>";
     }
 
     @Override
-    public void input( String userInput )
+    public void input(String userInput)
     {
         resetErrorMessages();
         processInput(userInput);
@@ -132,7 +137,8 @@ public class Fifteen implements Game
     }
 
     @Override
-    public Game resetState() {
+    public Game resetState()
+    {
         return new Fifteen();
     }
 
@@ -144,14 +150,17 @@ public class Fifteen implements Game
 
     private void applyMoves(List<Integer> moves)
     {
-        for (Integer cell: moves) {
-            int currentPosition = field.indexOf( cell );
+        for (Integer cell : moves)
+        {
+            int currentPosition = field.indexOf(cell);
             int emptyCellPosition = field.indexOf(0);
-            if (canMoveCurrentCell(currentPosition, emptyCellPosition)) {
-                field.set( emptyCellPosition, cell );
-                field.set( currentPosition, 0 );
+            if (canMoveCurrentCell(currentPosition, emptyCellPosition))
+            {
+                field.set(emptyCellPosition, cell);
+                field.set(currentPosition, 0);
             }
-            else {
+            else
+            {
                 // cannot find move!
                 impossibleMoveDetected = true;
                 break;
@@ -161,10 +170,8 @@ public class Fifteen implements Game
 
     private boolean canMoveCurrentCell(int currentPosition, int emptyCellPosition)
     {
-        return canMoveLeft(currentPosition, emptyCellPosition) ||
-            canMoveRight(currentPosition, emptyCellPosition) ||
-            canMoveUp(currentPosition, emptyCellPosition) ||
-            canMoveDown(currentPosition, emptyCellPosition);
+        return canMoveLeft(currentPosition, emptyCellPosition) || canMoveRight(currentPosition, emptyCellPosition)
+                || canMoveUp(currentPosition, emptyCellPosition) || canMoveDown(currentPosition, emptyCellPosition);
     }
 
     private boolean canMoveDown(int currentPosition, int emptyCellPosition)
@@ -202,9 +209,11 @@ public class Fifteen implements Game
 
     private void processInput(String userInput)
     {
-        try {
-            applyMoves(toIntegers( userInput ));
-        } catch( NumberFormatException e )
+        try
+        {
+            applyMoves(toIntegers(userInput));
+        }
+        catch (NumberFormatException e)
         {
             notIntegerValuesInUserInput = true;
         }
@@ -220,7 +229,7 @@ public class Fifteen implements Game
         {
             return "";
         }
-        return String.format( "%d", value );
+        return String.format("%d", value);
     }
 
     private void resetErrorMessages()
@@ -229,16 +238,16 @@ public class Fifteen implements Game
         notIntegerValuesInUserInput = false;
     }
 
-    private List<Integer> toIntegers( String s )
+    private List<Integer> toIntegers(String s)
     {
         List<Integer> list = new ArrayList<>();
         if (s.isEmpty())
         {
             return list;
         }
-        for (String x: s.split( " " ))
+        for (String x : s.split(" "))
         {
-            list.add( Integer.valueOf( x ) );
+            list.add(Integer.valueOf(x));
         }
         return list;
     }

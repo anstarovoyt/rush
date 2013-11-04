@@ -4,11 +4,13 @@ import java.util.Random;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
- * @author Andrey Hitrin
+ * @author Andrey Hitrin, astarovoyt
  * @since 21.10.13
  */
+@GameType(seriesCount = 100)
 public class XOGame implements Game
 {
 
@@ -209,7 +211,7 @@ public class XOGame implements Game
         }
         if (victory != GameState.IN_PROGRESS)
         {
-             return "Для продолжения сделайте новый ход или просто нажмите отправить";
+            return "Для продолжения сделайте новый ход или просто нажмите отправить";
         }
         return null;
     }

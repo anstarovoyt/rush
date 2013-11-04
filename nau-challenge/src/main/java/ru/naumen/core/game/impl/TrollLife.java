@@ -2,13 +2,16 @@ package ru.naumen.core.game.impl;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
  * @author Andrey Hitrin
  * @since 01.11.13
  */
+@GameType
 public class TrollLife implements Game
 {
+    private static final long serialVersionUID = 1L;
     public static final String ID = "life";
     public static final String DESCRIPTION = "<p>Великий конструктор Трурль разводит в лаборатории примитивные формы жизни. " +
         "Эти формы умеют размножаться в точности по законам игры <a href=\"http://ru.wikipedia.org/wiki/%D0%96%D0%B8%D0%B7%D0%BD%D1%8C_(%D0%B8%D0%B3%D1%80%D0%B0)\">\"Жизнь\"</a>.</p>" +
@@ -59,24 +62,6 @@ public class TrollLife implements Game
     private GameState currentState = GameState.IN_PROGRESS;
 
     @Override
-    public String getShortName()
-    {
-        return "Game of Life";
-    }
-
-    @Override
-    public String getShortDescription()
-    {
-        return "Игра \"Жизнь\" [возможно в задаче ошибка, ожидается исправление либо уточнение]";
-    }
-
-    @Override
-    public String getStateRepresentation()
-    {
-        return null;
-    }
-
-    @Override
     public String getDescription()
     {
         return DESCRIPTION;
@@ -89,14 +74,27 @@ public class TrollLife implements Game
     }
 
     @Override
+    public String getShortDescription()
+    {
+        return "Игра \"Жизнь\" [возможно в задаче ошибка, ожидается исправление либо уточнение]";
+    }
+
+    @Override
+    public String getShortName()
+    {
+        return "Game of Life";
+    }
+
+    @Override
+    public String getStateRepresentation()
+    {
+        return null;
+    }
+
+    @Override
     public void input(String userInput)
     {
         currentState = isValid(userInput) ? GameState.VICTORY : GameState.FAILURE;
-    }
-
-    private boolean isValid(String userInput)
-    {
-        return EXPECTED_STATE.equals(userInput.trim().replaceAll(" ", "").replaceAll("\n", "").replaceAll("\r", ""));
     }
 
     @Override
@@ -106,14 +104,19 @@ public class TrollLife implements Game
     }
 
     @Override
+    public Game resetState()
+    {
+        return this;
+    }
+
+    @Override
     public GameState state()
     {
         return currentState;
     }
 
-    @Override
-    public Game resetState()
+    private boolean isValid(String userInput)
     {
-        return this;
+        return EXPECTED_STATE.equals(userInput.trim().replaceAll(" ", "").replaceAll("\n", "").replaceAll("\r", ""));
     }
 }

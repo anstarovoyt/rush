@@ -1,12 +1,18 @@
 package ru.naumen.mvc.controller;
 
-import com.google.common.collect.Maps;
+import java.util.List;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.locks.ReentrantLock;
+
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import ru.naumen.core.auth.Authenticator;
 import ru.naumen.core.game.*;
 import ru.naumen.core.info.Params;
@@ -14,10 +20,7 @@ import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.model.User;
 import ru.naumen.model.dao.UserDAO;
 
-import javax.inject.Inject;
-import java.util.List;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.locks.ReentrantLock;
+import com.google.common.collect.Maps;
 
 /**
  * User: anstarovoyt
@@ -79,14 +82,14 @@ public class GameController
         User currentUser = authenticator.getCurrentUser();
         GameSeries gameSeries = currentUser.getUserGameStorage().get(gid);
 
-        //введен неправильный gid
+        //incorrect gid
         if (gameSeries == null)
         {
             LOG.debug("User " + currentUser + " try to get game that not exits" + gid);
             return "allgames";
         }
 
-        //Если пост-запрос был послан по ошибке, когда игра решена
+        //Already solved
         if (isSolved(gameSeries))
         {
             LOG.debug("User " + currentUser + " do post for solved task " + gameSeries.getId());
@@ -94,6 +97,7 @@ public class GameController
             return "gamesolved";
         }
 
+        //execute game per user
         ReentrantLock lock = getLock(currentUser.getId());
         try
         {
@@ -128,7 +132,7 @@ public class GameController
     private void changeSeriesState(GameSeries gameSeries, User currentUser)
     {
         Game game = gameSeries.getGame();
-        // вопрос, когда высчитывается состояние игры
+
         if (game.state() == GameState.VICTORY)
         {
             gameSeries.winOneGame();

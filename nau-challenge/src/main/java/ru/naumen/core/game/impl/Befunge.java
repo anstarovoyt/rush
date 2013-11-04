@@ -2,55 +2,33 @@ package ru.naumen.core.game.impl;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
- * &v+.@.<<<<                                                                      
- * #v--------                                                                      
- * #v[HELLO]-                                                                      
- * #v[DEVEL]#                                                                      
- * #v[RUSH-]*                                                                      
- * #5[CAMP-]2                                                                      
- * #+--------                                                                      
- * #>1-4+2v1\                                                                      
- * #v<<<<<<1^                                                                      
+ * &v+.@.<<<<
+ * #v--------
+ * #v[HELLO]-
+ * #v[DEVEL]#
+ * #v[RUSH-]*
+ * #5[CAMP-]2
+ * #+--------
+ * #>1-4+2v1\
+ * #v<<<<<<1^
  * #>>>>>*>2^
- * 
+ *
  * http://progopedia.ru/language/befunge/
- * 
+ *
  * @author serce
- * @since 02 нояб. 2013 г.
+ * @since 02 no. 2013 г.
  */
+@GameType
 public class Befunge implements Game {
-    
+
     public static final String ID = "zg";
     private static final long serialVersionUID = 1L;
     private static final String EXPECTED = "11977551872";
-    
+
     GameState state = GameState.IN_PROGRESS;
-
-    @Override
-    public String getShortName() {
-        return "Похмелье Васи";
-    }
-
-    @Override
-    public String getShortDescription() {
-        return "Помогите Васи пароли от бэкапа";
-    }
-
-    @Override
-    public String getStateRepresentation() {
-        return "<div style=\"font-family: monospace;\">&v+.@.<<<<<br/>"
-                + "#v--------<br/>"
-                + "#v[HELLO]-<br/>"
-                + "#v[DEVEL]#<br/>"
-                + "#v[RUSH-]*<br/>"
-                + "#5[CAMP-]2<br/>"
-                + "#+--------<br/>"
-                + "#>1-4+2v1\\<br/>"
-                + "#v<<<<<<1^<br/>"
-                + "#>>>>>*>2^<br/></div>";
-    }
 
     @Override
     public String getDescription() {
@@ -73,6 +51,30 @@ public class Befunge implements Game {
     }
 
     @Override
+    public String getShortDescription() {
+        return "Помогите Васи пароли от бэкапа";
+    }
+
+    @Override
+    public String getShortName() {
+        return "Похмелье Васи";
+    }
+
+    @Override
+    public String getStateRepresentation() {
+        return "<div style=\"font-family: monospace;\">&v+.@.<<<<<br/>"
+                + "#v--------<br/>"
+                + "#v[HELLO]-<br/>"
+                + "#v[DEVEL]#<br/>"
+                + "#v[RUSH-]*<br/>"
+                + "#5[CAMP-]2<br/>"
+                + "#+--------<br/>"
+                + "#>1-4+2v1\\<br/>"
+                + "#v<<<<<<1^<br/>"
+                + "#>>>>>*>2^<br/></div>";
+    }
+
+    @Override
     public void input(String userInput) {
         state = EXPECTED.equals(userInput.trim()) ? GameState.VICTORY : GameState.FAILURE;
     }
@@ -83,13 +85,13 @@ public class Befunge implements Game {
     }
 
     @Override
-    public GameState state() {
-        return state;
+    public Game resetState() {
+        return this;
     }
 
     @Override
-    public Game resetState() {
-        return this;
+    public GameState state() {
+        return state;
     }
 
 }

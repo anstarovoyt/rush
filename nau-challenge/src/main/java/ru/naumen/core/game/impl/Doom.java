@@ -2,11 +2,13 @@ package ru.naumen.core.game.impl;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
  * @author Andrey Hitrin
  * @since 21.10.13
  */
+@GameType
 public class Doom implements Game
 {
     public static final String ID = "dm";

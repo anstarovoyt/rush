@@ -8,14 +8,18 @@ import java.util.TimeZone;
  * @author stselovalnikov
  * @since Nov 1, 2013
  */
-public class DateUtils {
-    
+public class DateUtils
+{
+    public static final String ASIA_YEKATERINBURG_TIMEZONE = "Asia/Yekaterinburg";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS0");
-    static {
-        DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("Asia/Yekaterinburg"));
+
+    static
+    {
+        DATE_FORMAT.setTimeZone(TimeZone.getTimeZone(ASIA_YEKATERINBURG_TIMEZONE));
     }
-    
-    public static String formatAsDate(long date) {
+
+    public synchronized static String formatLongDateAsFormattedDateString(long date)
+    {
         return date <= 0 ? "" : DATE_FORMAT.format(new Date(date));
     }
 }

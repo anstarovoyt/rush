@@ -1,9 +1,10 @@
 package ru.naumen.core.game.impl;
 
+import java.util.Random;
+
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
-
-import java.util.Random;
+import ru.naumen.core.game.GameType;
 
 /**
  * Камень-ножницы-бумага
@@ -13,6 +14,7 @@ import java.util.Random;
  * @author astarovoyt
  *
  */
+@GameType(seriesCount = 100)
 public class RPSGame implements Game
 {
     public transient static final long serialVersionUID = 1L;
@@ -47,6 +49,7 @@ public class RPSGame implements Game
         }
         return null;
     }
+
     int currentState = 5;
     Character currentUserStep;
     Character currentComputerStep;

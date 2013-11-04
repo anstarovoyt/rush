@@ -4,6 +4,7 @@ import java.util.Set;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 import com.google.common.collect.Sets;
 
@@ -11,6 +12,7 @@ import com.google.common.collect.Sets;
  * @author astarovoyt
  *
  */
+@GameType
 public class Diff implements Game
 {
     private static final long serialVersionUID = 1L;

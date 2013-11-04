@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ *
  * @author Andrey Hitrin
  * @since 25.10.13
  */
@@ -30,7 +31,6 @@ public class GameSeries implements Serializable
 
     private Date winDate = null;
 
-
     public GameSeries(Game game, int maxWins, GameSeriesState state)
     {
         this.game = game;
@@ -51,6 +51,11 @@ public class GameSeries implements Serializable
     public GameSeriesState getState()
     {
         return state;
+    }
+
+    public Date getWinDate()
+    {
+        return winDate;
     }
 
     public void input(String answer)
@@ -108,10 +113,5 @@ public class GameSeries implements Serializable
     public int wonGamesCount()
     {
         return gamesWon;
-    }
-    
-    public Date getWinDate()
-    {
-        return winDate;
     }
 }

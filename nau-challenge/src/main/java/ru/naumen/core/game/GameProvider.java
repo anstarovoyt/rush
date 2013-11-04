@@ -1,60 +1,119 @@
 package ru.naumen.core.game;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import org.springframework.stereotype.Component;
-import ru.naumen.core.game.impl.*;
-
-import java.util.Arrays;
-import java.util.List;
-
 import static ru.naumen.core.game.GameSeries.closedGame;
 import static ru.naumen.core.game.GameSeries.openGame;
 
+import java.util.*;
+import java.util.Map.Entry;
+
+import javax.annotation.PostConstruct;
+
+import org.reflections.Reflections;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.stereotype.Component;
+
+import com.google.common.collect.*;
+
 /**
- * Класс предоставляет интерфейс доступа к классам существующих игр
+ * Access to game templates
+ *
  * @author astarovoyt
  */
 @Component
 public class GameProvider
 {
-    //@formatter:off
-    public ImmutableMap<String, List<String>> relations =
-            ImmutableMap.<String, List<String>>
-                of(Doom.ID, Lists.newArrayList(Redo.ID, MagicSelect.ID),
-                   XOGame.ID, Lists.newArrayList(Fifteen.ID),
-                   Base64Game.ID, Lists.newArrayList(Shtirlitz.ID),
-                    TrollLife.ID, Lists.newArrayList(Console.ID, Befunge.ID)
-                  );
+    Reflections reflections = new Reflections("ru.naumen");
+
+    public Multimap<String, String> relations = HashMultimap.create();
+    public Map<Class<? extends Game>, GameType> gameClassToAnnotation = Maps.newLinkedHashMap();
 
     public List<GameSeries> getNewGameList()
     {
-        return Arrays.asList(
-                openGame(new Doom(), 1),
-                openGame(new XOGame(), 100),
-                openGame(new RPSGame(), 100),
-                openGame(new Base64Game(), 1),
-                openGame(new NameThatTune(), 1),
-                openGame(new SpokGreeting(), 1),
-                openGame(new Diff(), 1),
-                openGame(new Ktulhu(), 1),
-                //openGame(new TrollLife(), 1),
-                closedGame(new Fifteen(), 50),
-                closedGame(new Shtirlitz(), 1),
-                closedGame(new Redo(), 1),
-                closedGame(new MagicSelect(), 1),
-                openGame(new Befunge(), 1),
-                openGame(new Console(), 1));
-        //@formatter:on
+        List<GameSeries> result = Lists.newArrayList();
 
+        try
+        {
+            for (Entry<Class<? extends Game>, GameType> entry : gameClassToAnnotation.entrySet())
+            {
+                Class<? extends Game> gameClass = entry.getKey();
+                GameType gameType = entry.getValue();
+
+                if (gameType.blockedBy().isEmpty())
+                {
+                    result.add(openGame(gameClass.newInstance(), gameType.seriesCount()));
+                }
+                else
+                {
+                    result.add(closedGame(gameClass.newInstance(), gameType.seriesCount()));
+                }
+            }
+        }
+        catch (InstantiationException | IllegalAccessException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        return result;
     }
 
-    /**
-     * Тут нужно задать маппинг открытия игр по зависмостям
-     *
-     */
     public List<String> getRelatedClosedGameIds(String gameId)
     {
-        return relations.containsKey(gameId) ? relations.get(gameId) : Lists.<String> newArrayList();
+        return Lists.newArrayList(relations.get(gameId));
+    }
+
+    @SuppressWarnings("unchecked")
+    @PostConstruct
+    public void init()
+    {
+        Set<Class<?>> annotatedClasses = reflections.getTypesAnnotatedWith(GameType.class);
+
+        HashSet<String> templates = Sets.newHashSet();
+
+        for (Class<?> gameClass : annotatedClasses)
+        {
+            if (!Game.class.isAssignableFrom(gameClass))
+            {
+                throw new RuntimeException("You should implements Game interface");
+            }
+
+            try
+            {
+                Game game = (Game)gameClass.newInstance();
+                templates.add(game.getId());
+
+                GameType annotation = AnnotationUtils.getAnnotation(gameClass, GameType.class);
+
+                gameClassToAnnotation.put((Class<? extends Game>)gameClass, annotation);
+                addRelation(game, annotation);
+            }
+            catch (InstantiationException | IllegalAccessException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+
+        validateRelations(templates);
+    }
+
+    private void addRelation(Game game, GameType type)
+    {
+        String blockedBy = type.blockedBy();
+        if (blockedBy.isEmpty())
+        {
+            return;
+        }
+
+        relations.put(blockedBy, game.getId());
+    }
+
+    private void validateRelations(HashSet<String> templates)
+    {
+        for (String key : relations.keySet())
+        {
+            if (!templates.contains(key))
+            {
+                throw new RuntimeException("Cannot find game with id=" + key + " related:" + relations.get(key));
+            }
+        }
     }
 }

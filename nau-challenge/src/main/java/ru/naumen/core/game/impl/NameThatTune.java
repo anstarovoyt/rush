@@ -4,12 +4,14 @@ import org.apache.log4j.Logger;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
  *
  * @author achernin
  * @since 30.10.13
  */
+@GameType
 public class NameThatTune implements Game
 {
     public static final Logger LOG = Logger.getLogger(NameThatTune.class);

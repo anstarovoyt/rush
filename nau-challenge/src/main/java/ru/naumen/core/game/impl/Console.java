@@ -2,12 +2,14 @@ package ru.naumen.core.game.impl;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
  * User: anstarovoyt
  * Date: 11/2/13
  * Time: 3:06 AM
  */
+@GameType
 public class Console implements Game {
 
     private static final long serialVersionUID = 1L;
@@ -23,8 +25,13 @@ public class Console implements Game {
     String representation = USER_INPUT;
 
     @Override
-    public String getShortName() {
-        return "Выстрел в ногу";
+    public String getDescription() {
+        return "Помоги пользователю выстрелить себе в ногу!";
+    }
+
+    @Override
+    public String getId() {
+        return ID;
     }
 
     @Override
@@ -33,18 +40,13 @@ public class Console implements Game {
     }
 
     @Override
+    public String getShortName() {
+        return "Выстрел в ногу";
+    }
+
+    @Override
     public String getStateRepresentation() {
         return representation;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Помоги пользователю выстрелить себе в ногу!";
-    }
-
-    @Override
-    public String getId() {
-        return ID;
     }
 
     @Override
@@ -87,12 +89,12 @@ public class Console implements Game {
     }
 
     @Override
-    public GameState state() {
-        return victory;
+    public Game resetState() {
+        return this;
     }
 
     @Override
-    public Game resetState() {
-        return this;
+    public GameState state() {
+        return victory;
     }
 }

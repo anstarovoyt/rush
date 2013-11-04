@@ -2,34 +2,23 @@ package ru.naumen.core.game.impl;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
  * User: anstarovoyt
  * Date: 11/1/13
  * Time: 1:46 AM
  */
+@GameType
 public class Ktulhu implements Game {
+
+    private static final long serialVersionUID = 1L;
 
     public static final String EXPECTED = "```sii``s`k.n``s`k.g``s`k.a``s`k.t``s`k.h``s`k.f``s`k. ``s`k.u``s`k.h``s`k.l``s`k.u``s`k.h``s`k.t``s`k.k`k.m";
     public static final String EXPECTED_2 = "```sii``s`k.n``s`k.g``s`k.a``s`k.t``s`k.h``s`k.f``s`k. ``s`k.u``s`k.h``s`k.l``s`k.u``s`k.h``s`k.t``s`k.c`k.m";
 
     GameState victory = GameState.IN_PROGRESS;
 
-
-    @Override
-    public String getShortName() {
-        return "Демонология";
-    }
-
-    @Override
-    public String getShortDescription() {
-        return "Положите в котел мандрагору и заткните уши...";
-    }
-
-    @Override
-    public String getStateRepresentation() {
-        return "```sii``s`k.n``s`k.g``s`k.a``s`k.t``s`k.h``s`k.f``s`k. ``s`k.u``s`k.h``s`k.l``s`k.u``s`k.h``s`k.t`k.m";
-    }
 
     @Override
     public String getDescription() {
@@ -43,6 +32,21 @@ public class Ktulhu implements Game {
     @Override
     public String getId() {
         return "tx";
+    }
+
+    @Override
+    public String getShortDescription() {
+        return "Положите в котел мандрагору и заткните уши...";
+    }
+
+    @Override
+    public String getShortName() {
+        return "Демонология";
+    }
+
+    @Override
+    public String getStateRepresentation() {
+        return "```sii``s`k.n``s`k.g``s`k.a``s`k.t``s`k.h``s`k.f``s`k. ``s`k.u``s`k.h``s`k.l``s`k.u``s`k.h``s`k.t`k.m";
     }
 
     @Override
@@ -64,12 +68,12 @@ public class Ktulhu implements Game {
     }
 
     @Override
-    public GameState state() {
-        return victory;
+    public Game resetState() {
+        return this;
     }
 
     @Override
-    public Game resetState() {
-        return this;
+    public GameState state() {
+        return victory;
     }
 }

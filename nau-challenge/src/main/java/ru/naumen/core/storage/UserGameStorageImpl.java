@@ -9,7 +9,7 @@ import ru.naumen.core.game.GameSeries;
 import com.google.common.collect.Maps;
 
 /**
- *
+ * POJO object for storing user's gameseries
  *
  * @author astarovoyt
  *
@@ -20,18 +20,18 @@ public class UserGameStorageImpl implements UserGameStorage
 
     private final LinkedHashMap<String, GameSeries> games = Maps.newLinkedHashMap();
 
-    public UserGameStorageImpl( GameProvider provider )
+    public UserGameStorageImpl(GameProvider provider)
     {
         for (GameSeries game : provider.getNewGameList())
         {
-            games.put( game.getId(), game );
+            games.put(game.getId(), game);
         }
     }
 
     @Override
     public GameSeries get(String key)
     {
-        return games.get( key );
+        return games.get(key);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class UserGameStorageImpl implements UserGameStorage
     }
 
     @Override
-    public void put(String id, GameSeries game) 
+    public void put(String id, GameSeries game)
     {
         games.put(id, game);
     }

@@ -1,12 +1,14 @@
 package ru.naumen.model;
 
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.persistence.*;
+
 import ru.naumen.core.SpringContext;
 import ru.naumen.core.auth.accessKey.AccessKeyGenerator;
 import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.core.storage.UserGameStorageFactory;
-
-import javax.persistence.*;
-import java.util.Random;
 
 /**
  *
@@ -18,10 +20,12 @@ import java.util.Random;
 @Cacheable
 public class User
 {
+    public static final AtomicLong COUNTER =  new AtomicLong((new Date()).getTime());
+
     public static User create(String email, String fio, String password)
     {
         User user = new User();
-        user.setId(new Random().nextInt());
+        user.setId(COUNTER.incrementAndGet());
         user.setEmail(email);
         user.setFio(fio);
         user.setPassword(password);
@@ -45,17 +49,11 @@ public class User
     @Column
     @Lob
     @Basic(fetch = FetchType.LAZY)
+    //Store as serialized object
     private UserGameStorage storage;
 
     @Column
     private String accessKey;
-
-    /**
-     *
-     */
-    public User()
-    {
-    }
 
     @Override
     public boolean equals(Object obj)

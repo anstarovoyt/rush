@@ -2,39 +2,29 @@ package ru.naumen.core.game.impl;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
  *
  * @author achernin
  * @since 30.10.13
  */
+@GameType
 public class SpokGreeting implements Game
 {
 
     private static final long serialVersionUID = 1L;
 
-    @Override
-    public String getShortName()
-    {
-        return "Приветствие Спока";
-    }
-
-    @Override
-    public String getShortDescription()
-    {
-        return "Будь Спок";
-    }
-
-    @Override
-    public String getStateRepresentation()
-    {
-        return null;
-    }
-
     private static transient final String DESCRIPTION =
             "Переведи приветствие Спока на английский язык!<br/><br/>" +
 
                     "<img src=\"/resources/custom/SpokGreeting.jpg\" padding=0 /><br/>";
+
+    private static transient final String MSG = "Devel Camp Challenge";
+
+    private static transient final String MSG_VARIANT = "Develop Camp Challenge";
+
+    private GameState state = GameState.IN_PROGRESS;
 
     @Override
     public String getDescription() {
@@ -46,8 +36,22 @@ public class SpokGreeting implements Game
         return "SpokGreeting";
     }
 
-    private static transient final String MSG = "Devel Camp Challenge";
-    private static transient final String MSG_VARIANT = "Develop Camp Challenge";
+    @Override
+    public String getShortDescription()
+    {
+        return "Будь Спок";
+    }
+    @Override
+    public String getShortName()
+    {
+        return "Приветствие Спока";
+    }
+
+    @Override
+    public String getStateRepresentation()
+    {
+        return null;
+    }
 
     @Override
     public void input(String userInput)
@@ -66,16 +70,14 @@ public class SpokGreeting implements Game
         return null;
     }
 
-    private GameState state = GameState.IN_PROGRESS;
+    @Override
+    public Game resetState() {
+        return this;
+    }
 
     @Override
     public GameState state()
     {
         return state;
-    }
-
-    @Override
-    public Game resetState() {
-        return this;
     }
 }

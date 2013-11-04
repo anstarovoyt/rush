@@ -4,14 +4,13 @@ import org.apache.commons.codec.binary.Base64;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
- * Таблица простых чисел здесь:
- * http://ru.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%8B%D1%85_%D1%87%D0%B8%D1%81%D0%B5%D0%BB
- *
  * @author Andrey Hitrin
  * @since 31.10.13
  */
+@GameType
 public class Base64Game implements Game
 {
     private static final long serialVersionUID = 1L;

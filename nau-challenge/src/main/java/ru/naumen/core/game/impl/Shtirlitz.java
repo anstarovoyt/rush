@@ -2,12 +2,14 @@ package ru.naumen.core.game.impl;
 
 import ru.naumen.core.game.Game;
 import ru.naumen.core.game.GameState;
+import ru.naumen.core.game.GameType;
 
 /**
  *
  * @author achernin
  * @since 30.10.13
  */
+@GameType(blockedBy = Base64Game.ID)
 public class Shtirlitz implements Game
 {
 
@@ -15,13 +17,12 @@ public class Shtirlitz implements Game
 
     private static final long serialVersionUID = 1L;
 
-    private static transient final String DESCRIPTION =
-            "Штирлиц как никогда близок к провалу!<br/>" +
-                            "Враги перехватили его зашифрованное сообщение.<br/>" +
-                            "Враги знают, что в сообщении присутствует фраза 'Юстас Алексу'<br/>" +
-                            "И врагов насторожило, что Штирлиц держит в книжном шкафу <a href=\"http://goo.gl/r9LsOs\">издание Анны Карениной на русском языке.</a></br>" +
-                            "Наверное, для шифрования он использовал одну из глав этой книги. А пары чисел это номер строки и позиция символа в строке.<br/><br/>" +
-                            "Расшифруйте перехваченное сообщение.";
+    private static transient final String DESCRIPTION = "Штирлиц как никогда близок к провалу!<br/>"
+            + "Враги перехватили его зашифрованное сообщение.<br/>"
+            + "Враги знают, что в сообщении присутствует фраза 'Юстас Алексу'<br/>"
+            + "И врагов насторожило, что Штирлиц держит в книжном шкафу <a href=\"http://goo.gl/r9LsOs\">издание Анны Карениной на русском языке.</a></br>"
+            + "Наверное, для шифрования он использовал одну из глав этой книги. А пары чисел это номер строки и позиция символа в строке.<br/><br/>"
+            + "Расшифруйте перехваченное сообщение.";
 
     private static transient final String MESSAGE = "[(1, 1), (1, 41), (1, 41), (1, 65), (2, 508), (1, 3), (1, 6), (1, 14), (1, 3), (1, 7), (29, 370), (1, 25), (1, 2), (1, 5), (1, 25), (1, 7), (1, 8), (1, 50), (1, 3), (1, 10), (1, 25), (1, 66), (1, 7), (23, 242), (1, 24), (1, 10), (1, 5), (1, 7), (1, 4), (1, 9), (1, 41), (1, 24), (1, 5), (1, 50), (1, 3), (1, 6), (1, 5), (1, 7), (1, 72), (1, 110), (1, 25), (1, 110), (1, 50), (1, 5), (1, 194), (1, 2), (1, 3), (1, 7), (1, 12), (1, 41), (1, 10), (1, 2), (1, 41), (1, 9), (1, 5)]";
 
@@ -30,12 +31,14 @@ public class Shtirlitz implements Game
     private GameState state = GameState.IN_PROGRESS;
 
     @Override
-    public String getDescription() {
+    public String getDescription()
+    {
         return DESCRIPTION;
     }
 
     @Override
-    public String getId() {
+    public String getId()
+    {
         return ID;
     }
 
@@ -63,7 +66,9 @@ public class Shtirlitz implements Game
         if (MSG.equals(userInput))
         {
             state = GameState.VICTORY;
-        } else {
+        }
+        else
+        {
             state = GameState.FAILURE;
         }
     }
@@ -75,7 +80,8 @@ public class Shtirlitz implements Game
     }
 
     @Override
-    public Game resetState() {
+    public Game resetState()
+    {
         return this;
     }
 
