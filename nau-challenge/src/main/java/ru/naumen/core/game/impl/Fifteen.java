@@ -46,7 +46,7 @@ public class Fifteen implements Game
             ArrayList<Integer> filtered = Lists.newArrayList(filter(following, and(lessThan(item), greaterThan(0))));
             sum += filtered.size();
         }
-        sum += map.get(0) + 1;
+        sum += map.get(0) / 4 + 1;
         return (sum % 2) == 0;
     }
 

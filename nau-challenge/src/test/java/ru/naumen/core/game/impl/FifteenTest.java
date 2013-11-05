@@ -45,6 +45,7 @@ public class FifteenTest
     @Test
     public void invalidCombination() {
         assertThat( Fifteen.isValid(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 14, 0)), is(false) );
+        assertThat( Fifteen.isValid(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 0, 14)), is(false) );
     }
 
     @Test
