@@ -12,6 +12,14 @@
     <context:component-scan base-package="ru.naumen" />
 
 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:app.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/resources/views/" />
         <property name="suffix" value=".jsp" />
@@ -20,13 +28,11 @@
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
-
-        <!-- Для постгреса  -->
          <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="showSql" value="true" />
                 <property name="generateDdl" value="true" />
-                <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
+                <property name="databasePlatform" value="${dialect}" />
             </bean>
         </property>
         <property name="jpaProperties">
@@ -40,13 +46,11 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
-    
-    
-<!-- Для постгреса  -->
+
 
      <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-       <property name="driverClassName" value="org.postgresql.Driver" />
-       <property name="url" value="jdbc:postgresql://localhost:5432/rush" />
+       <property name="driverClassName" value="${driver}" />
+       <property name="url" value="${url}" />
        <property name="username" value="stand" />
        <property name="password" value="stand" />
        <property name="maxActive" value="100" />
@@ -57,15 +61,4 @@
 
 
 
-
-  <!--  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="org.h2.Driver" />
-        <property name="url" value="jdbc:h2:database/test" />
-        <property name="username" value="sa" />
-        <property name="password" value="" />
-        <property name="maxActive" value="10" />
-        <property name="minIdle" value="1" />
-        <property name="validationQuery" value="SELECT 1" />
-    </bean>
-     -->
 </beans>

@@ -1,21 +1,20 @@
 package ru.naumen.core.storage;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
-
 import ru.naumen.core.game.GameProvider;
 import ru.naumen.core.game.GameSeries;
 import ru.naumen.core.game.GameSeriesState;
 import ru.naumen.model.User;
 import ru.naumen.model.dao.UserDAO;
+
+import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Add new games after restarting <br>
@@ -27,8 +26,10 @@ import ru.naumen.model.dao.UserDAO;
  * @since 01 нояб. 2013 г.
  */
 @Component
-public class DBMigrator
+public class DBMigrator implements ApplicationListener<ContextRefreshedEvent>
 {
+	private volatile boolean isInited = false;
+
 
     @Inject
     UserDAO userDAO;
@@ -37,7 +38,6 @@ public class DBMigrator
     @Inject
     GameProvider gameProvider;
 
-    @PostConstruct
     public void init()
     {
         TransactionTemplate tt = new TransactionTemplate(txManager);
@@ -93,4 +93,14 @@ public class DBMigrator
             gameSeries.makeOpen();
         }
     }
+
+	@Override
+	public void onApplicationEvent(ContextRefreshedEvent event)
+	{
+		if (!isInited)
+		{
+			init();
+		}
+		isInited = true;
+	}
 }
