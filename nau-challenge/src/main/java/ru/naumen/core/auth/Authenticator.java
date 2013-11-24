@@ -1,23 +1,21 @@
 package ru.naumen.core.auth;
 
-import static ru.naumen.core.info.Params.ACCESS_KEY_PARAM;
-
-import javax.inject.Inject;
-
+import com.google.common.base.Objects;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
-
 import ru.naumen.core.SpringContext;
 import ru.naumen.model.User;
 import ru.naumen.model.dao.UserDAO;
 
-import com.google.common.base.Objects;
+import javax.inject.Inject;
+
+import static ru.naumen.core.info.Params.ACCESS_KEY_PARAM;
 
 /**
- * Простейший аутентификатор, чтобы не заморачиваться со Spring Security
+ * Simple authenticator
  *
  * @author serce
- * @since 25 окт. 2013 г.
+ * @since 25 oct. 2013 г.
  */
 @Component("authenticator")
 public class Authenticator
@@ -37,7 +35,7 @@ public class Authenticator
         }
         else
         {
-            LOG.debug("incorrent access key try " + accessKey);
+            LOG.debug("incorrect access key try " + accessKey);
         }
         return user != null;
     }

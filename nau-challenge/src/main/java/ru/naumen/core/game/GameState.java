@@ -3,6 +3,7 @@ package ru.naumen.core.game;
 import java.io.Serializable;
 
 /**
+ * Inner state of game
  *
  * @author Andrey Hitrin
  * @since 21.10.13
@@ -15,7 +16,7 @@ public enum GameState implements Serializable
         @Override
         public String getMessage()
         {
-            return "Ожидается ввод игрока";
+            return "Waiting user input";
         }
     },
     FAILURE
@@ -23,7 +24,7 @@ public enum GameState implements Serializable
         @Override
         public String getMessage()
         {
-            return "Неудача";
+            return "Failure";
         }
     },
     VICTORY
@@ -31,7 +32,7 @@ public enum GameState implements Serializable
         @Override
         public String getMessage()
         {
-            return "Победа в партии";
+            return "Victory in the party";
         }
     };
 

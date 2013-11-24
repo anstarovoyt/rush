@@ -10,7 +10,14 @@ import java.util.TimeZone;
  */
 public class DateUtils
 {
+	/**
+	 * Default timezone for app
+	 */
     public static final String ASIA_YEKATERINBURG_TIMEZONE = "Asia/Yekaterinburg";
+
+	/**
+	 * Formatting for rating info
+	 */
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS0");
 
     static

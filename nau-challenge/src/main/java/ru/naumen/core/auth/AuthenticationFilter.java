@@ -1,28 +1,27 @@
 package ru.naumen.core.auth;
 
-import static org.springframework.web.context.support.WebApplicationContextUtils.getWebApplicationContext;
-import static ru.naumen.core.info.Params.ACCESS_KEY_PARAM;
-
-import java.io.IOException;
-import java.util.Set;
+import com.google.common.collect.ImmutableSet;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import ru.naumen.model.dao.UserDAO;
 
 import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Set;
 
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
-
-import ru.naumen.model.dao.UserDAO;
-
-import com.google.common.collect.ImmutableSet;
+import static org.springframework.web.context.support.WebApplicationContextUtils.getWebApplicationContext;
+import static ru.naumen.core.info.Params.ACCESS_KEY_PARAM;
 
 /**
+ * Filter for auth
+ *
  * @author serce
- * @since 27 окт. 2013 г.
+ * @since 27 oct. 2013 г.
  */
 @Component("authFilter")
 public class AuthenticationFilter implements Filter {
@@ -45,10 +44,10 @@ public class AuthenticationFilter implements Filter {
     //@formatter:on
 
     /**
-     * Ошибка аутентификации
+     * Auth error
      * 
      * @author serce
-     * @since 25 окт. 2013 г.
+     * @since 25 oct. 2013 г.
      */
     public static final class AuthenticationException extends RuntimeException {
         private static final long serialVersionUID = 1728365144281801472L;

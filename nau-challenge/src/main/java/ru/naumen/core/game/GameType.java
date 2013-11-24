@@ -6,14 +6,25 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author astarovoyt
+ * Required annotation for game
+ * <p/>
+ * Game provider finds classes with the annotation
  *
+ * @author astarovoyt
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface GameType
 {
-    String blockedBy() default "";
+	/**
+	 * Id of parent game
+	 * <p/>
+	 * if is not empty then game will be discovered after solving parent game
+	 */
+	String blockedBy() default "";
 
-    int seriesCount() default 1;
+	/**
+	 * Count won
+	 */
+	int seriesCount() default 1;
 }

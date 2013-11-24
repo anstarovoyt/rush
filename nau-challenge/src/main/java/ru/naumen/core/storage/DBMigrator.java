@@ -23,7 +23,7 @@ import java.util.List;
  * we store UserStorage with all games as serialized object
  *
  * @author serce
- * @since 01 нояб. 2013 г.
+ * @since 01 no. 2013 г.
  */
 @Component
 public class DBMigrator implements ApplicationListener<ContextRefreshedEvent>

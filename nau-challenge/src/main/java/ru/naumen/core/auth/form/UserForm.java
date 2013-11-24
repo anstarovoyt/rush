@@ -1,10 +1,10 @@
 package ru.naumen.core.auth.form;
 
 /**
- * Форма логина
+ * Login form
  * 
  * @author serce
- * @since 28 окт. 2013 г.
+ * @since 28 oct. 2013 г.
  */
 public class UserForm {
     private String email;

@@ -1,21 +1,19 @@
 package ru.naumen.model.dao;
 
-import java.util.List;
+import com.google.common.collect.Iterables;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import ru.naumen.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import ru.naumen.model.User;
-
-import com.google.common.collect.Iterables;
+import java.util.List;
 
 /**
  * DAO for user entity
- *
+ * <br>
+ * Used JPA specification
  * @author serce, astarovoyt
  *
  */

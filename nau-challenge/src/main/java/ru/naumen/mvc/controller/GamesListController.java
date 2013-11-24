@@ -1,20 +1,17 @@
 package ru.naumen.mvc.controller;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.inject.Inject;
-
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import ru.naumen.core.auth.Authenticator;
 import ru.naumen.core.game.GameSeries;
 import ru.naumen.model.dao.UserDAO;
 
-import com.google.common.collect.Lists;
+import javax.inject.Inject;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Controller for page "games"
@@ -25,7 +22,8 @@ import com.google.common.collect.Lists;
 @Controller
 public class GamesListController
 {
-    @Inject
+	public static final String JSP_ALL_GAMES = "allgames";
+	@Inject
     Authenticator authenticator;
 
     @Inject
@@ -37,6 +35,6 @@ public class GamesListController
         Collection<GameSeries> games = authenticator.getCurrentUser().getUserGameStorage().getAll();
         List<GameSeries> gameIds = Lists.newArrayList(games);
         model.addAttribute("gameIds", gameIds);
-        return "allgames";
+        return JSP_ALL_GAMES;
     }
 }

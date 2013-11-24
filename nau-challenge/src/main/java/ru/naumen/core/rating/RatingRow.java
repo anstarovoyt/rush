@@ -1,6 +1,8 @@
 package ru.naumen.core.rating;
 
 /**
+ * Row with rating info
+ *
  * @author serce
  * @since 31 oct. 2013 г.
  */

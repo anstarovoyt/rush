@@ -2,7 +2,7 @@ package ru.naumen.core.auth.form;
 
 /**
  * @author serce
- * @since 28 окт. 2013 г.
+ * @since 28 oct. 2013 г.
  */
 public class RegistrationForm {
     private String email;

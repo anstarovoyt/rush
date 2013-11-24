@@ -9,10 +9,11 @@ import ru.naumen.model.User;
  */
 public class UrlUtils
 {
-
+	/**
+	 * @return access key param for query string
+	 */
     public static String createAKParam(User user)
     {
         return Params.ACCESS_KEY_PARAM + "=" + user.getAccessKey();
     }
-
 }

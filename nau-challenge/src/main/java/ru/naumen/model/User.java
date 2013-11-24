@@ -1,17 +1,18 @@
 package ru.naumen.model;
 
-import java.util.Date;
-import java.util.concurrent.atomic.AtomicLong;
-
-import javax.persistence.*;
-
 import ru.naumen.core.SpringContext;
 import ru.naumen.core.auth.accessKey.AccessKeyGenerator;
 import ru.naumen.core.storage.UserGameStorage;
 import ru.naumen.core.storage.UserGameStorageFactory;
 
+import javax.persistence.*;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
- *
+ * User entity for auth
+ * <br>
+ * Users are stored in DB
  *
  * @author serce
  */

@@ -4,7 +4,8 @@ import org.mortbay.jetty.Server;
 import org.mortbay.jetty.webapp.WebAppContext;
 
 /**
- * You can run app with embedded jetty:<br>
+ * You can run app with embedded jetty:
+ * <br>
  * java -cp . App
  */
 public class App
